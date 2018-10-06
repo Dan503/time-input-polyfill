@@ -59,10 +59,10 @@ function TimePolyfill(input_element) {
 
 			switch (e.which) {
 				case keys.ArrowRight: self.next_segment(); break;
-				case keys.ArrowLeft: self.prev_segment(); break;
-				case keys.ArrowUp: self.increment_current_segment(); break;
-				case keys.ArrowDown: self.decrement_current_segment(); break;
-				case keys.Escape: self.reset(); break;
+				case keys.ArrowLeft:  self.prev_segment(); break;
+				case keys.ArrowUp:    self.increment_current_segment(); break;
+				case keys.ArrowDown:  self.decrement_current_segment(); break;
+				case keys.Escape:     self.reset(); break;
 			}
 		}
 	}
