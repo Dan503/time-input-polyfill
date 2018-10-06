@@ -104,6 +104,19 @@ function TimePolyfill(input_element) {
 			this.switch_mode('AM')
 		} else {
 			var current_values = this.get_values();
+			var time;
+
+			if (current_values[segment] === '--') {
+				var current_time = new Date();
+				var hours = convert_24_hour(current_time.getHours());
+
+				time = {
+					hrs: hours < 10 ? '0' + hours : hours,
+					min: current_time.getMinutes(),
+				}
+			}
+
+			this.set_value(segment, time[segment]);
 
 		}
 	}
@@ -198,7 +211,12 @@ function TimePolyfill(input_element) {
 	}
 
 	this.initialise();
+
+	function convert_24_hour (hours) {
+		return hours <= 12 ? hours === 0 ? 12 : hours : hours - 12;
+	}
 }
+
 
 var _$$ = function (selector) {
 	var elements = document.querySelectorAll(selector);
