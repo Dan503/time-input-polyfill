@@ -30,7 +30,7 @@ function TimePolyfill(input_element) {
 
 		this.$input.onfocus = function() {
 			// Always returns [0,0] in webkit browsers :(
-			// var position = self.get_selection_range();
+			// var position = self.get_selected_range();
 			self.select_hrs();
 		}
 
@@ -152,7 +152,7 @@ function TimePolyfill(input_element) {
 	}
 
 	this.get_current_segment = function() {
-		var selection = this.get_selection_range();
+		var selection = this.get_selected_range();
 		for (var range in this.ranges) {
 			if (this.is_match(selection, this.ranges[range])) {
 				return range;
@@ -161,7 +161,7 @@ function TimePolyfill(input_element) {
 		return 'hrs';
 	}
 
-	this.get_selection_range = function() {
+	this.get_selected_range = function() {
 		return { start: this.$input.selectionStart, end: this.$input.selectionEnd };
 	}
 
