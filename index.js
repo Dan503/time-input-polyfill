@@ -108,15 +108,18 @@ function TimePolyfill(input_element) {
 
 			if (current_values[segment] === '--') {
 				var current_time = new Date();
-				var hours = convert_24_hour(current_time.getHours());
-
 				time = {
-					hrs: hours < 10 ? '0' + hours : hours,
+					hrs: convert_24_hour(current_time.getHours()),
 					min: current_time.getMinutes(),
+				}
+			} else {
+				time = {
+					hrs: convert_24_hour(current_values.hrs + 1),
+					min: current_values.min < 59 ? current_values.min + 1 : 0,
 				}
 			}
 
-			this.set_value(segment, time[segment]);
+			this.set_value(segment, leading_zero(time[segment]) );
 
 		}
 	}
@@ -180,11 +183,14 @@ function TimePolyfill(input_element) {
 	}
 
 	this.get_values = function() {
-		var regEx = /([0-9-]{2})\:([0-9-]{2})\s(AM|PM|\-\-)/;
+		var regEx = /([0-9-]{1,2})\:([0-9-]{1,2})\s(AM|PM|\-\-)/;
 		var result = regEx.exec(self.$input.value);
+		function convert_number (number) {
+			return isNaN(number) ? number : parseInt(number);
+		}
 		return {
-			hrs: result[1],
-			min: result[2],
+			hrs: convert_number(result[1]),
+			min: convert_number(result[2]),
 			mode: result[3],
 		}
 	}
@@ -192,7 +198,11 @@ function TimePolyfill(input_element) {
 	this.set_value = function(segment, value) {
 		var values = this.get_values();
 		values[segment] = value;
-		var newInputVal = [values.hrs,':',values.min,' ',values.mode].join('');
+		var newInputVal = [
+			leading_zero(values.hrs),':',
+			leading_zero(values.min),' ',
+			leading_zero(values.mode)
+		].join('');
 		this.$input.value = newInputVal;
 		this.select_segment(segment);
 	}
@@ -211,6 +221,12 @@ function TimePolyfill(input_element) {
 	}
 
 	this.initialise();
+
+	function leading_zero(number) {
+		if (isNaN(number)) return number;
+		var purified = parseInt(number);
+		return purified < 10 ? '0' + purified : number;
+	}
 
 	function convert_24_hour (hours) {
 		return hours <= 12 ? hours === 0 ? 12 : hours : hours - 12;
