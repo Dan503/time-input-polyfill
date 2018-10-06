@@ -43,6 +43,7 @@ function TimePolyfill(input_element) {
 				Backspace: 8,
 				Tab: 9,
 				Shift: 16,
+				Escape: 27,
 			}
 
 			var numberKeys = [
@@ -61,6 +62,7 @@ function TimePolyfill(input_element) {
 				case keys.ArrowLeft: self.prev_segment(); break;
 				case keys.ArrowUp: self.increment_current_segment(); break;
 				case keys.ArrowDown: self.decrement_current_segment(); break;
+				case keys.Escape: self.reset(); break;
 			}
 		}
 	}
@@ -77,6 +79,11 @@ function TimePolyfill(input_element) {
 		var next_segment_index = this.segments.indexOf(segment) - 1;
 		var next_segment = next_segment_index < 0 ? 'hrs' : this.segments[next_segment_index];
 		this.select_segment(next_segment);
+	}
+
+	this.reset = function() {
+		this.apply_default();
+		this.select_hrs();
 	}
 
 	this.apply_default = function() {
