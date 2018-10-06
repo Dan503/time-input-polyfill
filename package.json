@@ -1,8 +1,7 @@
 {
   "name": "time-input-polyfill",
   "version": "0.0.0",
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
     "jquery": "~2.2.0",
     "normalize.css": "~3.0.3",
