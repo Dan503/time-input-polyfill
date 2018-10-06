@@ -125,7 +125,6 @@ function TimePolyfill(input_element) {
 			'PM' : 'AM',
 		}[current_mode];
 		this.set_value('mode', new_mode);
-		this.select_mode();
 	}
 
 	this.get_current_segment = function() {
@@ -182,6 +181,7 @@ function TimePolyfill(input_element) {
 		values[segment] = value;
 		var newInputVal = [values.hrs,':',values.min,' ',values.mode].join('');
 		this.$input.value = newInputVal;
+		this.select_segment(segment);
 	}
 
 	this.is_match = function(obj1, obj2) {
