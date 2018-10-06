@@ -30,7 +30,7 @@ function TimePolyfill(input_element) {
 
 		this.$input.onfocus = function() {
 			// Always returns [0,0] in webkit browsers :(
-			// var position = self.get_selection();
+			// var position = self.get_selection_range();
 			self.select_hrs();
 		}
 
@@ -56,12 +56,11 @@ function TimePolyfill(input_element) {
 
 			if (!is_number_key && !is_named_key || is_arrow_key) { e.preventDefault(); }
 
-			if (e.which === keys.ArrowRight) {
-				self.next_segment();
-			}
-
-			if (e.which === keys.ArrowLeft) {
-				self.prev_segment();
+			switch (e.which) {
+				case keys.ArrowRight: self.next_segment(); break;
+				case keys.ArrowLeft: self.prev_segment(); break;
+				case keys.ArrowUp: self.increment_current_segment(); break;
+				case keys.ArrowDown: self.decrement_current_segment(); break;
 			}
 		}
 	}
@@ -84,18 +83,62 @@ function TimePolyfill(input_element) {
 		this.$input.value = '--:-- --';
 	}
 
+	this.increment_current_segment = function(){
+		var current_segment = this.get_current_segment();
+		this.increment(current_segment);
+	}
+	this.decrement_current_segment = function(){
+		var current_segment = this.get_current_segment();
+		this.decrement(current_segment);
+	}
+
+	this.increment = function(segment) {
+		if (segment === 'mode') {
+			this.switch_mode('AM')
+		} else {
+			var current_values = this.get_values();
+
+		}
+	}
+	this.decrement = function(segment) {
+		if (segment === 'mode') {
+			this.switch_mode('PM')
+		} else {
+			var current_values = this.get_values();
+
+		}
+	}
+
+	this.switch_mode = function(default_mode){
+		default_mode = default_mode || 'AM';
+		var current_mode = this.get_values().mode;
+		var new_mode = {
+			'--' : default_mode,
+			'AM' : 'PM',
+			'PM' : 'AM',
+		}[current_mode];
+		this.set_value('mode', new_mode);
+		this.select_mode();
+	}
+
 	this.get_current_segment = function() {
-		var selection = this.get_selection();
+		var selection = this.get_selection_range();
 		for (var range in this.ranges) {
 			if (this.is_match(selection, this.ranges[range])) {
 				return range;
 			}
 		}
-		return 'none';
+		return 'hrs';
 	}
 
-	this.get_selection = function() {
+	this.get_selection_range = function() {
 		return { start: this.$input.selectionStart, end: this.$input.selectionEnd };
+	}
+
+	this.get_selected_value = function() {
+		var current_values = this.get_values();
+		var current_segment = this.get_current_segment();
+		return current_values[current_segment];
 	}
 
 	this.select_segment = function(segment) {
@@ -115,6 +158,23 @@ function TimePolyfill(input_element) {
 	}
 	this.select_mode = function() {
 		self.$input.setSelectionRange(6, 8);
+	}
+
+	this.get_values = function() {
+		var regEx = /([0-9-]{2})\:([0-9-]{2})\s(AM|PM|\-\-)/;
+		var result = regEx.exec(self.$input.value);
+		return {
+			hrs: result[1],
+			min: result[2],
+			mode: result[3],
+		}
+	}
+
+	this.set_value = function(segment, value) {
+		var values = this.get_values();
+		values[segment] = value;
+		var newInputVal = [values.hrs,':',values.min,' ',values.mode].join('');
+		this.$input.value = newInputVal;
 	}
 
 	this.is_match = function(obj1, obj2) {
