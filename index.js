@@ -103,33 +103,41 @@ function TimePolyfill(input_element) {
 		if (segment === 'mode') {
 			this.switch_mode('AM')
 		} else {
-			var current_values = this.get_values();
-			var time;
-
-			if (current_values[segment] === '--') {
-				var current_time = new Date();
-				time = {
-					hrs: convert_24_hour(current_time.getHours()),
-					min: current_time.getMinutes(),
-				}
-			} else {
-				time = {
-					hrs: convert_24_hour(current_values.hrs + 1),
-					min: current_values.min < 59 ? current_values.min + 1 : 0,
-				}
-			}
-
-			this.set_value(segment, leading_zero(time[segment]) );
-
+			this.nudge_time_segment(segment, 'up');
 		}
 	}
 	this.decrement = function(segment) {
 		if (segment === 'mode') {
 			this.switch_mode('PM')
 		} else {
-			var current_values = this.get_values();
-
+			this.nudge_time_segment(segment, 'down');
 		}
+	}
+
+	this.nudge_time_segment = function(segment, direction) {
+		var current_values = this.get_values();
+		var time;
+
+		var modifier = direction === 'up' ? 1 : -1;
+
+		if (current_values[segment] === '--') {
+			var current_time = new Date();
+			time = {
+				hrs: convert_24_hour(current_time.getHours()),
+				min: current_time.getMinutes(),
+			}
+		} else {
+			var minutes = {
+				up : current_values.min < 59 ? current_values.min + modifier : 0,
+				down : current_values.min === 0 ? 59 : current_values.min + modifier,
+			}
+			time = {
+				hrs: convert_24_hour(current_values.hrs + modifier),
+				min: minutes[direction],
+			}
+		}
+
+		this.set_value(segment, leading_zero(time[segment]) );
 	}
 
 	this.switch_mode = function(default_mode){
