@@ -9,32 +9,37 @@ if (supportsTime()) {
 	});
 }
 
-function TimePolyfill(input_element) {
-	var self = this;
-	this.$input = input_element;
+function TimePolyfill($input) {
 
-	this.ranges = {
+	var ranges = {
 		hrs : { start: 0, end: 2 },
 		min : { start: 3, end: 5 },
 		mode : { start: 6, end: 8 },
 	}
 
-	this.segments = Object.keys(this.ranges);
+	var segments = Object.keys(ranges);
 
-	this.initialise = function() {
-		this.prevent_user_select();
+	initialise();
 
-		if (this.$input.value === '') {
-			this.apply_default();
+	function initialise () {
+		prevent_user_select();
+
+		if ($input.value === '') {
+			apply_default();
 		}
 
-		this.$input.onfocus = function() {
+		bind_keyboard_events();
+	}
+
+	function bind_keyboard_events () {
+
+		$input.onfocus = function () {
 			// Always returns [0,0] in webkit browsers :(
-			// var position = self.get_selected_range();
-			self.select_hrs();
+			// var position = get_selected_range();
+			select_hrs();
 		}
 
-		this.$input.onkeydown = function(e) {
+		$input.onkeydown = function(e) {
 			var keys = {
 				ArrowDown: 40,
 				ArrowRight: 39,
@@ -58,64 +63,66 @@ function TimePolyfill(input_element) {
 			if (!is_number_key && !is_named_key || is_arrow_key) { e.preventDefault(); }
 
 			switch (e.which) {
-				case keys.ArrowRight: self.next_segment(); break;
-				case keys.ArrowLeft:  self.prev_segment(); break;
-				case keys.ArrowUp:    self.increment_current_segment(); break;
-				case keys.ArrowDown:  self.decrement_current_segment(); break;
-				case keys.Escape:     self.reset(); break;
+				case keys.ArrowRight: next_segment(); break;
+				case keys.ArrowLeft:  prev_segment(); break;
+				case keys.ArrowUp:    increment_current_segment(); break;
+				case keys.ArrowDown:  decrement_current_segment(); break;
+				case keys.Escape:     reset(); break;
 			}
 		}
 	}
 
-	this.next_segment = function() {
-		var segment = this.get_current_segment();
-		var next_segment_index = this.segments.indexOf(segment) + 1;
-		var next_segment = this.segments[next_segment_index] || 'mode';
-		this.select_segment(next_segment);
+	function next_segment () {
+		var segment = get_current_segment();
+		var next_segment_index = segments.indexOf(segment) + 1;
+		var next_segment = segments[next_segment_index] || 'mode';
+		select_segment(next_segment);
 	}
 
-	this.prev_segment = function() {
-		var segment = this.get_current_segment();
-		var next_segment_index = this.segments.indexOf(segment) - 1;
-		var next_segment = next_segment_index < 0 ? 'hrs' : this.segments[next_segment_index];
-		this.select_segment(next_segment);
+	function prev_segment () {
+		var segment = get_current_segment();
+		var next_segment_index = segments.indexOf(segment) - 1;
+		var next_segment = next_segment_index < 0 ? 'hrs' : segments[next_segment_index];
+		select_segment(next_segment);
 	}
 
-	this.reset = function() {
-		this.apply_default();
-		this.select_hrs();
+	function reset () {
+		apply_default();
+		select_hrs();
 	}
 
-	this.apply_default = function() {
-		this.$input.value = '--:-- --';
+	function apply_default () {
+		$input.value = '--:-- --';
 	}
 
-	this.increment_current_segment = function(){
-		var current_segment = this.get_current_segment();
-		this.increment(current_segment);
-	}
-	this.decrement_current_segment = function(){
-		var current_segment = this.get_current_segment();
-		this.decrement(current_segment);
+	function increment_current_segment (){
+		var current_segment = get_current_segment();
+		increment(current_segment);
 	}
 
-	this.increment = function(segment) {
+	function decrement_current_segment (){
+		var current_segment = get_current_segment();
+		decrement(current_segment);
+	}
+
+	function increment (segment) {
 		if (segment === 'mode') {
-			this.switch_mode('AM')
+			switch_mode('AM')
 		} else {
-			this.nudge_time_segment(segment, 'up');
-		}
-	}
-	this.decrement = function(segment) {
-		if (segment === 'mode') {
-			this.switch_mode('PM')
-		} else {
-			this.nudge_time_segment(segment, 'down');
+			nudge_time_segment(segment, 'up');
 		}
 	}
 
-	this.nudge_time_segment = function(segment, direction) {
-		var current_values = this.get_values();
+	function decrement (segment) {
+		if (segment === 'mode') {
+			switch_mode('PM')
+		} else {
+			nudge_time_segment(segment, 'down');
+		}
+	}
+
+	function nudge_time_segment (segment, direction) {
+		var current_values = get_values();
 		var time;
 
 		var modifier = direction === 'up' ? 1 : -1;
@@ -137,65 +144,63 @@ function TimePolyfill(input_element) {
 			}
 		}
 
-		this.set_value(segment, leading_zero(time[segment]) );
+		set_value(segment, leading_zero(time[segment]) );
 	}
 
-	this.switch_mode = function(default_mode){
+	function switch_mode (default_mode) {
 		default_mode = default_mode || 'AM';
-		var current_mode = this.get_values().mode;
+		var current_mode = get_values().mode;
 		var new_mode = {
 			'--' : default_mode,
 			'AM' : 'PM',
 			'PM' : 'AM',
 		}[current_mode];
-		this.set_value('mode', new_mode);
+		set_value('mode', new_mode);
 	}
 
-	this.get_current_segment = function() {
-		var selection = this.get_selected_range();
-		for (var range in this.ranges) {
-			if (this.is_match(selection, this.ranges[range])) {
+	function get_current_segment () {
+		var selection = get_selected_range();
+		for (var range in ranges) {
+			if (is_match(selection, ranges[range])) {
 				return range;
 			}
 		}
 		return 'hrs';
 	}
 
-	this.get_selected_range = function() {
-		return { start: this.$input.selectionStart, end: this.$input.selectionEnd };
+	function get_selected_range () {
+		return { start: $input.selectionStart, end: $input.selectionEnd };
 	}
 
-	this.get_selected_value = function() {
-		var current_values = this.get_values();
-		var current_segment = this.get_current_segment();
+	function get_selected_value () {
+		var current_values = get_values();
+		var current_segment = get_current_segment();
 		return current_values[current_segment];
 	}
 
-	this.select_segment = function(segment) {
+	function select_segment (segment) {
 		var actions = {
-			hrs:  self.select_hrs,
-			min:  self.select_min,
-			mode: self.select_mode,
+			hrs:  select_hrs,
+			min:  select_min,
+			mode: select_mode,
 		};
 		actions[segment]();
 	}
 
-	this.select_hrs = function() {
-		self.$input.setSelectionRange(0, 2);
+	function select_hrs () {
+		$input.setSelectionRange(0, 2);
 	}
-	this.select_min = function() {
-		self.$input.setSelectionRange(3, 5);
+	function select_min () {
+		$input.setSelectionRange(3, 5);
 	}
-	this.select_mode = function() {
-		self.$input.setSelectionRange(6, 8);
+	function select_mode () {
+		$input.setSelectionRange(6, 8);
 	}
 
-	this.get_values = function() {
+	function get_values () {
 		var regEx = /([0-9-]{1,2})\:([0-9-]{1,2})\s(AM|PM|\-\-)/;
-		var result = regEx.exec(self.$input.value);
-		function convert_number (number) {
-			return isNaN(number) ? number : parseInt(number);
-		}
+		var result = regEx.exec($input.value);
+
 		return {
 			hrs: convert_number(result[1]),
 			min: convert_number(result[2]),
@@ -203,34 +208,36 @@ function TimePolyfill(input_element) {
 		}
 	}
 
-	this.set_value = function(segment, value) {
-		var values = this.get_values();
+	function convert_number (number) {
+		return isNaN(number) ? number : parseInt(number);
+	}
+
+	function set_value (segment, value) {
+		var values = get_values();
 		values[segment] = value;
 		var newInputVal = [
 			leading_zero(values.hrs),':',
 			leading_zero(values.min),' ',
 			leading_zero(values.mode)
 		].join('');
-		this.$input.value = newInputVal;
-		this.select_segment(segment);
+		$input.value = newInputVal;
+		select_segment(segment);
 	}
 
-	this.is_match = function(obj1, obj2) {
+	function is_match (obj1, obj2) {
 		var string1 = JSON.stringify(obj1);
 		var string2 = JSON.stringify(obj2);
 		return string1 == string2;
 	}
 
-	this.prevent_user_select = function(){
-		this.$input.style.msUserSelect = "none";
-		this.$input.style.mozUserSelect = "none";
-		this.$input.style.webkitUserSelect = "none";
-		this.$input.style.userSelect = "none";
+	function prevent_user_select () {
+		$input.style.msUserSelect = "none";
+		$input.style.mozUserSelect = "none";
+		$input.style.webkitUserSelect = "none";
+		$input.style.userSelect = "none";
 	}
 
-	this.initialise();
-
-	function leading_zero(number) {
+	function leading_zero (number) {
 		if (isNaN(number)) return number;
 		var purified = parseInt(number);
 		return purified < 10 ? '0' + purified : number;
@@ -241,14 +248,13 @@ function TimePolyfill(input_element) {
 	}
 }
 
-
-var _$$ = function (selector) {
+function _$$ (selector) {
 	var elements = document.querySelectorAll(selector);
 	return Array.prototype.slice.call(elements, 0);
 }
 
 // https://stackoverflow.com/a/10199306/1611058
-function supportsTime() {
+function supportsTime () {
 	var input = document.createElement('input');
 	input.setAttribute('type','time');
 
