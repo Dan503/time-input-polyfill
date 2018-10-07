@@ -61,11 +61,7 @@ function TimePolyfill($input) {
 
 	function bind_keyboard_events () {
 
-		$input.onfocus = function () {
-			// Always returns [0,0] in webkit browsers :(
-			// var position = get_selected_range();
-			select_hrs();
-		}
+		$input.onclick = select_cursor_segment;
 
 		$input.onkeydown = function(e) {
 			var is_number_key = all_number_keys.indexOf(e.which) > -1;
@@ -89,6 +85,11 @@ function TimePolyfill($input) {
 				case named_keys.p:          set_mode('PM'); break;
 			}
 		}
+	}
+
+	function select_cursor_segment () {
+		var current_segment = get_current_segment();
+		select_segment(current_segment);
 	}
 
 	function manual_number_entry(key) {
@@ -228,9 +229,12 @@ function TimePolyfill($input) {
 
 	function get_current_segment () {
 		var selection = get_selected_range();
-		for (var range in ranges) {
-			if (is_match(selection, ranges[range])) {
-				return range;
+		for (var segment in ranges) {
+			var range = ranges[segment];
+			var aboveMin = range.start <= selection.start;
+			var belowMax = range.end >= selection.end;
+			if (aboveMin && belowMax) {
+				return segment;
 			}
 		}
 		return 'hrs';
