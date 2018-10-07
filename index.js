@@ -120,17 +120,24 @@ function TimePolyfill($input) {
 	}
 
 	function next_segment () {
-		var segment = get_current_segment();
-		var next_segment_index = segments.indexOf(segment) + 1;
-		var next_segment = segments[next_segment_index] || 'mode';
-		select_segment(next_segment);
-		clear_manual_entry_log();
+		traverse('next');
 	}
 
 	function prev_segment () {
+		traverse('prev');
+	}
+
+	function traverse (direction) {
 		var segment = get_current_segment();
-		var next_segment_index = segments.indexOf(segment) - 1;
-		var next_segment = next_segment_index < 0 ? 'hrs' : segments[next_segment_index];
+
+		var modifier = direction === 'next' ? 1 : -1;
+		var next_segment_index = segments.indexOf(segment) + modifier;
+
+		var next_segment = {
+			next: segments[next_segment_index] || 'mode',
+			prev: next_segment_index < 0 ? 'hrs' : segments[next_segment_index],
+		}[direction];
+
 		select_segment(next_segment);
 		clear_manual_entry_log();
 	}
