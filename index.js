@@ -19,6 +19,32 @@ function TimePolyfill($input) {
 
 	var segments = Object.keys(ranges);
 
+	var manual_entry_log = [];
+
+	var named_keys = {
+		ArrowDown: 40,
+		ArrowRight: 39,
+		ArrowUp: 38,
+		ArrowLeft: 37,
+		Backspace: 8,
+		Tab: 9,
+		Shift: 16,
+		Escape: 27,
+	}
+
+	var all_number_keys = [
+	// 0,  1,  2,  3,  4,  5,  6,  7,  8,  9
+	  48, 49, 50, 51, 52, 53, 54, 55, 56, 57,
+	  96, 97, 98, 99,100,101,102,103,104,105];
+
+
+	var sorted_number_keys = {};
+	// sorted_number_keys = { 48: 0, 49: 1, 96: 0, 97: 1, ... };
+	all_number_keys.forEach(function(key, index) {
+		var number_val = index > 9 ? index - 10 : index;
+		sorted_number_keys[key] = number_val;
+	});
+
 	initialise();
 
 	function initialise () {
@@ -40,44 +66,57 @@ function TimePolyfill($input) {
 		}
 
 		$input.onkeydown = function(e) {
-			var keys = {
-				ArrowDown: 40,
-				ArrowRight: 39,
-				ArrowUp: 38,
-				ArrowLeft: 37,
-				Backspace: 8,
-				Tab: 9,
-				Shift: 16,
-				Escape: 27,
-			}
-
-			var all_number_keys = [
-			// 0,  1,  2,  3,  4,  5,  6,  7,  8,  9
-			  48, 49, 50, 51, 52, 53, 54, 55, 56, 57,
-			  96, 97, 98, 99,100,101,102,103,104,105];
-
-
-			var sorted_number_keys = {};
-			// sorted_number_keys = { 48: 0, 49: 1, 96: 0, 97: 1, ... };
-			all_number_keys.forEach(function(key, index) {
-				var number_val = index > 9 ? index - 10 : index;
-				sorted_number_keys[key] = number_val;
-			});
-
 			var is_number_key = all_number_keys.indexOf(e.which) > -1;
-			var is_named_key = Object.values(keys).indexOf(e.which) > -1;
-			var is_arrow_key = [keys.ArrowDown, keys.ArrowRight, keys.ArrowUp, keys.ArrowLeft].indexOf(e.which) > -1;
+			var is_named_key = Object.values(named_keys).indexOf(e.which) > -1;
+			var is_arrow_key = [named_keys.ArrowDown, named_keys.ArrowRight, named_keys.ArrowUp, named_keys.ArrowLeft].indexOf(e.which) > -1;
 
-			if (!is_number_key && !is_named_key || is_arrow_key) { e.preventDefault(); }
+			if (!is_named_key || is_arrow_key || is_number_key) { e.preventDefault(); }
+
+			if (is_number_key) {
+				manual_number_entry(e.which);
+			}
 
 			switch (e.which) {
-				case keys.ArrowRight: next_segment(); break;
-				case keys.ArrowLeft:  prev_segment(); break;
-				case keys.ArrowUp:    increment_current_segment(); break;
-				case keys.ArrowDown:  decrement_current_segment(); break;
-				case keys.Escape:     reset(); break;
+				case named_keys.ArrowRight: next_segment(); break;
+				case named_keys.ArrowLeft:  prev_segment(); break;
+				case named_keys.ArrowUp:    increment_current_segment(); break;
+				case named_keys.ArrowDown:  decrement_current_segment(); break;
+				case named_keys.Escape:     reset(); break;
 			}
 		}
+	}
+
+	function manual_number_entry(key) {
+		var key_value = sorted_number_keys[key];
+		var segment = get_current_segment();
+		var entry_count = manual_entry_log.length;
+
+		var upper_limits = {
+			hrs: [1,2],
+			min: [5,9],
+		}
+		var limit = upper_limits[segment][entry_count];
+
+		if (entry_count < 2) {
+			manual_entry_log.push(key_value);
+		}
+
+		var full_limit = parseInt(upper_limits[segment].join(''));
+		var full_entry = parseInt(manual_entry_log.join(''));
+
+		if (full_limit >= full_entry) {
+			set_value(segment, full_entry);
+		}
+
+		var at_limit = key_value > limit || manual_entry_log.length === 2;
+
+		if (at_limit) {
+			next_segment();
+		}
+	}
+
+	function clear_manual_entry_log () {
+		manual_entry_log = [];
 	}
 
 	function next_segment () {
@@ -85,6 +124,7 @@ function TimePolyfill($input) {
 		var next_segment_index = segments.indexOf(segment) + 1;
 		var next_segment = segments[next_segment_index] || 'mode';
 		select_segment(next_segment);
+		clear_manual_entry_log();
 	}
 
 	function prev_segment () {
@@ -92,6 +132,7 @@ function TimePolyfill($input) {
 		var next_segment_index = segments.indexOf(segment) - 1;
 		var next_segment = next_segment_index < 0 ? 'hrs' : segments[next_segment_index];
 		select_segment(next_segment);
+		clear_manual_entry_log();
 	}
 
 	function reset () {
@@ -226,7 +267,7 @@ function TimePolyfill($input) {
 		var newInputVal = [
 			leading_zero(values.hrs),':',
 			leading_zero(values.min),' ',
-			leading_zero(values.mode)
+			values.mode
 		].join('');
 		$input.value = newInputVal;
 		select_segment(segment);
