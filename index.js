@@ -51,12 +51,20 @@ function TimePolyfill($input) {
 				Escape: 27,
 			}
 
-			var numberKeys = [
+			var all_number_keys = [
 			// 0,  1,  2,  3,  4,  5,  6,  7,  8,  9
 			  48, 49, 50, 51, 52, 53, 54, 55, 56, 57,
-				96, 97, 98, 99,100,101,102,103,104,105];
+			  96, 97, 98, 99,100,101,102,103,104,105];
 
-			var is_number_key = numberKeys.indexOf(e.which) > -1;
+
+			var sorted_number_keys = {};
+			// sorted_number_keys = { 48: 0, 49: 1, 96: 0, 97: 1, ... };
+			all_number_keys.forEach(function(key, index) {
+				var number_val = index > 9 ? index - 10 : index;
+				sorted_number_keys[key] = number_val;
+			});
+
+			var is_number_key = all_number_keys.indexOf(e.which) > -1;
 			var is_named_key = Object.values(keys).indexOf(e.which) > -1;
 			var is_arrow_key = [keys.ArrowDown, keys.ArrowRight, keys.ArrowUp, keys.ArrowLeft].indexOf(e.which) > -1;
 
