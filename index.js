@@ -30,6 +30,8 @@ function TimePolyfill($input) {
 		Tab: 9,
 		Shift: 16,
 		Escape: 27,
+		a: 65,
+		p: 80,
 	}
 
 	var all_number_keys = [
@@ -69,8 +71,9 @@ function TimePolyfill($input) {
 			var is_number_key = all_number_keys.indexOf(e.which) > -1;
 			var is_named_key = Object.values(named_keys).indexOf(e.which) > -1;
 			var is_arrow_key = [named_keys.ArrowDown, named_keys.ArrowRight, named_keys.ArrowUp, named_keys.ArrowLeft].indexOf(e.which) > -1;
+			var is_mode_key = [named_keys.a, named_keys.p].indexOf(e.which) > -1;
 
-			if (!is_named_key || is_arrow_key || is_number_key) { e.preventDefault(); }
+			if (!is_named_key || is_arrow_key || is_number_key || is_mode_key) { e.preventDefault(); }
 
 			if (is_number_key) {
 				manual_number_entry(e.which);
@@ -82,6 +85,8 @@ function TimePolyfill($input) {
 				case named_keys.ArrowUp:    increment_current_segment(); break;
 				case named_keys.ArrowDown:  decrement_current_segment(); break;
 				case named_keys.Escape:     reset(); break;
+				case named_keys.a:          set_mode('AM'); break;
+				case named_keys.p:          set_mode('PM'); break;
 			}
 		}
 	}
@@ -112,6 +117,13 @@ function TimePolyfill($input) {
 
 		if (at_limit) {
 			next_segment();
+		}
+	}
+
+	function set_mode (type) {
+		var segment = get_current_segment();
+		if (segment === 'mode') {
+			set_value(segment, type);
 		}
 	}
 
