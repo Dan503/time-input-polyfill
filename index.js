@@ -3,7 +3,7 @@ if (supportsTime()) {
 	document.addEventListener("DOMContentLoaded", function() {
 		// var $$timeInputs = _$$('input[type="time"]');
 		var $$timeInputs = _$$('input.time');
-		$$timeInputs.forEach(element => {
+		$$timeInputs.forEach(function (element) {
 			new TimePolyfill(element);
 		});
 	});
@@ -69,7 +69,7 @@ function TimePolyfill($input) {
 
 		$input.onkeydown = function(e) {
 			var is_number_key = all_number_keys.indexOf(e.which) > -1;
-			var is_named_key = Object.values(named_keys).indexOf(e.which) > -1;
+			var is_named_key = values(named_keys).indexOf(e.which) > -1;
 			var is_arrow_key = [named_keys.ArrowDown, named_keys.ArrowRight, named_keys.ArrowUp, named_keys.ArrowLeft].indexOf(e.which) > -1;
 			var is_mode_key = [named_keys.a, named_keys.p].indexOf(e.which) > -1;
 
@@ -314,6 +314,15 @@ function TimePolyfill($input) {
 	function convert_24_hour (hours) {
 		return hours <= 12 ? hours === 0 ? 12 : hours : hours - 12;
 	}
+
+	function values (obj) {
+		var key_values = [];
+		for (var key in obj) {
+			key_values.push(obj[key]);
+		}
+		return key_values;
+	}
+
 }
 
 function _$$ (selector) {
