@@ -1,5 +1,5 @@
 
-if (supportsTime()) {
+// if (supportsTime()) {
 	document.addEventListener("DOMContentLoaded", function() {
 		// var $$timeInputs = _$$('input[type="time"]');
 		var $$timeInputs = _$$('input.time');
@@ -7,7 +7,7 @@ if (supportsTime()) {
 			new TimePolyfill(element);
 		});
 	});
-}
+// }
 
 function TimePolyfill($input) {
 
