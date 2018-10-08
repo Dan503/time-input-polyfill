@@ -25,6 +25,15 @@
 
 function TimePolyfill($input) {
 
+	var shiftKey = false;
+
+	document.addEventListener('keydown', function(e){
+		shiftKey = e.shiftKey;
+	})
+	document.addEventListener('keyup', function(e){
+		shiftKey = e.shiftKey;
+	})
+
 	var inputEvent = create_event('input');
 	var changeEvent = create_event('change');
 
@@ -108,7 +117,11 @@ function TimePolyfill($input) {
 		$input.addEventListener('focus', function(e){
 			if (!focused_via_click) {
 				e.preventDefault();
-				select_hrs();
+				if (shiftKey) {
+					select_mode();
+				} else {
+					select_hrs();
+				}
 			}
 		});
 
@@ -132,8 +145,24 @@ function TimePolyfill($input) {
 				case named_keys.Escape:     reset(); break;
 				case named_keys.a:          set_mode('AM'); break;
 				case named_keys.p:          set_mode('PM'); break;
+				case named_keys.Tab:        handle_tab(e); break;
 			}
 		})
+	}
+
+	function handle_tab(e) {
+		var current_segment = get_current_segment();
+		var backwards_and_first = e.shiftKey && current_segment === 'hrs';
+		var forwards_and_last = !e.shiftKey && current_segment === 'mode';
+
+		if (!backwards_and_first && !forwards_and_last) {
+			e.preventDefault();
+			if (e.shiftKey) {
+				prev_segment();
+			} else {
+				next_segment();
+			}
+		}
 	}
 
 	function select_cursor_segment () {
