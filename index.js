@@ -56,6 +56,8 @@ function TimePolyfill($input) {
 			apply_default();
 		}
 
+		set_data_attribute('');
+
 		bind_keyboard_events();
 	}
 
@@ -202,7 +204,7 @@ function TimePolyfill($input) {
 		if (current_values[segment] === '--') {
 			var current_time = new Date();
 			time = {
-				hrs: convert_24_hour(current_time.getHours()),
+				hrs: convert_hours_to_12hr_time(current_time.getHours()),
 				min: current_time.getMinutes(),
 			}
 		} else {
@@ -211,7 +213,7 @@ function TimePolyfill($input) {
 				down : current_values.min === 0 ? 59 : current_values.min + modifier,
 			}
 			time = {
-				hrs: convert_24_hour(current_values.hrs + modifier),
+				hrs: convert_hours_to_12hr_time(current_values.hrs + modifier),
 				min: minutes[direction],
 			}
 		}
@@ -297,6 +299,13 @@ function TimePolyfill($input) {
 		].join('');
 		$input.value = newInputVal;
 		select_segment(segment);
+		set_data_attribute(newInputVal);
+	}
+
+	function set_data_attribute(timeString_12hr){
+		var filteredString = timeString_12hr.indexOf('-') > -1 ? '' : timeString_12hr;
+		var time24hr = convert_to_24hr_time(filteredString);
+		$input.setAttribute('data-time-value', time24hr);
 	}
 
 	function is_match (obj1, obj2) {
@@ -318,8 +327,23 @@ function TimePolyfill($input) {
 		return purified < 10 ? '0' + purified : number;
 	}
 
-	function convert_24_hour (hours) {
+	function convert_hours_to_12hr_time (hours) {
 		return hours <= 12 ? hours === 0 ? 12 : hours : hours - 12;
+	}
+
+	function convert_to_24hr_time (timeString) {
+		var isPM = timeString.indexOf('PM') > -1;
+		var timeResult = /^([0-9]{2})/.exec(timeString);
+		var hrs = timeResult ? parseInt(timeResult[1]) : '';
+		var newHrs;
+		if (hrs === 12) {
+			newHrs = isPM ? 12 : 00;
+		} else {
+			newHrs = isPM ? hrs + 12 : hrs;
+		}
+		var finalHrs = newHrs === 24 ? 0 : newHrs;
+		var timeRegEx = /^[0-9]{2}:([0-9]{2}) (AM|PM)/;
+		return timeString.replace(timeRegEx, leading_zero(finalHrs)+':$1');
 	}
 
 	function values (obj) {
