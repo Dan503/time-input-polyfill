@@ -249,12 +249,6 @@ function TimePolyfill($input) {
 		return { start: $input.selectionStart, end: $input.selectionEnd };
 	}
 
-	function get_selected_value () {
-		var current_values = get_values();
-		var current_segment = get_current_segment();
-		return current_values[current_segment];
-	}
-
 	function select_segment (segment) {
 		var actions = {
 			hrs:  select_hrs,
@@ -306,12 +300,6 @@ function TimePolyfill($input) {
 		var filteredString = timeString_12hr.indexOf('-') > -1 ? '' : timeString_12hr;
 		var time24hr = convert_to_24hr_time(filteredString);
 		$input.setAttribute('data-time-value', time24hr);
-	}
-
-	function is_match (obj1, obj2) {
-		var string1 = JSON.stringify(obj1);
-		var string2 = JSON.stringify(obj2);
-		return string1 == string2;
 	}
 
 	function prevent_user_select () {
