@@ -58,14 +58,14 @@ function TimePolyfill($input) {
 
 		set_data_attribute('');
 
-		bind_keyboard_events();
+		bind_events();
 	}
 
-	function bind_keyboard_events () {
+	function bind_events () {
 
-		$input.onclick = select_cursor_segment;
+		$input.addEventListener('click', select_cursor_segment);
 
-		$input.onkeydown = function(e) {
+		$input.addEventListener('keydown', function(e) {
 			var is_number_key = all_number_keys.indexOf(e.which) > -1;
 			var is_named_key = values(named_keys).indexOf(e.which) > -1;
 			var is_arrow_key = [named_keys.ArrowDown, named_keys.ArrowRight, named_keys.ArrowUp, named_keys.ArrowLeft].indexOf(e.which) > -1;
@@ -86,7 +86,7 @@ function TimePolyfill($input) {
 				case named_keys.a:          set_mode('AM'); break;
 				case named_keys.p:          set_mode('PM'); break;
 			}
-		}
+		})
 	}
 
 	function select_cursor_segment () {
