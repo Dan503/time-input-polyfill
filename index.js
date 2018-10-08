@@ -88,6 +88,12 @@ function TimePolyfill($input) {
 
 	function bind_events () {
 
+		var focused_via_click = false;
+
+		$input.addEventListener('mousedown', function(){
+			focused_via_click = true;
+		});
+
 		$input.addEventListener('click', select_cursor_segment);
 
 		$input.addEventListener('blur', function(){
@@ -96,11 +102,14 @@ function TimePolyfill($input) {
 				trigger_change_event();
 				prev_value = current_value;
 			}
+			focused_via_click = false;
 		});
 
 		$input.addEventListener('focus', function(e){
-			e.preventDefault();
-			select_hrs();
+			if (!focused_via_click) {
+				e.preventDefault();
+				select_hrs();
+			}
 		});
 
 		$input.addEventListener('keydown', function(e) {
