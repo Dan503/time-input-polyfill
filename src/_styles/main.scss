@@ -9,45 +9,45 @@
 *,
 *:before,
 *:after {
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
 
 html {
   background: #292929;
   color: #c3c3c3;
+  font-size: 2.5em;
+
+  @media (max-width: 1200px) {
+    font-size: 2em;
+  }
+
+  @media (max-width: 600px) {
+    font-size: 1em;
+  }
+}
+
+.container {
+  padding: 50px 30px;
+
+  @media (max-width: 600px) {
+    padding-top: 100px;
+  }
 }
 
 input {
   color: #292929;
   background-color: #c3c3c3;
+  border: 1px solid #000;
+  padding: 10px;
+  max-width: 100%;
 }
 
-.yeogurt-info {
-  text-align: center;
-  max-width: 500px;
-  margin-left: auto;
-  margin-right: auto;
-}
+label {
+  display: block;
+  margin-top: 1.5em;
 
-.version {
-  font-size: 14px;
-  font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
-  position: absolute;
-  bottom: 10px;
-  right: 10px;
-}
-
-.logo {
-  margin-top: 15px;
-}
-
-// Styling on warning for users on IE7 or below
-.browsehappy {
-  text-align: center;
-  margin: 0;
-  background: #fff8e2;
-  color: #000;
-  padding: 0.5em 0;
+  span {
+    display: block;
+    margin-bottom: 0.5em;
+  }
 }
