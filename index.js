@@ -5,11 +5,30 @@
 		var $$timeInputs = _$$('input.time');
 		$$timeInputs.forEach(function (element) {
 			new TimePolyfill(element);
+
+			element.oninput = function(){
+				console.log('input', element.dataset.timeValue);
+			}
+			element.onchange = function(){
+				console.log('change', element.dataset.timeValue);
+			}
+
+			element.addEventListener('change',  function(){
+				console.log('listener change');
+			});
+			element.addEventListener('input', function(){
+				console.log('listener input');
+			});
 		});
 	});
 // }
 
 function TimePolyfill($input) {
+
+	var inputEvent = create_event('input');
+	var changeEvent = create_event('change');
+
+	var prev_value = '';
 
 	var ranges = {
 		hrs : { start: 0, end: 2 },
@@ -61,9 +80,23 @@ function TimePolyfill($input) {
 		bind_events();
 	}
 
+	function create_event(eventName){
+		var event = document.createEvent('Event');
+		event.initEvent(eventName, true, true);
+		return event;
+	}
+
 	function bind_events () {
 
 		$input.addEventListener('click', select_cursor_segment);
+
+		$input.addEventListener('blur', function(){
+			var current_value = $input.dataset.timeValue;
+			if (current_value !== prev_value) {
+				trigger_change_event();
+				prev_value = current_value;
+			}
+		})
 
 		$input.addEventListener('keydown', function(e) {
 			var is_number_key = all_number_keys.indexOf(e.which) > -1;
@@ -170,6 +203,15 @@ function TimePolyfill($input) {
 	function apply_default () {
 		$input.value = '--:-- --';
 		set_data_attribute('');
+		trigger_input_event();
+	}
+
+	function trigger_input_event() {
+		$input.dispatchEvent(inputEvent);
+	}
+
+	function trigger_change_event() {
+		$input.dispatchEvent(changeEvent);
 	}
 
 	function increment_current_segment (){
@@ -297,6 +339,7 @@ function TimePolyfill($input) {
 		$input.value = newInputVal;
 		select_segment(segment);
 		set_data_attribute(newInputVal);
+		trigger_input_event();
 	}
 
 	function set_data_attribute(timeString_12hr){
