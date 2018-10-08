@@ -7,10 +7,10 @@
 			new TimePolyfill(element);
 
 			element.oninput = function(){
-				console.log('input', element.dataset.timeValue);
+				console.log('input', element.dataset.value);
 			}
 			element.onchange = function(){
-				console.log('change', element.dataset.timeValue);
+				console.log('change', element.dataset.value);
 			}
 
 			element.addEventListener('change',  function(){
@@ -91,7 +91,7 @@ function TimePolyfill($input) {
 		$input.addEventListener('click', select_cursor_segment);
 
 		$input.addEventListener('blur', function(){
-			var current_value = $input.dataset.timeValue;
+			var current_value = $input.dataset.value;
 			if (current_value !== prev_value) {
 				trigger_change_event();
 				prev_value = current_value;
@@ -345,7 +345,7 @@ function TimePolyfill($input) {
 	function set_data_attribute(timeString_12hr){
 		var filteredString = timeString_12hr.indexOf('-') > -1 ? '' : timeString_12hr;
 		var time24hr = convert_to_24hr_time(filteredString);
-		$input.setAttribute('data-time-value', time24hr);
+		$input.setAttribute('data-value', time24hr);
 	}
 
 	function prevent_user_select () {
