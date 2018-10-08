@@ -96,7 +96,12 @@ function TimePolyfill($input) {
 				trigger_change_event();
 				prev_value = current_value;
 			}
-		})
+		});
+
+		$input.addEventListener('focus', function(e){
+			e.preventDefault();
+			select_hrs();
+		});
 
 		$input.addEventListener('keydown', function(e) {
 			var is_number_key = all_number_keys.indexOf(e.which) > -1;
