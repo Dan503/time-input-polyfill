@@ -165,6 +165,8 @@ function TimePolyfill($input) {
 		select_hrs();
 	}
 
+	// I need to keep this separate so that
+	// I can reset without attracting focus
 	function apply_default () {
 		$input.value = '--:-- --';
 		set_data_attribute('');
