@@ -167,6 +167,7 @@ function TimePolyfill($input) {
 
 	function apply_default () {
 		$input.value = '--:-- --';
+		set_data_attribute('');
 	}
 
 	function increment_current_segment (){
