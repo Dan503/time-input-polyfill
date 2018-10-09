@@ -83,12 +83,14 @@ function TimePolyfill($input) {
 		if ($input.value === '') {
 			apply_default();
 		} else {
-			set_time($input.value);
+			update_time();
 		}
 
 		set_data_attribute('');
 
 		bind_events();
+
+		$input.updateTime = update_time;
 	}
 
 	function create_event(eventName){
@@ -150,6 +152,11 @@ function TimePolyfill($input) {
 				case named_keys.Tab:        handle_tab(e); break;
 			}
 		})
+	}
+
+	function update_time() {
+		set_time($input.value);
+		return $input;
 	}
 
 	function handle_tab(e) {
