@@ -81,7 +81,7 @@ function TimePolyfill($input) {
 	function initialise () {
 		prevent_user_select();
 
-		if ($input.value === '') {
+		if ($input.value === '' || /--/.test($input.value)) {
 			apply_default();
 		} else {
 			update_time();
