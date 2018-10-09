@@ -55,6 +55,7 @@ function TimePolyfill($input) {
 		ArrowUp: 38,
 		ArrowLeft: 37,
 		Backspace: 8,
+		Delete: 46,
 		Tab: 9,
 		Shift: 16,
 		Escape: 27,
@@ -134,11 +135,17 @@ function TimePolyfill($input) {
 			var is_named_key = values(named_keys).indexOf(e.which) > -1;
 			var is_arrow_key = [named_keys.ArrowDown, named_keys.ArrowRight, named_keys.ArrowUp, named_keys.ArrowLeft].indexOf(e.which) > -1;
 			var is_mode_key = [named_keys.a, named_keys.p].indexOf(e.which) > -1;
+			var is_delete_key = [named_keys.Delete, named_keys.Backspace].indexOf(e.which) > -1;
 
-			if (!is_named_key || is_arrow_key || is_number_key || is_mode_key) { e.preventDefault(); }
+			if (!is_named_key || is_arrow_key || is_number_key || is_mode_key || is_delete_key) { e.preventDefault(); }
 
 			if (is_number_key) {
 				manual_number_entry(e.which);
+			}
+
+			if (is_delete_key) {
+				var segment = get_current_segment();
+				clear_segment(segment);
 			}
 
 			switch (e.which) {
@@ -152,6 +159,10 @@ function TimePolyfill($input) {
 				case named_keys.Tab:        handle_tab(e); break;
 			}
 		})
+	}
+
+	function clear_segment (segment) {
+		set_value(segment, '--');
 	}
 
 	function update_time() {
