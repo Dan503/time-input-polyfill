@@ -90,7 +90,7 @@ function TimePolyfill($input) {
 
 		bind_events();
 
-		$input.updateTime = update_time;
+		$input.updatePolyfill = update_time;
 	}
 
 	function create_event(eventName){
