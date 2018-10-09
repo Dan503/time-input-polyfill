@@ -82,6 +82,8 @@ function TimePolyfill($input) {
 
 		if ($input.value === '') {
 			apply_default();
+		} else {
+			set_time($input.value);
 		}
 
 		set_data_attribute('');
@@ -356,9 +358,10 @@ function TimePolyfill($input) {
 		$input.setSelectionRange(6, 8);
 	}
 
-	function get_values () {
-		var regEx = /([0-9-]{1,2})\:([0-9-]{1,2})\s(AM|PM|\-\-)/;
-		var result = regEx.exec($input.value);
+	function get_values (timeString) {
+		var value = timeString ? timeString : $input.value;
+		var regEx = /([0-9-]{1,2})\:([0-9-]{1,2})\s?(AM|PM|\-\-)?/;
+		var result = regEx.exec(value);
 
 		return {
 			hrs: convert_number(result[1]),
@@ -369,6 +372,11 @@ function TimePolyfill($input) {
 
 	function convert_number (number) {
 		return isNaN(number) ? number : parseInt(number);
+	}
+
+	function set_time(time_string_24hr) {
+		var twelveHr = convert_to_12hr_time(time_string_24hr);
+		$input.value = twelveHr;
 	}
 
 	function set_value (segment, value) {
@@ -408,9 +416,20 @@ function TimePolyfill($input) {
 		return hours <= 12 ? hours === 0 ? 12 : hours : hours - 12;
 	}
 
-	function convert_to_24hr_time (timeString) {
-		var isPM = timeString.indexOf('PM') > -1;
-		var timeResult = /^([0-9]{2})/.exec(timeString);
+	function convert_to_12hr_time (timeString_24hr) {
+		var twentyFour_regex = /([0-9]{2})\:([0-9]{2})/;
+		var result = twentyFour_regex.exec(timeString_24hr);
+		var hrs_24 = convert_number(result[1]);
+		var min = result[2];
+		var hrs_12 = convert_hours_to_12hr_time(hrs_24);
+		var isPM = hrs_24 > 12;
+		var mode = isPM ? 'PM' : 'AM';
+		return [leading_zero(hrs_12), ':', min, ' ', mode].join('');
+	}
+
+	function convert_to_24hr_time (timeString_12hr) {
+		var isPM = timeString_12hr.indexOf('PM') > -1;
+		var timeResult = /^([0-9]{2})/.exec(timeString_12hr);
 		var hrs = timeResult ? parseInt(timeResult[1]) : '';
 		var newHrs;
 		if (hrs === 12) {
@@ -420,7 +439,7 @@ function TimePolyfill($input) {
 		}
 		var finalHrs = newHrs === 24 ? 0 : newHrs;
 		var timeRegEx = /^[0-9]{2}:([0-9]{2}) (AM|PM)/;
-		return timeString.replace(timeRegEx, leading_zero(finalHrs)+':$1');
+		return timeString_12hr.replace(timeRegEx, leading_zero(finalHrs)+':$1');
 	}
 
 	function values (obj) {
