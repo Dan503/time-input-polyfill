@@ -108,6 +108,13 @@ function TimePolyfill($input) {
 			focused_via_click = true;
 		});
 
+		// Turns the IE clear button into a reset button
+		$input.addEventListener('mouseup', function(){
+			setTimeout(function(){
+				if ($input.value === '') reset();
+			}, 1)
+		});
+
 		$input.addEventListener('click', select_cursor_segment);
 
 		$input.addEventListener('blur', function(){
