@@ -120,7 +120,6 @@ function TimePolyfill($input) {
 		$input.addEventListener('blur', function(){
 			var current_value = $input.dataset.value;
 			if (current_value !== prev_value) {
-				trigger_change_event();
 				prev_value = current_value;
 			}
 			focused_via_click = false;
@@ -273,15 +272,32 @@ function TimePolyfill($input) {
 	function apply_default () {
 		$input.value = '--:-- --';
 		set_data_attribute('');
-		trigger_input_event();
+		trigger_both_events();
+	}
+
+	// It seems that oninput and onchange are treated the same way by browsers :/
+	function trigger_both_events() {
+		// the event only ever fires if there is a full valid value available
+		if (can_trigger_change()) {
+			trigger_input_event();
+			trigger_change_event();
+		}
 	}
 
 	function trigger_input_event() {
-		$input.dispatchEvent(inputEvent);
+		if (can_trigger_change()) {
+			$input.dispatchEvent(inputEvent);
+		}
 	}
 
 	function trigger_change_event() {
-		$input.dispatchEvent(changeEvent);
+		if (can_trigger_change()) {
+			$input.dispatchEvent(changeEvent);
+		}
+	}
+
+	function can_trigger_change () {
+		return !/--/.test($input.value);
 	}
 
 	function increment_current_segment (){
@@ -416,7 +432,7 @@ function TimePolyfill($input) {
 		$input.value = newInputVal;
 		select_segment(segment);
 		set_data_attribute(newInputVal);
-		trigger_input_event();
+		trigger_both_events();
 	}
 
 	function set_data_attribute(timeString_12hr){
