@@ -75,6 +75,13 @@ function TimePolyfill($input) {
 		sorted_number_keys[key] = number_val;
 	});
 
+	var observer = new MutationObserver(function(){
+		trigger_change_event();
+		set_time($input.value);
+	});
+
+	disable_observer();
+
 	initialise();
 
 	function initialise () {
@@ -89,6 +96,15 @@ function TimePolyfill($input) {
 		set_data_attribute('');
 
 		bind_events();
+
+		enable_observer();
+	}
+
+	function enable_observer(){
+		observer.observe($input, {attributes: true});
+	}
+	function disable_observer(){
+		observer.disconnect();
 	}
 
 	function create_event(eventName){
@@ -246,9 +262,11 @@ function TimePolyfill($input) {
 	// I need to keep this separate so that
 	// I can reset without attracting focus
 	function apply_default () {
+		disable_observer();
 		$input.value = '--:-- --';
 		set_data_attribute('');
 		trigger_input_event();
+		enable_observer();
 	}
 
 	function trigger_input_event() {
@@ -375,11 +393,15 @@ function TimePolyfill($input) {
 	}
 
 	function set_time(time_string_24hr) {
+		disable_observer();
 		var twelveHr = convert_to_12hr_time(time_string_24hr);
 		$input.value = twelveHr;
+		set_data_attribute(time_string_24hr);
+		enable_observer();
 	}
 
 	function set_value (segment, value) {
+		disable_observer();
 		var values = get_values();
 		values[segment] = value;
 		var newInputVal = [
@@ -391,6 +413,7 @@ function TimePolyfill($input) {
 		select_segment(segment);
 		set_data_attribute(newInputVal);
 		trigger_input_event();
+		enable_observer();
 	}
 
 	function set_data_attribute(timeString_12hr){
