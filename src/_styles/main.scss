@@ -19,23 +19,33 @@ a {
 html {
   background: #292929;
   color: #c3c3c3;
-  font-size: 2.5em;
+  font-size: 0.625em;
+}
+
+body {
+  font-size: 4rem;
 
   @media (max-width: 1200px) {
-    font-size: 2em;
+    font-size: 3rem;
   }
 
   @media (max-width: 600px) {
-    font-size: 1em;
+    font-size: 2rem;
   }
 }
 
 .container {
   padding: 50px 30px;
+  position: relative;
+  z-index: 1;
 
   @media (max-width: 600px) {
     padding-top: 100px;
   }
+}
+
+p {
+  text-align: center;
 }
 
 input {
@@ -71,6 +81,22 @@ pre {
     box-decoration-break: clone;
     line-height: 2;
   }
+}
+
+.credit {
+  font-size: 1.2rem;
+}
+
+.clock {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  height: 90vmin;
+  width: 90vmin;
+  opacity: 0.3;
 }
 
 // Import Modules
