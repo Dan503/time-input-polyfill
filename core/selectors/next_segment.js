@@ -1,6 +1,6 @@
 
 var traverse = require('./traverse');
 
-module.export = function next_segment ($input) {
+module.exports = function next_segment ($input) {
 	traverse($input, 'next');
 }

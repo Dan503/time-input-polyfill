@@ -5,6 +5,7 @@ var select_hrs = require('../selectors/select_hrs');
 var select_mode = require('../selectors/select_mode');
 var next_segment = require('../selectors/next_segment');
 var prev_segment = require('../selectors/prev_segment');
+var select_cursor_segment = require('../selectors/select_cursor_segment');
 
 var get_current_segment = require('../getters/get_current_segment');
 
@@ -21,6 +22,8 @@ var all_number_keys = require('../static-values/all_number_keys');
 var named_keys = require('../static-values/named_keys');
 
 module.exports = function bind_events ($input) {
+
+	var prev_value = '';
 
 	var shiftKey = false;
 
@@ -44,7 +47,9 @@ module.exports = function bind_events ($input) {
 		}, 1)
 	});
 
-	$input.addEventListener('click', select_cursor_segment);
+	$input.addEventListener('click', function(e){
+		select_cursor_segment($input);
+	});
 
 	$input.addEventListener('blur', function(){
 		var current_value = $input.dataset.value;

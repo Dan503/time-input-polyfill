@@ -7,15 +7,15 @@ var bind_events = require('./core/events/bind_events');
 
 function TimePolyfill($input) {
 
-	prevent_user_select();
+	prevent_user_select($input);
 
 	if ($input.value === '' || /--/.test($input.value)) {
-		apply_default();
+		apply_default($input);
 	} else {
 		update_time($input);
 	}
 
-	set_data_attribute('');
+	set_data_attribute($input,'');
 
 	bind_events($input);
 
