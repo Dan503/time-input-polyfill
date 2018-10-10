@@ -42,11 +42,13 @@ input {
   max-width: 100%;
 }
 
-label {
-  display: block;
+.block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   margin-top: 1.5em;
 
-  span {
+  label {
     display: block;
     margin-bottom: 0.5em;
   }
