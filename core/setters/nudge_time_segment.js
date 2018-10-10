@@ -2,7 +2,7 @@
 var get_values = require('../getters/get_values');
 var convert_hours_to_12hr_time = require('../converters/convert_hours_to_12hr_time');
 var leading_zero = require('../converters/leading_zero');
-var set_value = require('../setters/set_value');
+var set_segment = require('./set_segment');
 
 module.exports = function nudge_time_segment ($input, segment, direction) {
 	var current_values = get_values($input);
@@ -27,5 +27,5 @@ module.exports = function nudge_time_segment ($input, segment, direction) {
 		}
 	}
 
-	set_value($input, segment, leading_zero(time[segment]) );
+	set_segment($input, segment, leading_zero(time[segment]) );
 }
