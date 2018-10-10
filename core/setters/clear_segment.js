@@ -1,6 +1,6 @@
 
 var set_value = require('./set_value');
 
-module.exports = function clear_segment (segment) {
-	set_value(segment, '--');
+module.exports = function clear_segment ($input, segment) {
+	set_value($input, segment, '--');
 }

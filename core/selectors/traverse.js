@@ -1,6 +1,12 @@
 
-module.exports = function traverse (direction) {
-	var segment = get_current_segment();
+var get_current_segment = require('../getters/get_current_segment');
+var select_segment = require('../selectors/select_segment');
+
+var manual_entry_log = require('../helpers/manual_entry_log');
+var segments = require('../static-values/segments');
+
+module.exports = function traverse ($input, direction) {
+	var segment = get_current_segment($input);
 
 	var modifier = direction === 'next' ? 1 : -1;
 	var next_segment_index = segments.indexOf(segment) + modifier;
@@ -10,6 +16,6 @@ module.exports = function traverse (direction) {
 		prev: next_segment_index < 0 ? 'hrs' : segments[next_segment_index],
 	}[direction];
 
-	select_segment(next_segment);
-	clear_manual_entry_log();
+	select_segment($input, next_segment);
+	manual_entry_log.clear();
 }

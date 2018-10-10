@@ -1,6 +1,12 @@
 
-module.exports = function set_value (segment, value) {
-	var values = get_values();
+var get_values = require('../getters/get_values');
+var leading_zero = require('../converters/leading_zero');
+var select_segment = require('../selectors/select_segment');
+var set_data_attribute = require('../setters/set_data_attribute');
+var trigger_both_events = require('../events/trigger_both_events');
+
+module.exports = function set_value ($input, segment, value) {
+	var values = get_values($input);
 	values[segment] = value;
 	var newInputVal = [
 		leading_zero(values.hrs),':',
@@ -8,7 +14,7 @@ module.exports = function set_value (segment, value) {
 		values.mode
 	].join('');
 	$input.value = newInputVal;
-	select_segment(segment);
-	set_data_attribute(newInputVal);
-	trigger_both_events();
+	select_segment($input, segment);
+	set_data_attribute($input, newInputVal);
+	trigger_both_events($input);
 }

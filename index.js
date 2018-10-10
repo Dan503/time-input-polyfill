@@ -17,7 +17,7 @@ function TimePolyfill($input) {
 
 	set_data_attribute('');
 
-	bind_events();
+	bind_events($input);
 
 	$input.updatePolyfill = function() {
 		update_time($input);

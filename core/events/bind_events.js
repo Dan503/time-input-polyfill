@@ -1,5 +1,26 @@
 
-module.exports = function bind_events () {
+var values = require('../helpers/values');
+
+var select_hrs = require('../selectors/select_hrs');
+var select_mode = require('../selectors/select_mode');
+var next_segment = require('../selectors/next_segment');
+var prev_segment = require('../selectors/prev_segment');
+
+var get_current_segment = require('../getters/get_current_segment');
+
+var reset = require('../setters/reset');
+var manual_number_entry = require('../setters/manual_number_entry');
+var clear_segment = require('../setters/clear_segment');
+var increment_current_segment = require('../setters/increment_current_segment');
+var decrement_current_segment = require('../setters/decrement_current_segment');
+var set_mode = require('../setters/set_mode');
+
+var handle_tab = require('../events/handle_tab');
+
+var all_number_keys = require('../static-values/all_number_keys');
+var named_keys = require('../static-values/named_keys');
+
+module.exports = function bind_events ($input) {
 
 	var shiftKey = false;
 
@@ -19,7 +40,7 @@ module.exports = function bind_events () {
 	// Turns the IE clear button into a reset button
 	$input.addEventListener('mouseup', function(){
 		setTimeout(function(){
-			if ($input.value === '') reset();
+			if ($input.value === '') reset($input);
 		}, 1)
 	});
 
@@ -37,9 +58,9 @@ module.exports = function bind_events () {
 		if (!focused_via_click) {
 			e.preventDefault();
 			if (shiftKey) {
-				select_mode();
+				select_mode($input);
 			} else {
-				select_hrs();
+				select_hrs($input);
 			}
 		}
 	});
@@ -54,23 +75,23 @@ module.exports = function bind_events () {
 		if (!is_named_key || is_arrow_key || is_number_key || is_mode_key || is_delete_key) { e.preventDefault(); }
 
 		if (is_number_key) {
-			manual_number_entry(e.which);
+			manual_number_entry($input, e.which);
 		}
 
 		if (is_delete_key) {
-			var segment = get_current_segment();
-			clear_segment(segment);
+			var segment = get_current_segment($input);
+			clear_segment($input, segment);
 		}
 
 		switch (e.which) {
-			case named_keys.ArrowRight: next_segment(); break;
-			case named_keys.ArrowLeft:  prev_segment(); break;
-			case named_keys.ArrowUp:    increment_current_segment(); break;
-			case named_keys.ArrowDown:  decrement_current_segment(); break;
-			case named_keys.Escape:     reset(); break;
-			case named_keys.a:          set_mode('AM'); break;
-			case named_keys.p:          set_mode('PM'); break;
-			case named_keys.Tab:        handle_tab(e); break;
+			case named_keys.ArrowRight: next_segment($input); break;
+			case named_keys.ArrowLeft:  prev_segment($input); break;
+			case named_keys.ArrowUp:    increment_current_segment($input); break;
+			case named_keys.ArrowDown:  decrement_current_segment($input); break;
+			case named_keys.Escape:     reset($input); break;
+			case named_keys.a:          set_mode($input, 'AM'); break;
+			case named_keys.p:          set_mode($input, 'PM'); break;
+			case named_keys.Tab:        handle_tab($input, e); break;
 		}
 	})
 }

@@ -1,8 +1,11 @@
 
-module.exports = function decrement (segment) {
+var switch_mode = require('./switch_mode');
+var nudge_time_segment = require('./nudge_time_segment');
+
+module.exports = function decrement ($input, segment) {
 	if (segment === 'mode') {
-		switch_mode('PM')
+		switch_mode($input, 'PM')
 	} else {
-		nudge_time_segment(segment, 'down');
+		nudge_time_segment($input, segment, 'down');
 	}
 }
