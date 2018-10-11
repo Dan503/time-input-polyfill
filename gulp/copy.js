@@ -11,7 +11,7 @@ module.exports = function(gulp, plugins, args, config, taskTarget, browserSync) 
     return gulp.src([
         path.join(dirs.source, '**/*'),
         '!' + path.join(dirs.source, '{**/\_*,**/\_*/**}'),
-        '!' + path.join(dirs.source, '**/*.jade')
+        '!' + path.join(dirs.source, '**/*.pug')
       ])
       .pipe(plugins.changed(dest))
       .pipe(gulp.dest(dest));

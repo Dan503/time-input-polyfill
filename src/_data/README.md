@@ -47,7 +47,7 @@ They would be converted to the following object:
 And would then be injected into your template within the `site.data` property
 so you could access your data like so:
 
-```jade
+```pug
 h1= site.data.global.siteName //- Sample
 ul.menu
   each val in site.data.menu
