@@ -4,6 +4,7 @@ var fs = require('fs');
 var path = require('path');
 var foldero = require('foldero');
 var yaml = require('js-yaml');
+var pkg = require('../package.json');
 
 module.exports = function(gulp, plugins, args, config, taskTarget, browserSync) {
   var dirs = config.directories;
@@ -47,6 +48,23 @@ module.exports = function(gulp, plugins, args, config, taskTarget, browserSync) 
       console.log(config);
     }
 
+    function pugRequire (providedPath) {
+      // Test to see if the path starts with a dot
+      if (/^\./.test(providedPath)) {
+        throw new Error([
+          'Relative paths in `require()` statements are not supported.',
+          'Use an absolute path from the root folder instead.',
+          'require("/from/root/to/file.js")',
+          ''
+        ].join('\n'));
+      }
+      // Test to see if the path starts with a slash
+      var isLocal = /^\//.test(providedPath);
+      // Make new path relative from root folder.
+      var newPath = isLocal ? '..'+ providedPath : providedPath;
+      return require(newPath);
+    }
+
     return gulp.src([
       path.join(dirs.source, '**/*.pug'),
       '!' + path.join(dirs.source, '{**/\_*,**/\_*/**}')
@@ -56,7 +74,9 @@ module.exports = function(gulp, plugins, args, config, taskTarget, browserSync) 
     .pipe(plugins.pug({
       pretty: true,
       locals: {
+        require: pugRequire,
         config: config,
+        pkg: pkg,
         debug: true,
         site: {
           data: siteData
