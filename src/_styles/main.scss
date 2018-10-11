@@ -24,6 +24,7 @@ html {
 
 body {
   font-size: 4rem;
+  text-align: center;
 
   @media (max-width: 1200px) {
     font-size: 3rem;
@@ -44,8 +45,8 @@ body {
   }
 }
 
-p {
-  text-align: center;
+h1 {
+  margin-bottom: 0.1em;
 }
 
 input {
@@ -54,6 +55,16 @@ input {
   border: 1px solid #000;
   padding: 10px;
   max-width: 100%;
+  text-align: left;
+  text-align: start;
+}
+
+button {
+  color: #fff;
+  background: #000;
+  padding: 10px 20px;
+  border: 2px solid;
+  border-radius: 10px;
 }
 
 .block {
@@ -85,10 +96,6 @@ pre {
 
 .credit {
   font-size: 1.2rem;
-}
-
-h1 {
-  margin-bottom: 0.1em;
 }
 
 .version {
