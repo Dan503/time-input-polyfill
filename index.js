@@ -11,11 +11,11 @@ function TimePolyfill($input) {
 
 	if ($input.value === '' || /--/.test($input.value)) {
 		apply_default($input);
+		set_data_attribute($input, '');
 	} else {
 		update_time($input);
+		set_data_attribute($input, $input.value);
 	}
-
-	set_data_attribute($input,'');
 
 	bind_events($input);
 
