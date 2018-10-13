@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		var values = {};
 		toArray(this.elements).forEach(function(element){
 			if (element.nodeName !== 'BUTTON') {
-				values[element.name] = element.value
+				values[element.labels[0].textContent] = element.value
 			}
 		})
 		e.preventDefault(e);

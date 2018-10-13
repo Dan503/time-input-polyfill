@@ -11,19 +11,19 @@ block content
 
       .block
         label(for="real") Real time input
-        input(id="real" name="real" type='time')
+        input(id="real" type='time')
 
       .block
         label(for="fake") Polyfill time input
-        input.time(id="fake" name="polyfill" type='text')
+        input.time(id="fake" type='text')
 
       .block
         label(for="real-value") Real time input (with value)
-        input(id="real-value" name="real-with-value" type='time' value="20:30")
+        input(id="real-value" type='time' value="20:30")
 
       .block
         label(for="fake-value") Polyfill time input (with value)
-        input.time(id="fake-value"  name="polyfill-with-value" type='text' value="20:30")
+        input.time(id="fake-value" type='text' value="20:30")
 
       .block
         button Submit
