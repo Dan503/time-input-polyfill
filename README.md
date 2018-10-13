@@ -16,9 +16,9 @@ If this isn't working for you, you can access the current input value in 24 hour
 
 ### Must call `update()` on dynamic inputs
 
-I couldn't find any reliable way to track when a user uses `$input.value = '13:30'`. So instead of tracking the use of `$input.value`, I have attached an `updatePolyfill()` method to the `$input` element.
+I couldn't find any reliable way to track when a user uses `$input.value = '13:30'`. So instead of tracking the use of `$input.value`, I have attached a `.polyfill.update()` method to the `$input` element.
 
-Any time you update the value of the time input element through JavaScript, check that the `updatePolyfill()` method exists, and if it does, call it.
+Any time you update the value of the time input element through JavaScript, check that `$input.polyfill` exists, and if it does, call `$input.polyfill.update()`.
 
 ```html
 <input id="example" type="time">
@@ -27,7 +27,7 @@ Any time you update the value of the time input element through JavaScript, chec
 var $input = document.getElementByID('example');
 $input.value = '13:30';
 // call the update() method whenever the value is updated through JS
-if ($input.updatePolyfill) $input.updatePolyfill();
+if ($input.polyfill) $input.polyfill.update();
 ```
 
-The `updatePolyfill()` method will return the input element that it was called on so it can be chained if you want.
+The `update()` method will return the input element that it was called on so it can be chained if you want.

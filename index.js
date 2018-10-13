@@ -19,9 +19,11 @@ function TimePolyfill($input) {
 
 	bind_events($input);
 
-	$input.updatePolyfill = function() {
-		update_time($input);
-	};
+	$input.polyfill = {
+		update: function() {
+			update_time($input);
+		}
+	}
 }
 
 if (module) {
