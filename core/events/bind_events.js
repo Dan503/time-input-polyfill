@@ -37,7 +37,11 @@ module.exports = function bind_events ($input) {
 
 	if ($input.form) {
 		$input.form.addEventListener('submit', function(){
+			var originalTime = $input.value;
 			switch_to_data_value($input);
+			setTimeout(function(){
+				$input.value = originalTime;
+			}, 1);
 		})
 	}
 
