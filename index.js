@@ -4,6 +4,7 @@ var apply_default = require('./core/setters/apply_default');
 var update_time = require('./core/setters/update_time');
 var set_data_attribute = require('./core/setters/set_data_attribute');
 var bind_events = require('./core/events/bind_events');
+var switch_times = require('./core/setters/switch_times');
 
 function TimePolyfill($input) {
 
@@ -22,6 +23,9 @@ function TimePolyfill($input) {
 	$input.polyfill = {
 		update: function() {
 			update_time($input);
+		},
+		swap: function(forcedFormat) {
+			switch_times($input, forcedFormat);
 		}
 	}
 }

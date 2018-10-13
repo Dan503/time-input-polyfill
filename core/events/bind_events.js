@@ -15,7 +15,7 @@ var clear_segment = require('../setters/clear_segment');
 var increment_current_segment = require('../setters/increment_current_segment');
 var decrement_current_segment = require('../setters/decrement_current_segment');
 var set_mode = require('../setters/set_mode');
-var switch_to_data_value = require('../setters/switch_to_data_value');
+var switch_times = require('../setters/switch_times');
 
 var handle_tab = require('../events/handle_tab');
 
@@ -37,10 +37,9 @@ module.exports = function bind_events ($input) {
 
 	if ($input.form) {
 		$input.form.addEventListener('submit', function(){
-			var originalTime = $input.value;
-			switch_to_data_value($input);
+			switch_times($input, 24);
 			setTimeout(function(){
-				$input.value = originalTime;
+				switch_times($input, 12);
 			}, 1);
 		})
 	}

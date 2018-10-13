@@ -4,6 +4,7 @@ var convert_hours_to_12hr_time = require('./convert_hours_to_12hr_time');
 var leading_zero = require('./leading_zero');
 
 module.exports = function convert_to_12hr_time (timeString_24hr) {
+	if (timeString_24hr === '') return '--:-- --';
 	var twentyFour_regex = /([0-9]{2})\:([0-9]{2})/;
 	var result = twentyFour_regex.exec(timeString_24hr);
 	var hrs_24 = convert_number(result[1]);
