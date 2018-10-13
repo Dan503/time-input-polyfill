@@ -36,18 +36,33 @@ document.addEventListener("DOMContentLoaded", function() {
 
 	document.querySelector('form').onsubmit = function(e){
 		e.preventDefault();
-		var values = {};
-		toArray(this.elements).forEach(function(element){
-			if (element.nodeName !== 'BUTTON') {
-				values[element.labels[0].textContent] = element.value
-			}
-		})
-		e.preventDefault(e);
-
+		var labels = get_labels(this);
+		var values = get_values(this, labels);
 		var $result = document.querySelector('.result');
 
 		result($result, values);
 		$result.focus();
+
+		function get_labels (form) {
+			var labelList = [];
+			toArray(form.children).forEach(function(element){
+				var $label = element.querySelector('label');
+				if ($label) {
+					labelList.push($label.textContent);
+				}
+			})
+			return labelList;
+		}
+
+		function get_values (form, labels) {
+			var valuesList = {};
+			toArray(form.elements).forEach(function(element, i){
+				if (element.nodeName === 'INPUT') {
+					valuesList[labels[i]] = element.value
+				}
+			})
+			return valuesList;
+		}
 	}
 
 });
