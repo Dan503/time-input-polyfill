@@ -23,12 +23,8 @@ html {
 }
 
 body {
-  font-size: 4rem;
+  font-size: 3rem;
   text-align: center;
-
-  @media (max-width: 1200px) {
-    font-size: 3rem;
-  }
 
   @media (max-width: 600px) {
     font-size: 2rem;
@@ -65,6 +61,12 @@ button {
   padding: 10px 20px;
   border: 2px solid;
   border-radius: 10px;
+  transition: 0.3s;
+
+  &:hover, &:focus {
+    background: #fff;
+    color: #000;
+  }
 }
 
 .block {
@@ -118,3 +120,4 @@ pre {
 
 // Import Modules
 @import '../_modules/downloadMethod/downloadMethod';
+@import '../_modules/result/result';

@@ -2,6 +2,7 @@ extends _layouts/base
 
 block content
   include ./_modules/downloadMethod/downloadMethod
+  include ./_modules/result/result
 
   .container(style="text-align: center")
     h1 Time Input Polyfill demo
@@ -26,9 +27,9 @@ block content
         input.time(id="fake-value" type='text' value="20:30")
 
       .block
-        button Submit
+        button What happens if I submit a form?
 
-      .result
+      +result
 
     +downloadMethod('Download via npm:')
       pre

@@ -8,6 +8,8 @@ var TimePolyfill = require('../../index');
 var _$$ = require('../../core/selectors/_$$');
 var toArray = require('../../core/converters/toArray');
 
+var result = require('../_modules/result/result');
+
 document.addEventListener("DOMContentLoaded", function() {
 	// var $$timeInputs = _$$('input[type="time"]');
 	var $$timeInputs = _$$('input.time');
@@ -41,7 +43,11 @@ document.addEventListener("DOMContentLoaded", function() {
 			}
 		})
 		e.preventDefault(e);
-		console.log(values);
+
+		var $result = document.querySelector('.result');
+
+		result($result, values);
+		$result.focus();
 	}
 
 });
