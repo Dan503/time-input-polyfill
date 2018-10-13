@@ -37,10 +37,7 @@ module.exports = function bind_events ($input) {
 
 	if ($input.form) {
 		$input.form.addEventListener('submit', function(){
-			switch_times($input, 24);
-			setTimeout(function(){
-				switch_times($input, 12);
-			}, 1);
+			auto_swap($input);
 		})
 	}
 
@@ -109,4 +106,13 @@ module.exports = function bind_events ($input) {
 			case named_keys.Tab:        handle_tab($input, e); break;
 		}
 	})
+}
+
+function auto_swap($input) {
+	if ($input.polyfill.autoSwap) {
+		switch_times($input, 24);
+		setTimeout(function(){
+			switch_times($input, 12);
+		}, 1);
+	}
 }

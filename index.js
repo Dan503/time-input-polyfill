@@ -18,9 +18,8 @@ function TimePolyfill($input) {
 		set_data_attribute($input, $input.value);
 	}
 
-	bind_events($input);
-
 	$input.polyfill = {
+		autoSwap: true,
 		update: function() {
 			update_time($input);
 		},
@@ -28,6 +27,8 @@ function TimePolyfill($input) {
 			switch_times($input, forcedFormat);
 		}
 	}
+
+	bind_events($input);
 }
 
 if (module) {

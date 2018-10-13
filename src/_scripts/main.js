@@ -14,6 +14,9 @@ document.addEventListener("DOMContentLoaded", function() {
 	$$timeInputs.forEach(function (element) {
 		new TimePolyfill(element);
 
+		// Disable auto swap
+		// element.polyfill.autoSwap = false;
+
 		element.oninput = function(){
 			console.log('input', element.dataset.value);
 		}
