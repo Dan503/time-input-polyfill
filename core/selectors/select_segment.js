@@ -1,13 +1,24 @@
 
-var select_hrs = require('./select_hrs');
-var select_min = require('./select_min');
-var select_mode = require('./select_mode');
-
 module.exports = function select_segment ($input, segment) {
+
+	set_input_type();
+
 	var actions = {
-		hrs:  select_hrs,
-		min:  select_min,
-		mode: select_mode,
+		hrs:  select(0, 2),
+		min:  select(3, 5),
+		mode: select(6, 8),
 	};
+
 	actions[segment]($input);
+
+	function set_input_type() {
+		var type = segment === 'mode' ? 'text' : 'tel';
+		$input.setAttribute('type', type);
+	}
+
+	function select (start, end) {
+		return function () {
+			$input.setSelectionRange(start, end);
+		}
+	}
 }

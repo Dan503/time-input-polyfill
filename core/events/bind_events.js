@@ -1,8 +1,8 @@
 
 var values = require('../helpers/values');
 
-var select_hrs = require('../selectors/select_hrs');
-var select_mode = require('../selectors/select_mode');
+var select_segment = require('../selectors/select_segment');
+
 var next_segment = require('../selectors/next_segment');
 var prev_segment = require('../selectors/prev_segment');
 var select_cursor_segment = require('../selectors/select_cursor_segment');
@@ -71,11 +71,8 @@ module.exports = function bind_events ($input) {
 	$input.addEventListener('focus', function(e){
 		if (!focused_via_click) {
 			e.preventDefault();
-			if (shiftKey) {
-				select_mode($input);
-			} else {
-				select_hrs($input);
-			}
+			var segment = shiftKey ? 'mode' : 'hrs';
+			select_segment($input, segment);
 		}
 		update_a11y($input, [
 			'initial',
