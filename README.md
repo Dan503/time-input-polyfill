@@ -1,5 +1,10 @@
 # Time Input Polyfill
 
+- ✔️ Modeled after the Chrome and Firefox implementations
+- ✔️ Fully keyboard and screen reader accessible
+- ✔️ Submits the same values to servers as real time inputs
+- ✔️ Only downloads the full polyfill code in the browsers that need it
+
 _This is a work in progress_
 
 I'm just reserving the name on npm at the moment.
