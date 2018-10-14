@@ -118,6 +118,15 @@ pre {
   opacity: 0.3;
 }
 
+.visually-hidden {
+  position: absolute;
+  height: 0;
+  width: 0;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+
 // Import Modules
 @import '../_modules/downloadMethod/downloadMethod';
 @import '../_modules/result/result';

@@ -5,7 +5,7 @@ module.exports = function($result, values){
 
 	var html = '';
 	for (var label in values) {
-		var value = values[label];
+		var value = values[label].replace(/^$/,'<span class="visually-hidden">blank</span>');
 		html = html + [
 			'<div class="result__item">',
 				'<dt class="result__label">',label,'</dt>',
