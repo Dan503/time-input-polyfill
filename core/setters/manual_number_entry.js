@@ -11,7 +11,7 @@ module.exports = function manual_number_entry($input, key) {
 	var segment = get_current_segment($input);
 
 	if (segment !== 'mode') {
-		var entry_count = manual_entry_log.items.length;
+		var entry_count = manual_entry_log.items().length;
 
 		var upper_limits = {
 			hrs: [1,2],
@@ -24,13 +24,13 @@ module.exports = function manual_number_entry($input, key) {
 		}
 
 		var full_limit = parseInt(upper_limits[segment].join(''));
-		var full_entry = parseInt(manual_entry_log.items.join(''));
+		var full_entry = parseInt(manual_entry_log.items().join(''));
 
 		if (full_limit >= full_entry) {
 			set_segment($input, segment, full_entry);
 		}
 
-		var at_limit = key_value > limit || manual_entry_log.items.length === 2;
+		var at_limit = key_value > limit || manual_entry_log.items().length === 2;
 
 		if (at_limit) {
 			next_segment($input);

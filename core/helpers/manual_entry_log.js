@@ -9,8 +9,12 @@ function add (entry) {
 	manual_entry_log.push(entry);
 }
 
+function items(){
+	return manual_entry_log;
+}
+
 module.exports = {
-	items: manual_entry_log,
+	items: items,
 	clear: clear,
 	add: add,
 }
