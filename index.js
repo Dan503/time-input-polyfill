@@ -14,6 +14,8 @@ var $a11y;
 
 function TimePolyfill($input) {
 
+	$input.setAttribute('autocomplete','off');
+
 	prevent_user_select($input);
 
 	// Prevent screen reader from announcing the default stuff
