@@ -5,6 +5,8 @@ var select_segment = require('../selectors/select_segment');
 var manual_entry_log = require('../helpers/manual_entry_log');
 var segments = require('../static-values/segments');
 
+var update_a11y = require('../accessibility/update_a11y');
+
 module.exports = function traverse ($input, direction) {
 	var segment = get_current_segment($input);
 
@@ -18,4 +20,5 @@ module.exports = function traverse ($input, direction) {
 
 	select_segment($input, next_segment);
 	manual_entry_log.clear();
+	update_a11y($input, ['select'])
 }

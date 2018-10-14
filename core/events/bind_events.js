@@ -22,6 +22,8 @@ var handle_tab = require('../events/handle_tab');
 var all_number_keys = require('../static-values/all_number_keys');
 var named_keys = require('../static-values/named_keys');
 
+var update_a11y = require('../accessibility/update_a11y');
+
 module.exports = function bind_events ($input) {
 
 	var prev_value = '';
@@ -75,6 +77,10 @@ module.exports = function bind_events ($input) {
 				select_hrs($input);
 			}
 		}
+		update_a11y($input, [
+			'initial',
+			'select'
+		])
 	});
 
 	$input.addEventListener('keydown', function(e) {
