@@ -11,8 +11,15 @@ module.exports = function(gulp, plugins, args, config, taskTarget, browserSync) 
   var dest = path.join(taskTarget);
   var dataPath = path.join(dirs.source, dirs.data);
 
+  gulp.task('pug:load', function(){
+    var dest = 'src/_layouts';
+    return gulp.src('src/_modules/**/*.pug')
+      .pipe(plugins.fileLoader({preset:'pug', dest}))
+      .pipe(gulp.dest(dest));
+  })
+
   // Pug template compile
-  gulp.task('pug', function() {
+  gulp.task('pug', ['pug:load'], function() {
     var siteData = {};
     if (fs.existsSync(dataPath)) {
       // Convert directory to JS Object

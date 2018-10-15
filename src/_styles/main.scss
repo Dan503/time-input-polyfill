@@ -128,5 +128,4 @@ pre {
 }
 
 // Import Modules
-@import '../_modules/downloadMethod/downloadMethod';
-@import '../_modules/result/result';
+@import 'file-loader.scss';

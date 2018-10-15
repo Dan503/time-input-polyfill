@@ -9,8 +9,15 @@ module.exports = function(gulp, plugins, args, config, taskTarget, browserSync) 
   var entries = config.entries;
   var dest = path.join(taskTarget, dirs.styles.replace(/^_/, ''));
 
+  gulp.task('sass:load', function(){
+    var dest = 'src/_styles'
+    return gulp.src('src/_modules/**/*.scss')
+      .pipe(plugins.fileLoader({preset:'scss', dest}))
+      .pipe(gulp.dest(dest));
+  })
+
   // Sass compilation
-  gulp.task('sass', function() {
+  gulp.task('sass', ['sass:load'], function() {
     gulp.src(path.join(dirs.source, dirs.styles, entries.css))
       .pipe(plugins.plumber())
       .pipe(plugins.sourcemaps.init())
