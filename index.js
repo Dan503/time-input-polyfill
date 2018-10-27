@@ -53,6 +53,6 @@ function TimePolyfill($input) {
 
 if (module) {
 	module.exports = TimePolyfill;
-} else {
+} else if (window) {
 	window.TimePolyfill = TimePolyfill;
 }

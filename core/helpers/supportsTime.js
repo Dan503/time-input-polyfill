@@ -1,6 +1,6 @@
 
 // https://stackoverflow.com/a/10199306/1611058
-module.exports = function supportsTime () {
+function get_time_support () {
 	var input = document.createElement('input');
 	input.setAttribute('type','time');
 
@@ -9,3 +9,7 @@ module.exports = function supportsTime () {
 
 	return (input.value !== notValid);
 }
+
+var supportsTime = get_time_support();
+
+module.exports = supportsTime;

@@ -10,13 +10,19 @@ var vsource = require('vinyl-source-stream');
 var buffer = require('vinyl-buffer');
 var gulpif = require('gulp-if');
 
+var fileHeader = require('../core/static-values/header');
+
 module.exports = function(gulp, plugins, args, config, taskTarget, browserSync) {
   var dirs = config.directories;
   var entries = config.entries;
 
-  var browserifyTask = function(files) {
+  var browserifyTask = function({
+    files,
+    dest,
+    rename = false,
+    header = '',
+  }) {
     return files.map(function(entry) {
-      var dest = path.resolve(taskTarget);
 
       // Options
       var customOpts = {
@@ -56,7 +62,11 @@ module.exports = function(gulp, plugins, args, config, taskTarget, browserSync) 
             // Remove 'source' directory as well as prefixed folder underscores
             // Ex: 'src/_scripts' --> '/scripts'
             filepath.dirname = filepath.dirname.replace(dirs.source, '').replace('_', '');
+            if (rename) {
+              filepath.basename = rename;
+            }
           }))
+          .pipe(plugins.header(header))
           .pipe(plugins.sourcemaps.write('./'))
           .pipe(gulp.dest(dest))
           // Show which file was bundled and how long it took
@@ -78,14 +88,53 @@ module.exports = function(gulp, plugins, args, config, taskTarget, browserSync) 
     });
   };
 
-  // Browserify Task
-  gulp.task('browserify', function(done) {
-    return glob('./' + path.join(dirs.source, dirs.scripts, entries.js), function(err, files) {
-      if (err) {
-        done(err);
-      }
+  function dist_compile({ done, src, type = '', header }) {
+    if (!args.production) return done();
+    return glob(src, function(err, files) {
+      if (err) done(err);
+      var dest = path.resolve('./dist');
+      return browserifyTask({
+        files,
+        dest,
+        rename: 'time-input-polyfill'+type+'.min',
+        header,
+      });
+    });
+  }
 
-      return browserifyTask(files);
+  // Browserify JS library
+  gulp.task('browserify:dist:manual', function(done) {
+    return dist_compile({ done, src: './index.js', header: fileHeader });
+  });
+
+  // Browserify JS library
+  gulp.task('browserify:dist:auto', function(done) {
+    return dist_compile({ done, src: './auto.js', type: '.auto', header: [
+      '// == TIME INPUT POLYFILL AUTO LOADER ==\n',
+      '// This file checks input[type=time] support, ',
+      'loads the polyfill if not supported, ',
+      'then applies the polyfill to all input[type=time] elements if not supported.\n',
+      '// This is not the actual time input polyfill\n',
+    ].join('')
+  });
+  });
+
+  gulp.task('browserify:dist', ['browserify:dist:manual', 'browserify:dist:auto']);
+
+  // Browserify demo site
+  gulp.task('browserify:site', function(done) {
+
+    if (args.production) {
+      bundler.on('update', rebundle); // on any dep update, runs the bundler
+      bundler.on('log', plugins.util.log); // output build logs to terminal
+    }
+
+    return glob('./' + path.join(dirs.source, dirs.scripts, entries.js), function(err, files) {
+      if (err) done(err);
+      var dest = path.resolve(taskTarget);
+      return browserifyTask({ files, dest });
     });
   });
+
+  gulp.task('browserify', ['browserify:dist', 'browserify:site'])
 };
