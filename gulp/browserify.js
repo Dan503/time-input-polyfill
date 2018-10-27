@@ -123,12 +123,6 @@ module.exports = function(gulp, plugins, args, config, taskTarget, browserSync) 
 
   // Browserify demo site
   gulp.task('browserify:site', function(done) {
-
-    if (args.production) {
-      bundler.on('update', rebundle); // on any dep update, runs the bundler
-      bundler.on('log', plugins.util.log); // output build logs to terminal
-    }
-
     return glob('./' + path.join(dirs.source, dirs.scripts, entries.js), function(err, files) {
       if (err) done(err);
       var dest = path.resolve(taskTarget);
