@@ -10,6 +10,8 @@ function get_time_support () {
 	return (input.value !== notValid);
 }
 
-var supportsTime = get_time_support();
-
-module.exports = supportsTime;
+if (module) {
+	module.exports = get_time_support();
+} else if (window) {
+	window.supportsTime = get_time_support();
+}
