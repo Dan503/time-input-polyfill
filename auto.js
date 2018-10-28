@@ -1,12 +1,6 @@
 
 var supports_time = require('./core/helpers/supportsTime');
-
-function loadJS (src, callback) {
-	var script = document.createElement('script');
-	script.src = src;
-	script.onload = callback;
-	document.head.appendChild(script);
-};
+var loadJS = require('./core/helpers/loadJS');
 
 document.addEventListener("DOMContentLoaded", function() {
 	if (!supports_time) {
