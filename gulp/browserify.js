@@ -35,11 +35,9 @@ module.exports = function(gulp, plugins, args, config, taskTarget, browserSync) 
 
       var bundler = browserify(customOpts);
 
-      if (!args.production) {
-        // Setup Watchify for faster builds
-        var opts = _.assign({}, watchify.args, customOpts);
-        bundler = watchify(browserify(opts));
-      }
+      // Setup Watchify for faster builds
+      var opts = _.assign({}, watchify.args, customOpts);
+      bundler = watchify(browserify(opts));
 
       var rebundle = function() {
         var startTime = new Date().getTime();
@@ -80,10 +78,9 @@ module.exports = function(gulp, plugins, args, config, taskTarget, browserSync) 
           });
       };
 
-      if (!args.production) {
-        bundler.on('update', rebundle); // on any dep update, runs the bundler
-        bundler.on('log', plugins.util.log); // output build logs to terminal
-      }
+      bundler.on('update', rebundle); // on any dep update, runs the bundler
+      bundler.on('log', plugins.util.log); // output build logs to terminal
+
       return rebundle();
     });
   };
