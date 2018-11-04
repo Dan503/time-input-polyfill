@@ -1,5 +1,6 @@
 {
   "name": "time-input-polyfill",
+  "description": "[WIP] A polyfill for input[type=time] elements modeled after the Chrome & Fire Fox implementations.",
   "version": "0.1.0",
   "dependencies": {},
   "devDependencies": {
