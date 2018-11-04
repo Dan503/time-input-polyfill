@@ -4,3 +4,4 @@ build
 tmp
 .grunt
 .DS_Store
+file-loader.pug

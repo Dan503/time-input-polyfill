@@ -3,16 +3,23 @@
 var fs = require('fs');
 var path = require('path');
 var foldero = require('foldero');
-var jade = require('jade');
 var yaml = require('js-yaml');
+var pkg = require('../package.json');
 
 module.exports = function(gulp, plugins, args, config, taskTarget, browserSync) {
   var dirs = config.directories;
   var dest = path.join(taskTarget);
   var dataPath = path.join(dirs.source, dirs.data);
 
-  // Jade template compile
-  gulp.task('jade', function() {
+  gulp.task('pug:load', function(){
+    var dest = 'src/_layouts';
+    return gulp.src('src/_modules/**/*.pug')
+      .pipe(plugins.fileLoader({preset:'pug', dest}))
+      .pipe(gulp.dest(dest));
+  })
+
+  // Pug template compile
+  gulp.task('pug', ['pug:load'], function() {
     var siteData = {};
     if (fs.existsSync(dataPath)) {
       // Convert directory to JS Object
@@ -48,17 +55,35 @@ module.exports = function(gulp, plugins, args, config, taskTarget, browserSync) 
       console.log(config);
     }
 
+    function pugRequire (providedPath) {
+      // Test to see if the path starts with a dot
+      if (/^\./.test(providedPath)) {
+        throw new Error([
+          'Relative paths in `require()` statements are not supported.',
+          'Use an absolute path from the root folder instead.',
+          'require("/from/root/to/file.js")',
+          ''
+        ].join('\n'));
+      }
+      // Test to see if the path starts with a slash
+      var isLocal = /^\//.test(providedPath);
+      // Make new path relative from root folder.
+      var newPath = isLocal ? '..'+ providedPath : providedPath;
+      return require(newPath);
+    }
+
     return gulp.src([
-      path.join(dirs.source, '**/*.jade'),
+      path.join(dirs.source, '**/*.pug'),
       '!' + path.join(dirs.source, '{**/\_*,**/\_*/**}')
     ])
     .pipe(plugins.changed(dest))
     .pipe(plugins.plumber())
-    .pipe(plugins.jade({
-      jade: jade,
+    .pipe(plugins.pug({
       pretty: true,
       locals: {
+        require: pugRequire,
         config: config,
+        pkg: pkg,
         debug: true,
         site: {
           data: siteData
