@@ -5,3 +5,4 @@ tmp
 .grunt
 .DS_Store
 file-loader.pug
+docs/scripts/time-input-polyfill.*

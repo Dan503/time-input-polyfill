@@ -12,3 +12,7 @@ src
 .eslintrc
 .yo-rc.json
 package-lock.json
+docs
+dist
+.gitattributes
+.gitignore

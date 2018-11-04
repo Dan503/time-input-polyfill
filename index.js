@@ -51,8 +51,5 @@ function TimePolyfill($input) {
 	bind_events($input);
 }
 
-if (module) {
-	module.exports = TimePolyfill;
-} else if (window) {
-	window.TimePolyfill = TimePolyfill;
-}
+if (window) window.TimePolyfill = TimePolyfill;
+if (module) module.exports = TimePolyfill;
