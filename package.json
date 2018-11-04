@@ -1,6 +1,6 @@
 {
   "name": "time-input-polyfill",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "dependencies": {},
   "devDependencies": {
     "autoprefixer": "^9.1.5",
