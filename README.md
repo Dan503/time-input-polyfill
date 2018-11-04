@@ -17,7 +17,7 @@ Demo available here: https://dan503.github.io/time-input-polyfill/
 Add the following script element to your page:
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/time-input-polyfill@0.1.0/dist/time-input-polyfill.auto.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/time-input-polyfill@0.1.2/dist/time-input-polyfill.auto.min.js"></script>
 ```
 
 Alternatively you can download it via npm and use it through commonJS
@@ -41,7 +41,7 @@ You didn't load the actual polyfill onto the page, you loaded a much smaller aut
 1. The initialiser checks if the browser supports `input[type="time"]` elements.
 2. If it **does**, it skips the rest of the functionality.
 3. If it does **not**, it will:
-	1. load `https://cdn.jsdelivr.net/npm/time-input-polyfill@0.1.0/dist/time-input-polyfill.min.js` (the actual polyfill).
+	1. load `https://cdn.jsdelivr.net/npm/time-input-polyfill@0.1.2/dist/time-input-polyfill.min.js` (the actual polyfill).
 	2. Collect all `input[type="time"]` elements on the page.
 	3. Loop through each `input[type="time"]` element and apply the polyfill to it.
 
@@ -84,7 +84,7 @@ if (supportsTime) {
 First check for `input[type="time"]` support.
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/time-input-polyfill@0.1.0/core/helpers/supportsTime.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/time-input-polyfill@0.1.2/core/helpers/supportsTime.js"></script>
 ```
 ```js
 if (supportsTime) {
@@ -95,8 +95,8 @@ if (supportsTime) {
 Then gather a list of all `input[type="time"]` elements on the page, and loop through them to apply the polyfill.
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/time-input-polyfill@0.1.0/core/helpers/supportsTime.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/time-input-polyfill@0.1.0/dist/time-input-polyfill.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/time-input-polyfill@0.1.2/core/helpers/supportsTime.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/time-input-polyfill@0.1.2/dist/time-input-polyfill.min.js"></script>
 ```
 ```js
 if (supportsTime) {
