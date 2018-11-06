@@ -1,5 +1,6 @@
 'use strict';
 
+var pkg = require('../package.json');
 var path = require('path');
 var glob = require('glob');
 var browserify = require('browserify');
@@ -111,10 +112,13 @@ module.exports = function(gulp, plugins, args, config, taskTarget, browserSync) 
   gulp.task('browserify:dist:auto', function(done) {
     return dist_compile({ done, src: './auto.js', type: '.auto', header: [
       '// == TIME INPUT POLYFILL AUTO LOADER ==\n',
-      '// This file checks input[type=time] support, ',
-      'loads the polyfill if not supported, ',
-      'then applies the polyfill to all input[type=time] elements if not supported.\n',
-      '// This is not the actual time input polyfill\n',
+      '// This is not the actual time input polyfill. ',
+      'This file checks for input[type=time] support.\n',
+      '// If not supported, it will load the real polyfill, then ',
+      'apply it to all input[type=time] elements.\n',
+      '\n',
+      '// The actual polyfill is found here:\n',
+      `// https://cdn.jsdelivr.net/npm/time-input-polyfill@${pkg.version}/dist/time-input-polyfill.min.js\n\n`
     ].join('')
   });
   });
