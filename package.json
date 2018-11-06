@@ -2,6 +2,8 @@
   "name": "time-input-polyfill",
   "description": "[WIP] A polyfill for input[type=time] elements modeled after the Chrome & Fire Fox implementations.",
   "version": "0.1.3",
+  "main": "index.js",
+  "jsdelivr": "dist/time-input-polyfill.auto.min.js",
   "dependencies": {},
   "devDependencies": {
     "autoprefixer": "^9.1.5",
