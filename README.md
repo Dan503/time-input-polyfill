@@ -4,7 +4,6 @@
 
 - ✔️ Modeled after the Chrome and Firefox implementations
 - ✔️ Fully keyboard and screen reader accessible
-- ✔️ Usable on mobile devices as well
 - ✔️ Submits the same values to servers as real time inputs
 - ✔️ Only downloads the full polyfill code in the browsers that need it
 
