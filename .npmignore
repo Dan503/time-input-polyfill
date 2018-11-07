@@ -13,6 +13,5 @@ src
 .yo-rc.json
 package-lock.json
 docs
-dist
 .gitattributes
 .gitignore
