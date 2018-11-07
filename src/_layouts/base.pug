@@ -26,6 +26,22 @@ head
   <meta name="msapplication-config" content="images/favicon/browserconfig.xml">
   <meta name="theme-color" content="#d2d2d2">
 
+  // Open Graph code
+  meta(property='og:image:width' content='1200')
+  meta(property='og:image:height' content='628')
+  meta(property='og:description' content=pkg.description)
+  meta(property='og:url' content=`https://dan503.github.io/${pkg.name}/`)
+  meta(property='og:image' content=`https://dan503.github.io/${pkg.name}/assets/images/og-image.jpg`)
+  meta(property='og:title' content=pkg.name)
+
+  // Twitter code
+  meta(name='twitter:card' content='summary_large_image')
+  meta(name='twitter:creator' content='@Daniel_Tonon')
+  meta(name='twitter:title' content=pkg.name)
+  meta(name='twitter:description' content=pkg.description)
+  meta(name='twitter:image' content=`https://dan503.github.io/${pkg.name}/assets/images/og-image.jpg`)
+  meta(name='twitter:image:alt' content=pkg.name+' logo against a swirling background')
+
   block stylesheets
     link(rel='stylesheet', href= baseUrl + 'styles/main.css')
 
