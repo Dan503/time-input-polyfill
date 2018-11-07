@@ -81,6 +81,7 @@ module.exports = function(gulp, plugins, args, config, taskTarget, browserSync) 
     .pipe(plugins.pug({
       pretty: true,
       locals: {
+        args: args,
         require: pugRequire,
         config: config,
         pkg: pkg,

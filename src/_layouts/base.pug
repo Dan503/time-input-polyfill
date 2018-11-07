@@ -29,6 +29,16 @@ head
   block stylesheets
     link(rel='stylesheet', href= baseUrl + 'styles/main.css')
 
+  if (args.production)
+    // Google Analytics
+    script(async, src="https://www.googletagmanager.com/gtag/js?id=UA-90397907-4")
+    script.
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-90397907-4');
+
 body
   .module-code
     include ./file-loader.pug

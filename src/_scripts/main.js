@@ -10,6 +10,8 @@ var toArray = require('../../core/converters/toArray');
 
 var result = require('../_modules/result/result');
 
+var ga = require('./_helpers/gtag');
+
 document.addEventListener("DOMContentLoaded", function() {
 	// var $$timeInputs = _$$('input[type="time"]');
 	var $$timeInputs = _$$('input.time');
@@ -39,6 +41,8 @@ document.addEventListener("DOMContentLoaded", function() {
 		var labels = get_labels(this);
 		var values = get_values(this, labels);
 		var $result = document.querySelector('.result');
+
+		ga('form submit');
 
 		result($result, values);
 		$result.focus();
