@@ -1,5 +1,7 @@
 # Time Input Polyfill
 
+[![](https://data.jsdelivr.com/v1/package/npm/time-input-polyfill/badge)](https://www.jsdelivr.com/package/npm/time-input-polyfill)
+
 > This polyfill is currently in a pre-release state while testing is being conducted.
 >
 > **It is not ready for use in production yet!**
