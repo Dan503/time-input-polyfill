@@ -1,6 +1,6 @@
 # Time Input Polyfill
 
-[![](https://data.jsdelivr.com/v1/package/npm/time-input-polyfill/badge)](https://www.jsdelivr.com/package/npm/time-input-polyfill)
+[![JS Deliver hits per month](https://data.jsdelivr.com/v1/package/npm/time-input-polyfill/badge)](https://www.jsdelivr.com/package/npm/time-input-polyfill)
 
 - ✔️ Modeled after the Chrome and Firefox implementations
 - ✔️ Fully keyboard and screen reader accessible
