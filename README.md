@@ -136,3 +136,7 @@ if ($input.polyfill) $input.polyfill.update();
 ```
 
 The `update()` method will return the input element that it was called on so it can be chained if you want.
+
+## Change log
+
+You can view the Change Log on the [GitHub Releases](https://github.com/Dan503/time-input-polyfill/releases) page.
