@@ -11,6 +11,8 @@
 
 a {
   color: #fff;
+  word-wrap: break-word;
+
   &:hover, &:focus {
     text-decoration: none;
   }
@@ -37,7 +39,7 @@ body {
   z-index: 1;
 
   @media (max-width: 600px) {
-    padding-top: 100px;
+    padding-top: 10rem;
   }
 }
 
@@ -99,6 +101,7 @@ pre {
 
 .credit {
   font-size: 1.2rem;
+  padding: 0 20px;
 }
 
 .version {
