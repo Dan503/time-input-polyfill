@@ -81,6 +81,9 @@ module.exports = function bind_events ($input) {
 	});
 
 	$input.addEventListener('keydown', function(e) {
+		var is_enter_key = e.which === 13;
+		if (is_enter_key) return true;
+
 		var is_number_key = all_number_keys.indexOf(e.which) > -1;
 		var is_named_key = values(named_keys).indexOf(e.which) > -1;
 		var is_arrow_key = [named_keys.ArrowDown, named_keys.ArrowRight, named_keys.ArrowUp, named_keys.ArrowLeft].indexOf(e.which) > -1;
