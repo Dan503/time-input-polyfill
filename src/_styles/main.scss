@@ -107,6 +107,17 @@ pre {
   font-style: italic;
 }
 
+.fork-message {
+  margin: 0;
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  a, img {
+    display: block;
+  }
+}
+
 .clock {
   position: fixed;
   top: 0;
