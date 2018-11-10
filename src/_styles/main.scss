@@ -11,6 +11,8 @@
 
 a {
   color: #fff;
+  word-wrap: break-word;
+
   &:hover, &:focus {
     text-decoration: none;
   }
@@ -37,7 +39,7 @@ body {
   z-index: 1;
 
   @media (max-width: 600px) {
-    padding-top: 100px;
+    padding-top: 10rem;
   }
 }
 
@@ -93,17 +95,30 @@ pre {
     border-radius: 10px;
     box-decoration-break: clone;
     line-height: 2;
+    word-wrap: break-word;
   }
 }
 
 .credit {
   font-size: 1.2rem;
+  padding: 0 20px;
 }
 
 .version {
   font-size: 2rem;
   margin-top: 0;
   font-style: italic;
+}
+
+.fork-message {
+  margin: 0;
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  a, img {
+    display: block;
+  }
 }
 
 .clock {
