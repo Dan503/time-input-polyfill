@@ -46,6 +46,25 @@
     "watchify": "~3.7.0 ",
     "wrench": "~1.5.8"
   },
+  "keywords": [
+    "time",
+    "input",
+    "polyfill",
+    "IE",
+    "accessible",
+    "accessibility",
+    "a11y"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Dan503/time-input-polyfill.git"
+  },
+  "homepage": "https://dan503.github.io/time-input-polyfill/",
+  "author": "Daniel Tonon",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Dan503/time-input-polyfill/issues"
+  },
   "scripts": {
     "clean-deps": "rimraf node_modules"
   },
