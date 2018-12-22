@@ -12,6 +12,8 @@ An accessible polyfill for `<input type='time'/>` elements.
 
 Demo available here: https://dan503.github.io/time-input-polyfill/
 
+**Note:** If the recommended version in this documentation is out of sync with the npm version, this is because npm only allows readme edits to be committed through full releases. To prevent needless cache invalidation, I'll only update the recommended version number when there are actual changes to the polyfill code. The current recommended version is `1.0.1`. As long as you are using a version that is equal to or higher than that, you are using the latest version of the polyfill.
+
 ## Fastest and easiest way to implement
 
 Add the following script element to your page:
