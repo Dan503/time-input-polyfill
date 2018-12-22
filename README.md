@@ -2,10 +2,13 @@
 
 [![JS Deliver hits per month](https://data.jsdelivr.com/v1/package/npm/time-input-polyfill/badge)](https://www.jsdelivr.com/package/npm/time-input-polyfill)
 
+An accessible polyfill for `<input type='time'/>` elements.
+
 - ✔️ Modeled after the Chrome and Firefox implementations
 - ✔️ Fully keyboard and screen reader accessible
 - ✔️ Submits the same values to servers as real time inputs
 - ✔️ Only downloads the full polyfill code in the browsers that need it
+- ✔️ Zero dependencies
 
 Demo available here: https://dan503.github.io/time-input-polyfill/
 
