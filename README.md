@@ -59,7 +59,7 @@ First check for `input[type="time"]` support.
 ```js
 var supportsTime = require('time-input-polyfill/core/helpers/supportsTime');
 
-if (supportsTime) {
+if (!supportsTime) {
 	//Apply polyfill here
 }
 ```
@@ -70,7 +70,7 @@ Then gather a list of all `input[type="time"]` elements on the page, and loop th
 var supportsTime = require('time-input-polyfill/core/helpers/supportsTime');
 var TimePolyfill = require('time-input-polyfill');
 
-if (supportsTime) {
+if (!supportsTime) {
 	// Converting to an array for IE support
 	var $inputs = [].slice.call( document.querySelectorAll('input[type="time"]') );
 	$inputs.forEach(function($input){
@@ -89,7 +89,7 @@ First check for `input[type="time"]` support.
 <script src="https://cdn.jsdelivr.net/npm/time-input-polyfill@1.0.1/core/helpers/supportsTime.js"></script>
 ```
 ```js
-if (supportsTime) {
+if (!supportsTime) {
 	//Apply polyfill here
 }
 ```
@@ -101,7 +101,7 @@ Then gather a list of all `input[type="time"]` elements on the page, and loop th
 <script src="https://cdn.jsdelivr.net/npm/time-input-polyfill@1.0.1/dist/time-input-polyfill.min.js"></script>
 ```
 ```js
-if (supportsTime) {
+if (!supportsTime) {
 	// Converting to an array for IE support
 	var $inputs = [].slice.call( document.querySelectorAll('input[type="time"]') );
 	$inputs.forEach(function($input){
