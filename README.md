@@ -22,7 +22,7 @@ Add the following script element to your page:
 <script src="https://cdn.jsdelivr.net/npm/time-input-polyfill@1.0.1"></script>
 ```
 
-Alternatively you can download it via npm and use it through commonJS
+Alternatively you can download it via npm and use it through commonJS or an ES6 import statement.
 
 ```
 npm i time-input-polyfill
@@ -31,7 +31,11 @@ npm i time-input-polyfill
 Then require it in your main JavaScript file like so:
 
 ```js
-require('time-input-polyfill/auto')
+// ES5
+require('time-input-polyfill/auto');
+
+// ES6
+import 'time-input-polyfill/auto';
 ```
 
 That's all you need to do.
