@@ -76,8 +76,8 @@ var TimePolyfill = require('time-input-polyfill');
 
 if (!supportsTime) {
 	// Converting to an array for IE support
-	var $inputs = [].slice.call( document.querySelectorAll('input[type="time"]') );
-	$inputs.forEach(function($input){
+	var $$inputs = [].slice.call( document.querySelectorAll('input[type="time"]') );
+	$$inputs.forEach(function($input){
 		new TimePolyfill($input);
 	})
 }
@@ -107,8 +107,8 @@ Then gather a list of all `input[type="time"]` elements on the page, and loop th
 ```js
 if (!supportsTime) {
 	// Converting to an array for IE support
-	var $inputs = [].slice.call( document.querySelectorAll('input[type="time"]') );
-	$inputs.forEach(function($input){
+	var $$inputs = [].slice.call( document.querySelectorAll('input[type="time"]') );
+	$$inputs.forEach(function($input){
 		new TimePolyfill($input);
 	})
 }
