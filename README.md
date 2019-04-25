@@ -4,11 +4,11 @@
 
 An accessible polyfill for `<input type='time'/>` elements.
 
-- ✔️ Modeled after the Chrome and Firefox implementations
-- ✔️ Fully keyboard and screen reader accessible
-- ✔️ Submits the same values to servers as real time inputs
-- ✔️ Only downloads the full polyfill code in the browsers that need it
-- ✔️ Zero dependencies
+- ✔️ Modeled after the Chrome and Firefox desktop implementations.
+- ✔️ Fully keyboard and screen reader accessible.
+- ✔️ Submits the same values to servers as real time inputs.
+- ✔️ Only downloads the full polyfill code in the browsers that need it.
+- ✔️ Zero dependencies.
 
 Demo available here: https://dan503.github.io/time-input-polyfill/
 
@@ -48,7 +48,7 @@ You didn't load the actual polyfill onto the page, you loaded a much smaller aut
 2. If it **does**, it skips the rest of the functionality.
 3. If it does **not**, it will:
 	1. load `https://cdn.jsdelivr.net/npm/time-input-polyfill@1.0.1/dist/time-input-polyfill.min.js` (the actual polyfill).
-	2. Collect all `input[type="time"]` elements on the page.
+	2. Collect all existing `input[type="time"]` elements on the page.
 	3. Loop through each `input[type="time"]` element and apply the polyfill to it.
 
 
@@ -126,7 +126,7 @@ In browsers that support the time input natively, they will provide the `value` 
 
 If this isn't working for you, you can prevent the auto-swap functionality by setting `$input.polyfill.autoSwap = false`. You can access the current input value in 24 hour time format by reading the `data-value` attribute.
 
-You can also switch the `$input` manually to 24 hour time using `$input.polyfill.swap()`. The polyfill does not function properly at the moment while running in 24 hour time. 24 hour time is only meant to be used as a means of submitting correct values to forms. It is not intended to be used as a permanent mode (at least not yet).
+You can also switch the `$input` manually to 24 hour time using `$input.polyfill.swap()`. The polyfill does not function properly at the moment while running in 24 hour time. 24 hour time is only meant to be used as a means of submitting correct values to forms. It is not intended to be used as a permanent mode.
 
 ### You must call `$input.polyfill.update()` on dynamic inputs
 
