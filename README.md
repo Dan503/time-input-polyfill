@@ -4,11 +4,11 @@
 
 An accessible polyfill for `<input type='time'/>` elements.
 
-- ✔️ Modeled after the Chrome and Firefox implementations
-- ✔️ Fully keyboard and screen reader accessible
-- ✔️ Submits the same values to servers as real time inputs
-- ✔️ Only downloads the full polyfill code in the browsers that need it
-- ✔️ Zero dependencies
+- ✔️ Modeled after the Chrome and Firefox desktop implementations.
+- ✔️ Fully keyboard and screen reader accessible.
+- ✔️ Submits the same values to servers as real time inputs.
+- ✔️ Only downloads the full polyfill code in the browsers that need it.
+- ✔️ Zero dependencies.
 
 Demo available here: https://dan503.github.io/time-input-polyfill/
 
@@ -22,7 +22,7 @@ Add the following script element to your page:
 <script src="https://cdn.jsdelivr.net/npm/time-input-polyfill@1.0.1"></script>
 ```
 
-Alternatively you can download it via npm and use it through commonJS
+Alternatively you can download it via npm and use it through commonJS or an ES6 import statement.
 
 ```
 npm i time-input-polyfill
@@ -31,7 +31,11 @@ npm i time-input-polyfill
 Then require it in your main JavaScript file like so:
 
 ```js
-require('time-input-polyfill/auto')
+// ES5
+require('time-input-polyfill/auto');
+
+// ES6
+import 'time-input-polyfill/auto';
 ```
 
 That's all you need to do.
@@ -44,7 +48,7 @@ You didn't load the actual polyfill onto the page, you loaded a much smaller aut
 2. If it **does**, it skips the rest of the functionality.
 3. If it does **not**, it will:
 	1. load `https://cdn.jsdelivr.net/npm/time-input-polyfill@1.0.1/dist/time-input-polyfill.min.js` (the actual polyfill).
-	2. Collect all `input[type="time"]` elements on the page.
+	2. Collect all existing `input[type="time"]` elements on the page.
 	3. Loop through each `input[type="time"]` element and apply the polyfill to it.
 
 
@@ -59,7 +63,7 @@ First check for `input[type="time"]` support.
 ```js
 var supportsTime = require('time-input-polyfill/core/helpers/supportsTime');
 
-if (supportsTime) {
+if (!supportsTime) {
 	//Apply polyfill here
 }
 ```
@@ -70,10 +74,10 @@ Then gather a list of all `input[type="time"]` elements on the page, and loop th
 var supportsTime = require('time-input-polyfill/core/helpers/supportsTime');
 var TimePolyfill = require('time-input-polyfill');
 
-if (supportsTime) {
+if (!supportsTime) {
 	// Converting to an array for IE support
-	var $inputs = [].slice.call( document.querySelectorAll('input[type="time"]') );
-	$inputs.forEach(function($input){
+	var $$inputs = [].slice.call( document.querySelectorAll('input[type="time"]') );
+	$$inputs.forEach(function($input){
 		new TimePolyfill($input);
 	})
 }
@@ -89,7 +93,7 @@ First check for `input[type="time"]` support.
 <script src="https://cdn.jsdelivr.net/npm/time-input-polyfill@1.0.1/core/helpers/supportsTime.js"></script>
 ```
 ```js
-if (supportsTime) {
+if (!supportsTime) {
 	//Apply polyfill here
 }
 ```
@@ -101,10 +105,10 @@ Then gather a list of all `input[type="time"]` elements on the page, and loop th
 <script src="https://cdn.jsdelivr.net/npm/time-input-polyfill@1.0.1/dist/time-input-polyfill.min.js"></script>
 ```
 ```js
-if (supportsTime) {
+if (!supportsTime) {
 	// Converting to an array for IE support
-	var $inputs = [].slice.call( document.querySelectorAll('input[type="time"]') );
-	$inputs.forEach(function($input){
+	var $$inputs = [].slice.call( document.querySelectorAll('input[type="time"]') );
+	$$inputs.forEach(function($input){
 		new TimePolyfill($input);
 	})
 }
@@ -122,7 +126,7 @@ In browsers that support the time input natively, they will provide the `value` 
 
 If this isn't working for you, you can prevent the auto-swap functionality by setting `$input.polyfill.autoSwap = false`. You can access the current input value in 24 hour time format by reading the `data-value` attribute.
 
-You can also switch the `$input` manually to 24 hour time using `$input.polyfill.swap()`. The polyfill does not function properly at the moment while running in 24 hour time. 24 hour time is only meant to be used as a means of submitting correct values to forms. It is not intended to be used as a permanent mode (at least not yet).
+You can also switch the `$input` manually to 24 hour time using `$input.polyfill.swap()`. The polyfill does not function properly at the moment while running in 24 hour time. 24 hour time is only meant to be used as a means of submitting correct values to forms. It is not intended to be used as a permanent mode.
 
 ### You must call `$input.polyfill.update()` on dynamic inputs
 

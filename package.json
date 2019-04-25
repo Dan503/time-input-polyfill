@@ -1,7 +1,7 @@
 {
   "name": "time-input-polyfill",
-  "description": "An accessible polyfill for `<input type='time'/>` elements modeled after the Chrome & Firefox implementations.",
-  "version": "1.0.3",
+  "description": "An accessible polyfill for `<input type='time'/>` elements modeled after the Chrome & Firefox desktop implementations.",
+  "version": "1.0.4",
   "main": "index.js",
   "jsdelivr": "dist/time-input-polyfill.auto.min.js",
   "dependencies": {},
@@ -35,7 +35,6 @@
     "gulp-util": "~3.0.7",
     "imagemin-pngquant": "~4.2.0",
     "imagemin-svgo": "~4.2.0",
-    "jquery": "~2.2.0",
     "js-yaml": "~3.5.2",
     "lodash": "~4.0.0",
     "minimist": "~1.2.0",
