@@ -40,11 +40,9 @@ function for_attribute($input){
 }
 
 function label_wrapper_element($input){
-	var ancestors = get_ancestors($input);
-	var $parentLabel = ancestors.filter(function($elem){
-		return $elem.nodeName === 'LABEL';
-	})[0];
-	if ($parentLabel) return $parentLabel.textContent;
+	var ancestors = get_ancestors($input, 'label');
+	var $parentLabel = ancestors[ancestors.length - 1];
+	if ($parentLabel.nodeName == 'LABEL') return $parentLabel.textContent;
 	return false
 }
 
