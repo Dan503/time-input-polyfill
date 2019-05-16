@@ -146,6 +146,38 @@ if ($input.polyfill) $input.polyfill.update();
 
 The `update()` method will return the input element that it was called on so it can be chained if you want.
 
+### All `$input` elements must have a label
+
+The polyfill will fail if the `$input` is missing a label.
+
+The following is a list of ways you can add a label to the `$input`. The list is in order from the **best** method to the **worst** method:
+
+1. Nesting the `$input` inside a `<label>` _(Doesn't require IDs to work)_
+	```html
+	<label>
+	  <span>Label text</span>
+	  <input type="time">
+	</label>
+	```
+2. Using the `for` attribute
+	```html
+	<label for="uniqueID">Label text</label>
+	<input type="time" id="uniqueID">
+	```
+3. Using the `aria-labelledby` attribute
+	```html
+	<p id="uniqueID">Label text</p>
+	<input type="time" aria-labelledby="uniqueID">
+	```
+4. Using the `title` attribute
+	```html
+	<input type="time" title="Label text">
+	```
+5. Using the `aria-label` attribute
+	```html
+	<input type="time" aria-label="Label text">
+	```
+
 ## Change log
 
 You can view the Change Log on the [GitHub Releases](https://github.com/Dan503/time-input-polyfill/releases) page.
