@@ -26,7 +26,7 @@ function TimePolyfill($input) {
 		accessibility_block_created = true;
 	}
 
-	var label = get_label($input).textContent;
+	var label = get_label($input);
 
 	$input.polyfill = {
 		$a11y: $a11y,
