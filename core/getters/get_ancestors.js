@@ -6,7 +6,10 @@ module.exports = function ($input, selectorString) {
 	var ancestors = [];
 	while ($elem) {
 		ancestors.push($elem);
-		if ($elem.matches(selectorString)) {
+		var matchesSelector = $elem.msMatchesSelector ?
+			$elem.msMatchesSelector(selectorString) :
+			$elem.matches(selectorString);
+		if (matchesSelector) {
 			return ancestors;
 		}
 		$elem = $elem.parentElement;
