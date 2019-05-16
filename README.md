@@ -61,7 +61,7 @@ The following downloads the full polyfill in all browsers, take a look at the [a
 First check for `input[type="time"]` support.
 
 ```js
-var supportsTime = require('time-input-polyfill/core/helpers/supportsTime');
+var supportsTime = require('time-input-polyfill/supportsTime');
 
 if (!supportsTime) {
 	//Apply polyfill here
@@ -71,7 +71,7 @@ if (!supportsTime) {
 Then gather a list of all `input[type="time"]` elements on the page, and loop through them to apply the polyfill.
 
 ```js
-var supportsTime = require('time-input-polyfill/core/helpers/supportsTime');
+var supportsTime = require('time-input-polyfill/supportsTime');
 var TimePolyfill = require('time-input-polyfill');
 
 if (!supportsTime) {
