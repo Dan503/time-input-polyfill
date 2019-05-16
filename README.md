@@ -64,7 +64,7 @@ First check for `input[type="time"]` support.
 var supportsTime = require('time-input-polyfill/supportsTime');
 
 if (!supportsTime) {
-	//Apply polyfill here
+  //Apply polyfill here
 }
 ```
 
@@ -75,11 +75,11 @@ var supportsTime = require('time-input-polyfill/supportsTime');
 var TimePolyfill = require('time-input-polyfill');
 
 if (!supportsTime) {
-	// Converting to an array for IE support
-	var $$inputs = [].slice.call( document.querySelectorAll('input[type="time"]') );
-	$$inputs.forEach(function($input){
-		new TimePolyfill($input);
-	})
+  // Converting to an array for IE support
+  var $$inputs = [].slice.call( document.querySelectorAll('input[type="time"]') );
+  $$inputs.forEach(function($input){
+    new TimePolyfill($input);
+  })
 }
 ```
 
@@ -94,7 +94,7 @@ First check for `input[type="time"]` support.
 ```
 ```js
 if (!supportsTime) {
-	//Apply polyfill here
+  //Apply polyfill here
 }
 ```
 
@@ -106,11 +106,11 @@ Then gather a list of all `input[type="time"]` elements on the page, and loop th
 ```
 ```js
 if (!supportsTime) {
-	// Converting to an array for IE support
-	var $$inputs = [].slice.call( document.querySelectorAll('input[type="time"]') );
-	$$inputs.forEach(function($input){
-		new TimePolyfill($input);
-	})
+  // Converting to an array for IE support
+  var $$inputs = [].slice.call( document.querySelectorAll('input[type="time"]') );
+  $$inputs.forEach(function($input){
+    new TimePolyfill($input);
+  })
 }
 ```
 
