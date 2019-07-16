@@ -1,5 +1,4 @@
 
-var prevent_user_select = require('./core/helpers/prevent_user_select');
 var apply_default = require('./core/setters/apply_default');
 var update_time = require('./core/setters/update_time');
 var set_data_attribute = require('./core/setters/set_data_attribute');
@@ -15,8 +14,6 @@ var $a11y;
 function TimePolyfill($input) {
 
 	$input.setAttribute('autocomplete','off');
-
-	prevent_user_select($input);
 
 	// Prevent screen reader from announcing the default stuff
 	$input.setAttribute('aria-hidden', true);
