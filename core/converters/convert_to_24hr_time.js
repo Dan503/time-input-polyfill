@@ -8,7 +8,7 @@ module.exports = function convert_to_24hr_time (timeString_12hr) {
 	var hrs = timeResult ? parseInt(timeResult[1]) : '';
 	var newHrs;
 	if (hrs === 12) {
-		newHrs = isPM ? 12 : 00;
+		newHrs = isPM ? 12 : 0;
 	} else {
 		newHrs = isPM ? hrs + 12 : hrs;
 	}
