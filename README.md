@@ -181,3 +181,9 @@ The following is a list of ways you can add a label to the `$input`. The list is
 ## Change log
 
 You can view the Change Log on the [GitHub Releases](https://github.com/Dan503/time-input-polyfill/releases) page.
+
+## Contributing
+
+Please make pull requests against **Develop** branch rather than Master.
+
+For testing you will need Gulp cli installed (`npm i gulp-cli -g`) then run `gulp --open` from a command line interface.
