@@ -19,7 +19,7 @@ Demo available here: https://dan503.github.io/time-input-polyfill/
 Add the following script element to your page:
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/time-input-polyfill@1.0.7"></script>
+<script src="https://cdn.jsdelivr.net/npm/time-input-polyfill"></script>
 ```
 
 Alternatively you can download it via npm and use it through commonJS or an ES6 import statement.
