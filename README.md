@@ -4,15 +4,22 @@
 
 An accessible polyfill for `<input type='time'/>` elements.
 
-- ✔️ Modeled after the Chrome and Firefox desktop implementations.
+- ✔️ Modeled after the Chrome 78 and Firefox 70 desktop implementations.
 - ✔️ Fully keyboard and screen reader accessible.
-- ✔️ Submits the same values to servers as real time inputs.
+- ✔️ Submits the same values to servers as real time inputs (24 hour time).
 - ✔️ Only downloads the full polyfill code in the browsers that need it.
 - ✔️ Zero dependencies.
 
 Demo available here: https://dan503.github.io/time-input-polyfill/
 
 **Note:** If the recommended version in this documentation is out of sync with the npm version, this is because npm only allows readme edits to be committed through full releases. To prevent needless cache invalidation, I'll only update the recommended version number when there are actual changes to the polyfill code. The current recommended version is `1.0.7`. As long as you are using a version that is equal to or higher than that, you are using the latest version of the polyfill.
+
+## Pre-built components
+
+To make it easier to implement this polyfill into your projects, I have some pre-built component versions of it that you might find easier to use.
+
+- [React component](https://www.npmjs.com/package/react-time-input-polyfill)
+- [Vue component](https://www.npmjs.com/package/vue-time-input-polyfill) (not built yet)
 
 ## Fastest and easiest way to implement
 
