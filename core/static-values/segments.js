@@ -1,6 +1,5 @@
+var ranges = require('./ranges')
 
-var ranges = require('./ranges');
+var segments = Object.keys(ranges)
 
-var segments = Object.keys(ranges);
-
-module.exports = segments;
+module.exports = segments
