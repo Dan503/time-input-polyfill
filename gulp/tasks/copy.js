@@ -5,13 +5,12 @@ import gulp from 'gulp'
 import { plugins, args, config, taskTarget, browserSync, join } from '../utils'
 
 var dirs = config.directories
-var dest = join(taskTarget)
 
 gulp.task('copy:dist', function() {
 	return gulp
 		.src([join('dist/**/*')])
-		.pipe(plugins.changed(dest))
-		.pipe(gulp.dest([dest, 'scripts'].join('/')))
+		.pipe(plugins.changed(taskTarget))
+		.pipe(gulp.dest(join(taskTarget, 'scripts')))
 })
 
 // Copy
@@ -22,6 +21,6 @@ gulp.task('copy', function() {
 			'!' + join(dirs.source, '{**/_*,**/_*/**}'),
 			'!' + join(dirs.source, '**/*.pug'),
 		])
-		.pipe(plugins.changed(dest))
-		.pipe(gulp.dest(dest))
+		.pipe(plugins.changed(taskTarget))
+		.pipe(gulp.dest(taskTarget))
 })

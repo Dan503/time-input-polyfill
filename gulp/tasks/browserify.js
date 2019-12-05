@@ -10,112 +10,91 @@ import {
 	entries,
 	join,
 } from '../utils'
+import rollup from 'rollup-stream'
+import babel from 'rollup-plugin-babel'
 
 var pkg = require('../../package.json')
 var path = require('path')
 var glob = require('glob')
-var browserify = require('browserify')
-var watchify = require('watchify')
-var envify = require('envify')
-var _ = require('lodash')
 var vsource = require('vinyl-source-stream')
 var buffer = require('vinyl-buffer')
 var gulpif = require('gulp-if')
 
 var fileHeader = require('../../core/static-values/header')
 
-var browserifyTask = function({
-	files,
-	dest,
-	done,
-	rename = false,
-	header = '',
-}) {
-	return files.map(function(entry) {
-		// Options
-		var customOpts = {
-			entries: [entry],
-			debug: true,
-			transform: [
-				envify, // Sets NODE_ENV for better optimization of npm packages
-			],
-		}
+let cache = {}
 
-		var bundler = browserify(customOpts)
-
-		// Setup Watchify for faster builds
-		if (!args.production) {
-			var opts = _.assign({}, watchify.args, customOpts)
-			bundler = watchify(browserify(opts))
-		}
-
-		var rebundle = function() {
-			var startTime = new Date().getTime()
-			bundler
-				.bundle()
-				.on('error', function(err) {
-					plugins.util.log(
-						plugins.util.colors.red('Browserify compile error:'),
-						'\n',
-						err,
-						'\n',
+const rollupJS = ({ entryFile, done, dest, rename = false, header = '' }) => {
+	const startTime = new Date().getTime()
+	return (
+		rollup({
+			input: entryFile,
+			sourcemap: !args.production,
+			cache: cache[entryFile],
+			plugins: [babel()],
+			// Intended for use with browsers
+			format: 'iife',
+		})
+			.on('bundle', function(bundle) {
+				// update cache data after every bundle is created
+				cache[entryFile] = bundle
+			})
+			// point to the entry file.
+			.pipe(vsource('main.js'))
+			// we need to buffer the output, since many gulp plugins don't support streams.
+			.pipe(buffer())
+			.pipe(plugins.sourcemaps.init({ loadMaps: true }))
+			// minify code if production mode
+			.pipe(gulpif(args.production, plugins.terser()))
+			.pipe(
+				plugins.rename(function(filepath) {
+					// Remove 'source' directory as well as prefixed folder underscores
+					// Ex: 'src/_scripts' --> '/scripts'
+					filepath.dirname = filepath.dirname.replace(
+						dirs.source + '/',
+						'',
 					)
-					this.emit('end')
-				})
-				.pipe(vsource(entry))
-				.pipe(buffer())
-				.pipe(plugins.sourcemaps.init({ loadMaps: true }))
-				.pipe(gulpif(args.production, plugins.terser()))
-				.on('error', plugins.util.log)
-				.pipe(
-					plugins.rename(function(filepath) {
-						// Remove 'source' directory as well as prefixed folder underscores
-						// Ex: 'src/_scripts' --> '/scripts'
-						filepath.dirname = filepath.dirname
-							.replace(dirs.source, '')
-							.replace('_', '')
-						if (rename) {
-							filepath.basename = rename
-						}
-					}),
-				)
-				.pipe(plugins.header(header))
-				.pipe(plugins.sourcemaps.write('./'))
-				.pipe(gulp.dest(dest))
-				// Show which file was bundled and how long it took
-				.on('end', function() {
-					if (args.production) {
-						gulp.series('copy:dist')(done)
+					if (rename) {
+						filepath.basename = rename
 					}
-					var time = (new Date().getTime() - startTime) / 1000
-					console.log(
-						plugins.util.colors.cyan(entry) +
-							' was browserified: ' +
-							plugins.util.colors.magenta(time + 's'),
-					)
-					return browserSync.reload('*.js')
-				})
-		}
+				}),
+			)
+			.pipe(plugins.header(header))
+			.pipe(plugins.sourcemaps.write('.'))
+			// and output to ./dist/app.js as normal.
+			.pipe(gulp.dest(dest.replace(/^_|(\/)_/g, '$1')))
+			.on('end', function() {
+				var time = (new Date().getTime() - startTime) / 1000
+				console.log(
+					plugins.util.colors.cyan(entryFile) +
+						' was compiled: ' +
+						plugins.util.colors.magenta(time + 's'),
+				)
+				gulp.series('copy:dist')(done)
+				return browserSync.reload('*.js')
+			})
+	)
+}
 
-		bundler.on('update', rebundle) // on any dep update, runs the bundler
-		bundler.on('log', plugins.util.log) // output build logs to terminal
-
-		return rebundle()
+const rollup_multiple_files = ({ src, done, dest, rename, header }) => {
+	return glob(src, function(err, files) {
+		if (err) done(err)
+		return Promise.all(
+			files.map(function(entryFile) {
+				return rollupJS({ entryFile, done, dest, rename, header })
+			}),
+		)
 	})
 }
 
 function dist_compile({ done, src, type = '', header }) {
 	if (!args.production) return done()
-	return glob(src, function(err, files) {
-		if (err) done(err)
-		var dest = path.resolve('./dist')
-		return browserifyTask({
-			files,
-			dest,
-			done,
-			rename: 'time-input-polyfill' + type + '.min',
-			header,
-		})
+	return rollup_multiple_files({
+		src,
+		done,
+		dest: './dist',
+		rename: 'time-input-polyfill' + type + '.min',
+		header,
 	})
 }
 
@@ -152,13 +131,10 @@ gulp.task(
 
 // Browserify demo site
 gulp.task('browserify:site', function(done) {
-	return glob('./' + join(dirs.source, dirs.scripts, entries.js), function(
-		err,
-		files,
-	) {
-		if (err) done(err)
-		var dest = path.resolve(taskTarget)
-		return browserifyTask({ files, dest, done })
+	return rollup_multiple_files({
+		src: './' + join(dirs.source, dirs.scripts, entries.js),
+		dest: join('.', taskTarget, dirs.scripts),
+		done,
 	})
 })
 
