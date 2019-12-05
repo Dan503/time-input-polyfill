@@ -46,7 +46,7 @@ gulp.task(
 )
 
 // Default task
-gulp.task('default', gulp.series('clean', 'serve'))
+gulp.task('default', gulp.series('clean', args.production ? 'build' : 'serve'))
 
 // Testing
 gulp.task('test', gulp.series('eslint'))
