@@ -33,7 +33,7 @@ gulp.task('sass', () => {
 		.on('error', function(err) {
 			plugins.util.log(err)
 		})
-		.pipe(plugins.postcss([autoprefixer()]))
+		.pipe(plugins.postcss([autoprefixer({ grid: 'autoplace' })]))
 		.pipe(
 			plugins.rename(function(path) {
 				// Remove 'source' directory as well as prefixed folder underscores
