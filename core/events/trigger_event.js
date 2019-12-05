@@ -1,9 +1,9 @@
-var create_event = require('./create_event')
+import create_event from './create_event'
 
 var inputEvent = create_event('input')
 var changeEvent = create_event('change')
 
-module.exports = function trigger_event($input, eventName) {
+export default function trigger_event($input, eventName) {
 	var event = {
 		input: inputEvent,
 		change: changeEvent,

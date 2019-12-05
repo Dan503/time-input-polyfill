@@ -1,1 +1,1 @@
-module.exports = require('./core/helpers/supportsTime')
+export { default } from './core/helpers/supportsTime'

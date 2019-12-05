@@ -22,4 +22,4 @@ var all_number_keys = [
 	105,
 ]
 
-module.exports = all_number_keys
+export default all_number_keys

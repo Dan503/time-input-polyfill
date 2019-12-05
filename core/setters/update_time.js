@@ -1,6 +1,6 @@
-var set_time = require('../setters/set_time')
+import set_time from '../setters/set_time'
 
-module.exports = function update_time($input) {
+export default function update_time($input) {
 	set_time($input, $input.value)
 	return $input
 }

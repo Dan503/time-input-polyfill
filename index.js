@@ -1,11 +1,11 @@
-var apply_default = require('./core/setters/apply_default')
-var update_time = require('./core/setters/update_time')
-var set_data_attribute = require('./core/setters/set_data_attribute')
-var bind_events = require('./core/events/bind_events')
-var switch_times = require('./core/setters/switch_times')
-var get_label = require('./core/getters/get_label')
+import apply_default from './core/setters/apply_default'
+import update_time from './core/setters/update_time'
+import set_data_attribute from './core/setters/set_data_attribute'
+import bind_events from './core/events/bind_events'
+import switch_times from './core/setters/switch_times'
+import get_label from './core/getters/get_label'
 
-var create_a11y_block = require('./core/accessibility/create_a11y_block')
+import create_a11y_block from './core/accessibility/create_a11y_block'
 
 var accessibility_block_created = false
 var $a11y
@@ -46,5 +46,8 @@ function TimePolyfill($input) {
 	bind_events($input)
 }
 
-if (window) window.TimePolyfill = TimePolyfill
-if (module) module.exports = TimePolyfill
+if (window) {
+	window.TimePolyfill = TimePolyfill
+}
+
+export default TimePolyfill

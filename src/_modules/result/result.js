@@ -1,4 +1,4 @@
-module.exports = function($result, values) {
+export default function($result, values) {
 	var $list = $result.querySelector('.result__list')
 	var $close = $result.querySelector('.result__close')
 

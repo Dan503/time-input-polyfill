@@ -1,3 +1,3 @@
-module.exports = function convert_number(number) {
+export default function convert_number(number) {
 	return isNaN(number) ? number : parseInt(number)
 }

@@ -1,6 +1,6 @@
-var leading_zero = require('./leading_zero')
+import leading_zero from './leading_zero'
 
-module.exports = function convert_to_24hr_time(timeString_12hr) {
+export default function convert_to_24hr_time(timeString_12hr) {
 	if (/-/.test(timeString_12hr)) return ''
 	var isPM = timeString_12hr.indexOf('PM') > -1
 	var timeResult = /^([0-9]{2})/.exec(timeString_12hr)

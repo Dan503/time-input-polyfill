@@ -4,13 +4,13 @@
 'use strict'
 
 // Time input polyfill
-var TimePolyfill = require('../../index')
-var _$$ = require('../../core/selectors/_$$')
-var toArray = require('../../core/converters/toArray')
+import TimePolyfill from '../../index'
+import _$$ from '../../core/selectors/_$$'
+import toArray from '../../core/converters/toArray'
 
-var result = require('../_modules/result/result')
+import result from '../_modules/result/result'
 
-var ga = require('./_helpers/gtag')
+import ga from './_helpers/gtag'
 
 document.addEventListener('DOMContentLoaded', function() {
 	// var $$timeInputs = _$$('input[type="time"]');

@@ -4,4 +4,4 @@ var ranges = {
 	mode: { start: 6, end: 8 },
 }
 
-module.exports = ranges
+export default ranges

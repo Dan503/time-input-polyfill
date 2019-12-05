@@ -1,7 +1,7 @@
-var switch_to_data_value = require('./switch_to_data_value')
-var set_time = require('./set_time')
+import switch_to_data_value from './switch_to_data_value'
+import set_time from './set_time'
 
-module.exports = function switch_times($input, format) {
+export default function switch_times($input, format) {
 	var is12hr = /\s/.test($input.value)
 
 	if (format != 12 && format != 24) {

@@ -1,4 +1,4 @@
-var pkg = require('../../package.json')
+import pkg from '../../package.json'
 
 var header = `
 /*!
@@ -10,4 +10,4 @@ var header = `
  **/
 `
 
-module.exports = header
+export default header

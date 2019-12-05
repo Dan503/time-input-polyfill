@@ -12,7 +12,7 @@ function items() {
 	return manual_entry_log
 }
 
-module.exports = {
+export default {
 	items: items,
 	clear: clear,
 	add: add,

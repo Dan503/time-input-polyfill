@@ -1,6 +1,6 @@
-var get_ancestors = require('./get_ancestors')
+import get_ancestors from './get_ancestors'
 
-module.exports = function get_label($input) {
+export default function get_label($input) {
 	var labelText =
 		aria_labelledby($input) ||
 		aria_label($input) ||

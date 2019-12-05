@@ -1,4 +1,4 @@
-module.exports = function select_segment($input, segment) {
+export default function select_segment($input, segment) {
 	set_input_type()
 
 	var actions = {

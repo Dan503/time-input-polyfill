@@ -1,5 +1,5 @@
-var supports_time = require('./core/helpers/supportsTime')
-var loadJS = require('./core/helpers/loadJS')
+import supports_time from './core/helpers/supportsTime'
+import loadJS from './core/helpers/loadJS'
 
 document.addEventListener('DOMContentLoaded', function() {
 	if (!supports_time) {

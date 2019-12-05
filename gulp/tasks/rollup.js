@@ -13,14 +13,14 @@ import {
 import rollup from 'rollup-stream'
 import babel from 'rollup-plugin-babel'
 
-var pkg = require('../../package.json')
-var path = require('path')
-var glob = require('glob')
-var vsource = require('vinyl-source-stream')
-var buffer = require('vinyl-buffer')
-var gulpif = require('gulp-if')
+import pkg from '../../package.json'
+import path from 'path'
+import glob from 'glob'
+import vsource from 'vinyl-source-stream'
+import buffer from 'vinyl-buffer'
+import gulpif from 'gulp-if'
 
-var fileHeader = require('../../core/static-values/header')
+import fileHeader from '../../core/static-values/header'
 
 let cache = {}
 
@@ -34,6 +34,7 @@ const rollupJS = ({ entryFile, done, dest, rename = false, header = '' }) => {
 			plugins: [babel()],
 			// Intended for use with browsers
 			format: 'iife',
+			name: 'TimePolyfill_bundle',
 		})
 			.on('bundle', function(bundle) {
 				// update cache data after every bundle is created

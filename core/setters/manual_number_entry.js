@@ -1,11 +1,11 @@
-var get_current_segment = require('../getters/get_current_segment')
-var set_segment = require('./set_segment')
-var next_segment = require('../selectors/next_segment')
+import get_current_segment from '../getters/get_current_segment'
+import set_segment from './set_segment'
+import next_segment from '../selectors/next_segment'
 
-var manual_entry_log = require('../helpers/manual_entry_log')
-var sorted_number_keys = require('../static-values/sorted_number_keys')
+import manual_entry_log from '../helpers/manual_entry_log'
+import sorted_number_keys from '../static-values/sorted_number_keys'
 
-module.exports = function manual_number_entry($input, key) {
+export default function manual_number_entry($input, key) {
 	var key_value = sorted_number_keys[key]
 	var segment = get_current_segment($input)
 

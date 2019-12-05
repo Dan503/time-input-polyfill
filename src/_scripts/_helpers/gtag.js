@@ -1,5 +1,5 @@
 //Code for tracking Google Analytics events
-module.exports = function GA_trackEvent(action, categoryLabelValue) {
+export default function GA_trackEvent(action, categoryLabelValue) {
 	if (typeof gtag !== 'undefined') {
 		if (categoryLabelValue) {
 			gtag('event', action, {

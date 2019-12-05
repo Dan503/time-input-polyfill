@@ -1,7 +1,7 @@
-var apply_default = require('./apply_default')
-var select_segment = require('../selectors/select_segment')
+import apply_default from './apply_default'
+import select_segment from '../selectors/select_segment'
 
-module.exports = function reset($input) {
+export default function reset($input) {
 	apply_default($input)
 	select_segment($input, 'hrs')
 }

@@ -12,4 +12,4 @@ function get_time_support() {
 var timeSupport = get_time_support()
 
 if (window) window.supportsTime = timeSupport
-if (module) module.exports = timeSupport
+export default timeSupport

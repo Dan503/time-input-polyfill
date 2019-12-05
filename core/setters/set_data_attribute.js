@@ -1,6 +1,6 @@
-var convert_to_24hr_time = require('../converters/convert_to_24hr_time')
+import convert_to_24hr_time from '../converters/convert_to_24hr_time'
 
-module.exports = function set_data_attribute($input, timeString_12hr) {
+export default function set_data_attribute($input, timeString_12hr) {
 	var filteredString =
 		timeString_12hr.indexOf('-') > -1 ? '' : timeString_12hr
 	var time24hr = convert_to_24hr_time(filteredString)

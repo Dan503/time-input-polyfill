@@ -12,4 +12,4 @@ var named_keys = {
 	p: 80,
 }
 
-module.exports = named_keys
+export default named_keys

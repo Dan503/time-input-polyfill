@@ -1,7 +1,7 @@
-var ranges = require('../static-values/ranges')
-var get_selected_range = require('./get_selected_range')
+import ranges from '../static-values/ranges'
+import get_selected_range from './get_selected_range'
 
-module.exports = function get_current_segment($input) {
+export default function get_current_segment($input) {
 	var selection = get_selected_range($input)
 	for (var segment in ranges) {
 		var range = ranges[segment]

@@ -1,7 +1,7 @@
-var get_values = require('../getters/get_values')
-var set_segment = require('./set_segment')
+import get_values from '../getters/get_values'
+import set_segment from './set_segment'
 
-module.exports = function switch_mode($input, default_mode) {
+export default function switch_mode($input, default_mode) {
 	default_mode = default_mode || 'AM'
 	var current_mode = get_values($input).mode
 	var new_mode = {

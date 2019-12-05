@@ -1,5 +1,5 @@
 // selector is optional, it allows for an early exit
-module.exports = function($input, selectorString) {
+export default function($input, selectorString) {
 	var $elem = $input
 
 	// https://stackoverflow.com/a/8729274/1611058

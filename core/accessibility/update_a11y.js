@@ -1,7 +1,7 @@
-var get_current_segment = require('../getters/get_current_segment')
-var get_values = require('../getters/get_values')
+import get_current_segment from '../getters/get_current_segment'
+import get_values from '../getters/get_values'
 
-module.exports = function update_a11y($input, announcementArray) {
+export default function update_a11y($input, announcementArray) {
 	// Timeout helps ensure that the input has stabilized
 	setTimeout(function() {
 		var current_segment = get_current_segment($input)

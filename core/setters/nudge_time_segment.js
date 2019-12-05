@@ -1,9 +1,9 @@
-var get_values = require('../getters/get_values')
-var convert_hours_to_12hr_time = require('../converters/convert_hours_to_12hr_time')
-var leading_zero = require('../converters/leading_zero')
-var set_segment = require('./set_segment')
+import get_values from '../getters/get_values'
+import convert_hours_to_12hr_time from '../converters/convert_hours_to_12hr_time'
+import leading_zero from '../converters/leading_zero'
+import set_segment from './set_segment'
 
-module.exports = function nudge_time_segment($input, segment, direction) {
+export default function nudge_time_segment($input, segment, direction) {
 	var current_values = get_values($input)
 	var time
 

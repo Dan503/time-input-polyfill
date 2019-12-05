@@ -1,29 +1,29 @@
-var values = require('../helpers/values')
+import values from '../helpers/values'
 
-var select_segment = require('../selectors/select_segment')
+import select_segment from '../selectors/select_segment'
 
-var next_segment = require('../selectors/next_segment')
-var prev_segment = require('../selectors/prev_segment')
-var select_cursor_segment = require('../selectors/select_cursor_segment')
+import next_segment from '../selectors/next_segment'
+import prev_segment from '../selectors/prev_segment'
+import select_cursor_segment from '../selectors/select_cursor_segment'
 
-var get_current_segment = require('../getters/get_current_segment')
+import get_current_segment from '../getters/get_current_segment'
 
-var reset = require('../setters/reset')
-var manual_number_entry = require('../setters/manual_number_entry')
-var clear_segment = require('../setters/clear_segment')
-var increment_current_segment = require('../setters/increment_current_segment')
-var decrement_current_segment = require('../setters/decrement_current_segment')
-var set_mode = require('../setters/set_mode')
-var switch_times = require('../setters/switch_times')
+import reset from '../setters/reset'
+import manual_number_entry from '../setters/manual_number_entry'
+import clear_segment from '../setters/clear_segment'
+import increment_current_segment from '../setters/increment_current_segment'
+import decrement_current_segment from '../setters/decrement_current_segment'
+import set_mode from '../setters/set_mode'
+import switch_times from '../setters/switch_times'
 
-var handle_tab = require('../events/handle_tab')
+import handle_tab from '../events/handle_tab'
 
-var all_number_keys = require('../static-values/all_number_keys')
-var named_keys = require('../static-values/named_keys')
+import all_number_keys from '../static-values/all_number_keys'
+import named_keys from '../static-values/named_keys'
 
-var update_a11y = require('../accessibility/update_a11y')
+import update_a11y from '../accessibility/update_a11y'
 
-module.exports = function bind_events($input) {
+export default function bind_events($input) {
 	var prev_value = ''
 
 	var shiftKey = false

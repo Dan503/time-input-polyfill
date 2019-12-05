@@ -1,5 +1,5 @@
-var ranges = require('./ranges')
+import ranges from './ranges'
 
 var segments = Object.keys(ranges)
 
-module.exports = segments
+export default segments

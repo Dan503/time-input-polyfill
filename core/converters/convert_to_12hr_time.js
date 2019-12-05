@@ -1,8 +1,8 @@
-var convert_number = require('./convert_number')
-var convert_hours_to_12hr_time = require('./convert_hours_to_12hr_time')
-var leading_zero = require('./leading_zero')
+import convert_number from './convert_number'
+import convert_hours_to_12hr_time from './convert_hours_to_12hr_time'
+import leading_zero from './leading_zero'
 
-module.exports = function convert_to_12hr_time(timeString_24hr) {
+export default function convert_to_12hr_time(timeString_24hr) {
 	if (timeString_24hr === '') return '--:-- --'
 	var twentyFour_regex = /([0-9]{2})\:([0-9]{2})/
 	var result = twentyFour_regex.exec(timeString_24hr)
