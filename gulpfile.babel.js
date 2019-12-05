@@ -14,10 +14,16 @@ glob.sync('./gulp/tasks/**/*.js')
 		require(file)
 	})
 
+const production_mode_on = done => {
+	args.production = true
+	done()
+}
+
 // Build production-ready code
 gulp.task(
 	'build',
 	gulp.series(
+		production_mode_on,
 		gulp.parallel('copy', 'imagemin', 'pug', 'sass', 'browserify'),
 		'rev',
 	),
