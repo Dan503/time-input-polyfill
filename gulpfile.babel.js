@@ -24,7 +24,7 @@ gulp.task(
 	'build',
 	gulp.series(
 		production_mode_on,
-		gulp.parallel('copy', 'imagemin', 'pug', 'sass', 'browserify'),
+		gulp.parallel('copy', 'imagemin', 'pug', 'sass', 'rollup'),
 		'rev',
 	),
 )
@@ -38,7 +38,7 @@ gulp.task(
 			'copy',
 			'pug',
 			'sass',
-			'browserify',
+			'rollup',
 			'browserSync',
 			'watch',
 		),

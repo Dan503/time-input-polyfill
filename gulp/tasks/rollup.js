@@ -98,13 +98,13 @@ function dist_compile({ done, src, type = '', header }) {
 	})
 }
 
-// Browserify JS library
-gulp.task('browserify:dist:manual', function(done) {
+// Rollup JS library
+gulp.task('rollup:dist:manual', function(done) {
 	return dist_compile({ done, src: './index.js', header: fileHeader })
 })
 
-// Browserify JS library
-gulp.task('browserify:dist:auto', function(done) {
+// Rollup JS library
+gulp.task('rollup:dist:auto', function(done) {
 	return dist_compile({
 		done,
 		src: './auto.js',
@@ -125,12 +125,12 @@ gulp.task('browserify:dist:auto', function(done) {
 })
 
 gulp.task(
-	'browserify:dist',
-	gulp.parallel('browserify:dist:manual', 'browserify:dist:auto'),
+	'rollup:dist',
+	gulp.parallel('rollup:dist:manual', 'rollup:dist:auto'),
 )
 
-// Browserify demo site
-gulp.task('browserify:site', function(done) {
+// Rollup demo site
+gulp.task('rollup:site', function(done) {
 	return rollup_multiple_files({
 		src: './' + join(dirs.source, dirs.scripts, entries.js),
 		dest: join('.', taskTarget, dirs.scripts),
@@ -138,4 +138,4 @@ gulp.task('browserify:site', function(done) {
 	})
 })
 
-gulp.task('browserify', gulp.parallel('browserify:dist', 'browserify:site'))
+gulp.task('rollup', gulp.parallel('rollup:dist', 'rollup:site'))
