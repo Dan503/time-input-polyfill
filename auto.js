@@ -7,12 +7,12 @@ document.addEventListener('DOMContentLoaded', function() {
       'https://cdn.jsdelivr.net/npm/time-input-polyfill@1.0.9/dist/time-input-polyfill.min.js',
       function() {
         var $inputs = [].slice.call(
-          document.querySelectorAll('input[type="time"]'),
+          document.querySelectorAll('input[type="time"]')
         )
         $inputs.forEach(function($input) {
           new TimePolyfill($input)
         })
-      },
+      }
     )
   }
 })
