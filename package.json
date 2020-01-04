@@ -1,7 +1,7 @@
 {
   "name": "time-input-polyfill",
-  "description": "An accessible polyfill for `<input type='time'/>` elements modeled after the Chrome & Firefox desktop implementations.",
-  "version": "1.0.8",
+  "description": "An accessible polyfill for `[input type='time']` elements modeled after the Chrome & Firefox desktop implementations.",
+  "version": "1.0.9",
   "main": "index.js",
   "jsdelivr": "dist/time-input-polyfill.auto.min.js",
   "dependencies": {},
