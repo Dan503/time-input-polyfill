@@ -15,7 +15,7 @@ gulp.task('watch', done => {
 				join(dirs.source, dirs.styles) + '/**/*.{scss,sass}',
 				join(dirs.source, dirs.modules) + '/**/*.{scss,sass}',
 			],
-			gulp.series('sass'),
+			gulp.series('sass')
 		)
 
 		// Pug Templates
@@ -24,7 +24,7 @@ gulp.task('watch', done => {
 				dirs.source + '**/*.pug',
 				join(dirs.source, dirs.data) + '/**/*.{json,yaml,yml}',
 			],
-			gulp.series('pug'),
+			gulp.series('pug')
 		)
 
 		// Copy
@@ -34,13 +34,13 @@ gulp.task('watch', done => {
 				'!' + dirs.source + '/{**/_*,**/_*/**}',
 				'!' + dirs.source + '/**/*.pug',
 			],
-			gulp.series('copy'),
+			gulp.series('copy')
 		)
 
 		// Images
 		gulp.watch(
 			[join(dirs.source, dirs.images) + '/**/*.{jpg,jpeg,gif,svg,png}'],
-			gulp.series('imagemin'),
+			gulp.series('imagemin')
 		)
 
 		// All other files

@@ -17,8 +17,8 @@ gulp.task('sass', () => {
 		.pipe(
 			gulpif(
 				!args.production,
-				plugins.sourcemaps.init({ loadMaps: true }),
-			),
+				plugins.sourcemaps.init({ loadMaps: true })
+			)
 		)
 		.pipe(
 			plugins.sass({
@@ -28,7 +28,7 @@ gulp.task('sass', () => {
 					join(dirs.source, dirs.styles),
 					join(dirs.source, dirs.modules),
 				],
-			}),
+			})
 		)
 		.on('error', function(err) {
 			plugins.util.log(err)
@@ -41,7 +41,7 @@ gulp.task('sass', () => {
 				path.dirname = path.dirname
 					.replace(dirs.source, '')
 					.replace('_', '')
-			}),
+			})
 		)
 		.pipe(gulpif(args.production, plugins.cssnano({ rebase: false })))
 		.pipe(gulpif(!args.production, plugins.sourcemaps.write('./')))

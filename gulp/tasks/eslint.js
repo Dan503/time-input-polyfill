@@ -19,13 +19,13 @@ gulp.task('eslint', () => {
 				// Ignore all vendor folder files
 				'!**/vendor/**/*',
 			],
-			{ cwd: dirs.source },
+			{ cwd: dirs.source }
 		)
 		.pipe(browserSync.reload({ stream: true, once: true }))
 		.pipe(
 			plugins.eslint({
 				useEslintrc: true,
-			}),
+			})
 		)
 		.pipe(plugins.eslint.format())
 		.pipe(gulpif(!browserSync.active, plugins.eslint.failAfterError()))

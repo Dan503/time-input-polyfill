@@ -25,9 +25,9 @@ gulp.task('imagemin', () => {
 							plugins: [{ removeViewBox: false }],
 						}),
 					],
-					{ use: [pngquant({ speed: 10 })] },
-				),
-			),
+					{ use: [pngquant({ speed: 10 })] }
+				)
+			)
 		)
 		.pipe(gulp.dest(dest))
 })

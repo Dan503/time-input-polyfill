@@ -43,11 +43,11 @@ gulp.task('pug', () => {
 	// what data is being loaded into your templates
 	if (args.debug) {
 		plugins.util.log(
-			'==== DEBUG: site.data being injected to templates ====',
+			'==== DEBUG: site.data being injected to templates ===='
 		)
 		plugins.util.log(siteData)
 		plugins.util.log(
-			'\n==== DEBUG: package.json config being injected to templates ====',
+			'\n==== DEBUG: package.json config being injected to templates ===='
 		)
 		plugins.util.log(config)
 	}
@@ -70,7 +70,7 @@ gulp.task('pug', () => {
 							data: siteData,
 						},
 					},
-				}),
+				})
 			)
 			.pipe(
 				plugins.htmlmin({
@@ -79,7 +79,7 @@ gulp.task('pug', () => {
 					removeCommentsFromCDATA: true,
 					removeEmptyAttributes: true,
 					removeRedundantAttributes: true,
-				}),
+				})
 			)
 			.pipe(gulp.dest(dest))
 			.on('end', browserSync.reload)

@@ -16,7 +16,7 @@ gulp.task('rev', () => {
 	// gulp-rev-rewrite will mangle binary files (images, etc), so ignore them
 	const binaryAssetFilter = gulpFilter(
 		['**', '!**/*.{ico,png,jpg,jpeg,gif,webp}'],
-		{ restore: true },
+		{ restore: true }
 	)
 	const htmlFilter = gulpFilter(['**', '!**/*.html'], { restore: true })
 	return gulp

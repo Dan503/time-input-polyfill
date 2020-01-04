@@ -53,12 +53,12 @@ const rollupJS = ({ entryFile, done, dest, rename = false, header = '' }) => {
 					// Ex: 'src/_scripts' --> '/scripts'
 					filepath.dirname = filepath.dirname.replace(
 						dirs.source + '/',
-						'',
+						''
 					)
 					if (rename) {
 						filepath.basename = rename
 					}
-				}),
+				})
 			)
 			.pipe(plugins.header(header))
 			.pipe(plugins.sourcemaps.write('.'))
@@ -69,7 +69,7 @@ const rollupJS = ({ entryFile, done, dest, rename = false, header = '' }) => {
 				console.log(
 					plugins.util.colors.cyan(entryFile) +
 						' was compiled: ' +
-						plugins.util.colors.magenta(time + 's'),
+						plugins.util.colors.magenta(time + 's')
 				)
 				gulp.series('copy:dist')(done)
 				return browserSync.reload('*.js')
@@ -83,7 +83,7 @@ const rollup_multiple_files = ({ src, done, dest, rename, header }) => {
 		return Promise.all(
 			files.map(function(entryFile) {
 				return rollupJS({ entryFile, done, dest, rename, header })
-			}),
+			})
 		)
 	})
 }
@@ -118,16 +118,14 @@ gulp.task('rollup:dist:auto', function(done) {
 			'apply it to all input[type=time] elements.\n',
 			'\n',
 			'// The actual polyfill is found here:\n',
-			`// https://cdn.jsdelivr.net/npm/time-input-polyfill@${
-				pkg.version
-			}/dist/time-input-polyfill.min.js\n\n`,
+			`// https://cdn.jsdelivr.net/npm/time-input-polyfill@${pkg.version}/dist/time-input-polyfill.min.js\n\n`,
 		].join(''),
 	})
 })
 
 gulp.task(
 	'rollup:dist',
-	gulp.parallel('rollup:dist:manual', 'rollup:dist:auto'),
+	gulp.parallel('rollup:dist:manual', 'rollup:dist:auto')
 )
 
 // Rollup demo site
