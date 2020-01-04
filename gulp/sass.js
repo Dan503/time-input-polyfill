@@ -42,19 +42,15 @@ module.exports = function(
           })
           .on('error', plugins.sass.logError),
       )
-      .pipe(
-        plugins.postcss([
-          autoprefixer({
-            browsers: [
-              'last 2 version',
-              '> 5%',
-              'safari 5',
-              'ios 6',
-              'android 4',
-            ],
-          }),
-        ]),
-      )
+      // .pipe(
+      //   plugins.postcss([
+      //     autoprefixer({
+      //       overrideBrowserslist: [
+      //         '> 0.5%',
+      //       ],
+      //     }),
+      //   ]),
+      // )
       .pipe(
         plugins.rename(function(filepath) {
           // Remove 'source' directory as well as prefixed folder underscores
