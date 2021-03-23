@@ -10,7 +10,7 @@ import create_a11y_block from './core/accessibility/create_a11y_block'
 var accessibility_block_created = false
 var $a11y
 
-function TimePolyfill($input) {
+function TimePolyfill($input, $label) {
 	$input.setAttribute('autocomplete', 'off')
 
 	// Prevent screen reader from announcing the default stuff
@@ -21,7 +21,7 @@ function TimePolyfill($input) {
 		accessibility_block_created = true
 	}
 
-	var label = get_label($input)
+	const label = $label ? $label.textContent : get_label($input)
 
 	$input.polyfill = {
 		$a11y: $a11y,
