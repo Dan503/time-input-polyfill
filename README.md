@@ -128,9 +128,9 @@ if (!supportsTime) {
 
 This will add a global `TimePolyfill` function to the page.
 
-### Shadow DOM
+## Shadow DOM
 
-When your code is inside a component that resides in the Shadow DOM, the polyfill may not be able to find your label
+When your code is inside a component that resides in the Shadow DOM, the polyfill will not be able to find your label
 element. For this case, you can pass your label element in directly.
 
 ```
@@ -139,15 +139,14 @@ element. For this case, you can pass your label element in directly.
 ```         
 
 ```               
-// This example is in Angular/Typscript
-
 import * as timePolyFill from 'time-input-polyfill';
 
-public constructor(private elemRef: ElementRef) {
-
-private someMethod(): void {
-  const timeLabelElem: HTMLElement = this.elemRef.nativeElement.shadowRoot.getElementById('myLabel');
-  const timeInputElem: HTMLElement = this.elemRef.nativeElement.shadowRoot.getElementById('timeInput');
+someMethod() {
+  // The following element must not be in a shadow DOM
+  var componentRootElem = document.getElementById('idOfYourShadowDomComponentRootElement');
+  
+  var timeLabelElem = componentRootElem.shadowRoot.getElementById('myLabel');
+  var timeInputElem = componentRootElem.shadowRoot.getElementById('timeInput');
   timePolyFill(timeInputElem, timeLabelElem);
 }
 ```
