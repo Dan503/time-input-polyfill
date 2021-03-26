@@ -48,9 +48,6 @@ require('time-input-polyfill/auto');
 
 // ES6
 import 'time-input-polyfill/auto';
-
-// TypeScript
-import * as timePolyFill from 'time-input-polyfill';
 ```
 
 That's all you need to do.
