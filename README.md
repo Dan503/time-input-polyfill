@@ -135,7 +135,7 @@ element. For this case, you can pass your label element in directly.
 
 ```
 <label id="myLabel"></label>
-<input #time type="time" id="timeInput">
+<input type="time" id="timeInput">
 ```         
 
 ```               
