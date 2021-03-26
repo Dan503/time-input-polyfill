@@ -48,6 +48,9 @@ require('time-input-polyfill/auto');
 
 // ES6
 import 'time-input-polyfill/auto';
+
+// TypeScript
+import * as timePolyFill from 'time-input-polyfill';
 ```
 
 That's all you need to do.
@@ -134,12 +137,12 @@ When your code is inside a component that resides in the Shadow DOM, the polyfil
 element. For this case, you can pass your label element in directly.
 
 ```
-<label id="myLabel"></label>
+<label id="myLabel" for="timeInput></label>
 <input type="time" id="timeInput">
 ```         
 
 ```               
-import * as timePolyFill from 'time-input-polyfill';
+import timePolyfill from 'time-input-polyfill';
 
 someMethod() {
   // The following element must not be in a shadow DOM
