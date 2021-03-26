@@ -128,6 +128,29 @@ if (!supportsTime) {
 
 This will add a global `TimePolyfill` function to the page.
 
+## Shadow DOM
+
+When your code is inside a component that resides in the Shadow DOM, the polyfill will not be able to find your label
+element. For this case, you can pass your label element in directly.
+
+```
+<label id="myLabel" for="timeInput></label>
+<input type="time" id="timeInput">
+```         
+
+```               
+import timePolyfill from 'time-input-polyfill';
+
+someMethod() {
+  // The following element must not be in a shadow DOM
+  var componentRootElem = document.getElementById('idOfYourShadowDomComponentRootElement');
+  
+  var timeLabelElem = componentRootElem.shadowRoot.getElementById('myLabel');
+  var timeInputElem = componentRootElem.shadowRoot.getElementById('timeInput');
+  timePolyFill(timeInputElem, timeLabelElem);
+}
+```
+
 ## Major limitations
 
 Note that I refer to an `input[type="time"]` element that has had the polyfill initialized on it as an `$input` in this section.
