@@ -1,17 +1,25 @@
-'use strict'
-
-import path from 'path'
+import gulp from 'gulp'
 import autoprefixer from 'autoprefixer'
 import gulpif from 'gulp-if'
-import gulp from 'gulp'
+import autoImports from 'gulp-auto-imports'
 import { plugins, args, config, taskTarget, browserSync, join } from '../utils'
 
 let dirs = config.directories
 let entries = config.entries
 let dest = join(taskTarget, dirs.styles.replace(/^_/, ''))
 
-// Sass compilation
-gulp.task('sass', () => {
+const sass_auto_imports = () => {
+	const dest = 'src/_styles'
+	return (
+		gulp
+			.src('src/_modules/**/*.scss')
+			// Using the "scss" preset ("dest" must be provided here as well)
+			.pipe(autoImports({ preset: 'scss', dest }))
+			.pipe(gulp.dest(dest))
+	)
+}
+
+const sass_compile = () => {
 	return gulp
 		.src(entries.css, { cwd: join(dirs.source, dirs.styles) })
 		.pipe(
@@ -47,4 +55,7 @@ gulp.task('sass', () => {
 		.pipe(gulpif(!args.production, plugins.sourcemaps.write('./')))
 		.pipe(gulp.dest(dest))
 		.pipe(browserSync.stream({ match: '**/*.css' }))
-})
+}
+
+// Sass compilation
+gulp.task('sass', gulp.series(sass_auto_imports, sass_compile))
