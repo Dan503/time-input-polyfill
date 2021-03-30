@@ -20,7 +20,7 @@ gulp.task('imagemin', () => {
 				args.production,
 				plugins.imagemin(
 					[
-						plugins.imagemin.jpegtran({ progressive: true }),
+						plugins.imagemin.mozjpeg({ progressive: true }),
 						plugins.imagemin.svgo({
 							plugins: [{ removeViewBox: false }],
 						}),
