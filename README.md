@@ -4,18 +4,18 @@
 
 An accessible polyfill for `<input type='time'/>` elements.
 
-- ✔️ Modeled after the Chrome 78 and Firefox 70 desktop implementations.
-- ✔️ Fully keyboard and screen reader accessible.
-- ✔️ Submits the same values to servers as real time inputs (24 hour time).
-- ✔️ Only downloads the full polyfill code in the browsers that need it.
-- ✔️ Zero dependencies.
+-   ✔️ Modeled after the Chrome 78 and Firefox 70 desktop implementations.
+-   ✔️ Fully keyboard and screen reader accessible.
+-   ✔️ Submits the same values to servers as real time inputs (24 hour time).
+-   ✔️ Only downloads the full polyfill code in the browsers that need it.
+-   ✔️ Zero dependencies.
 
 Demo available here: https://dan503.github.io/time-input-polyfill/
 
 <details>
-  <summary>The recommended version is <code>1.0.9</code> or higher.</summary>
+  <summary>The recommended version is <code>1.0.10</code> or higher.</summary>
 
-<p>If the recommended version in this documentation is out of sync with the npm version, this is because npm only allows readme edits to be committed through full releases. To prevent needless cache invalidation, I'll only update the recommended version number when there are actual changes to the polyfill code. The current recommended version is <code>1.0.9</code>. As long as you are using a version that is equal to or higher than that, you are using the latest version of the polyfill.</p>
+<p>If the recommended version in this documentation is out of sync with the npm version, this is because npm only allows readme edits to be committed through full releases. To prevent needless cache invalidation, I'll only update the recommended version number when there are actual changes to the polyfill code. The current recommended version is <code>1.0.10</code>. As long as you are using a version that is equal to or higher than that, you are using the latest version of the polyfill.</p>
 
 </details>
 
@@ -23,8 +23,8 @@ Demo available here: https://dan503.github.io/time-input-polyfill/
 
 To make it easier to implement this polyfill into your projects, I have some pre-built component versions of it that you might find easier to use.
 
-- [React component](https://www.npmjs.com/package/react-time-input-polyfill)
-- [Vue component](https://www.npmjs.com/package/vue-time-input-polyfill) (not built yet)
+-   [React component](https://www.npmjs.com/package/react-time-input-polyfill)
+-   [Vue component](https://www.npmjs.com/package/vue-time-input-polyfill) (not built yet)
 
 ## Fastest and easiest way to implement
 
@@ -44,10 +44,10 @@ Then require it in your main JavaScript file like so:
 
 ```js
 // ES5
-require('time-input-polyfill/auto');
+require('time-input-polyfill/auto')
 
 // ES6
-import 'time-input-polyfill/auto';
+import 'time-input-polyfill/auto'
 ```
 
 That's all you need to do.
@@ -59,10 +59,9 @@ You didn't load the actual polyfill onto the page, you loaded a much smaller aut
 1. The initialiser checks if the browser supports `input[type="time"]` elements.
 2. If it **does**, it skips the rest of the functionality.
 3. If it does **not**, it will:
-	1. load `https://cdn.jsdelivr.net/npm/time-input-polyfill@1.0.9/dist/time-input-polyfill.min.js` (the actual polyfill).
-	2. Collect all existing `input[type="time"]` elements on the page.
-	3. Loop through each `input[type="time"]` element and apply the polyfill to it.
-
+    1. load `https://cdn.jsdelivr.net/npm/time-input-polyfill@1.0.10/dist/time-input-polyfill.min.js` (the actual polyfill).
+    2. Collect all existing `input[type="time"]` elements on the page.
+    3. Loop through each `input[type="time"]` element and apply the polyfill to it.
 
 ## I need more control
 
@@ -73,25 +72,27 @@ The following downloads the full polyfill in all browsers, take a look at the [a
 First check for `input[type="time"]` support.
 
 ```js
-var supportsTime = require('time-input-polyfill/supportsTime');
+var supportsTime = require('time-input-polyfill/supportsTime')
 
 if (!supportsTime) {
-  //Apply polyfill here
+	//Apply polyfill here
 }
 ```
 
 Then gather a list of all `input[type="time"]` elements on the page, and loop through them to apply the polyfill.
 
 ```js
-var supportsTime = require('time-input-polyfill/supportsTime');
-var TimePolyfill = require('time-input-polyfill');
+var supportsTime = require('time-input-polyfill/supportsTime')
+var TimePolyfill = require('time-input-polyfill')
 
 if (!supportsTime) {
-  // Converting to an array for IE support
-  var $$inputs = [].slice.call( document.querySelectorAll('input[type="time"]') );
-  $$inputs.forEach(function($input){
-    new TimePolyfill($input);
-  })
+	// Converting to an array for IE support
+	var $$inputs = [].slice.call(
+		document.querySelectorAll('input[type="time"]')
+	)
+	$$inputs.forEach(function($input) {
+		new TimePolyfill($input)
+	})
 }
 ```
 
@@ -102,27 +103,31 @@ if (!supportsTime) {
 First check for `input[type="time"]` support.
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/time-input-polyfill@1.0.9/core/helpers/supportsTime.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/time-input-polyfill@1.0.10/core/helpers/supportsTime.js"></script>
 ```
+
 ```js
 if (!supportsTime) {
-  //Apply polyfill here
+	//Apply polyfill here
 }
 ```
 
 Then gather a list of all `input[type="time"]` elements on the page, and loop through them to apply the polyfill.
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/time-input-polyfill@1.0.9/core/helpers/supportsTime.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/time-input-polyfill@1.0.9/dist/time-input-polyfill.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/time-input-polyfill@1.0.10/core/helpers/supportsTime.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/time-input-polyfill@1.0.10/dist/time-input-polyfill.min.js"></script>
 ```
+
 ```js
 if (!supportsTime) {
-  // Converting to an array for IE support
-  var $$inputs = [].slice.call( document.querySelectorAll('input[type="time"]') );
-  $$inputs.forEach(function($input){
-    new TimePolyfill($input);
-  })
+	// Converting to an array for IE support
+	var $$inputs = [].slice.call(
+		document.querySelectorAll('input[type="time"]')
+	)
+	$$inputs.forEach(function($input) {
+		new TimePolyfill($input)
+	})
 }
 ```
 
@@ -136,15 +141,15 @@ element. For this case, you can pass your label element in directly.
 ```
 <label id="myLabel" for="timeInput></label>
 <input type="time" id="timeInput">
-```         
+```
 
-```               
+```
 import timePolyfill from 'time-input-polyfill';
 
 someMethod() {
   // The following element must not be in a shadow DOM
   var componentRootElem = document.getElementById('idOfYourShadowDomComponentRootElement');
-  
+
   var timeLabelElem = componentRootElem.shadowRoot.getElementById('myLabel');
   var timeInputElem = componentRootElem.shadowRoot.getElementById('timeInput');
   timePolyFill(timeInputElem, timeLabelElem);
@@ -170,13 +175,14 @@ I couldn't find any reliable way to track when a user uses `$input.value = '13:3
 Any time you update the value of the time input element through JavaScript, check that `$input.polyfill` exists, and if it does, call `$input.polyfill.update()`.
 
 ```html
-<input id="example" type="time">
+<input id="example" type="time" />
 ```
+
 ```js
-var $input = document.getElementByID('example');
-$input.value = '13:30';
+var $input = document.getElementByID('example')
+$input.value = '13:30'
 // call the update() method whenever the value is updated through JS
-if ($input.polyfill) $input.polyfill.update();
+if ($input.polyfill) $input.polyfill.update()
 ```
 
 The `update()` method will return the input element that it was called on so it can be chained if you want.
@@ -188,30 +194,29 @@ The polyfill will fail if the `$input` is missing a label.
 The following is a list of ways you can add a label to the `$input`. The list is in order from the **best** method to the **worst** method:
 
 1. Nesting the `$input` inside a `<label>` _(Doesn't require IDs to work)_
-	```html
-	<label>
-	  <span>Label text</span>
-	  <input type="time">
-	</label>
-	```
+    ```html
+    <label>
+    	<span>Label text</span>
+    	<input type="time" />
+    </label>
+    ```
 2. Using the `for` attribute
-	```html
-	<label for="uniqueID">Label text</label>
-	<input type="time" id="uniqueID">
-	```
+    ```html
+    <label for="uniqueID">Label text</label> <input type="time" id="uniqueID" />
+    ```
 3. Using the `aria-labelledby` attribute
-	```html
-	<p id="uniqueID">Label text</p>
-	<input type="time" aria-labelledby="uniqueID">
-	```
+    ```html
+    <p id="uniqueID">Label text</p>
+    <input type="time" aria-labelledby="uniqueID" />
+    ```
 4. Using the `title` attribute
-	```html
-	<input type="time" title="Label text">
-	```
+    ```html
+    <input type="time" title="Label text" />
+    ```
 5. Using the `aria-label` attribute
-	```html
-	<input type="time" aria-label="Label text">
-	```
+    ```html
+    <input type="time" aria-label="Label text" />
+    ```
 
 ## Change log
 
