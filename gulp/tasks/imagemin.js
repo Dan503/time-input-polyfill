@@ -3,7 +3,7 @@
 import gulpif from 'gulp-if'
 import pngquant from 'imagemin-pngquant'
 import gulp from 'gulp'
-import { plugins, args, config, taskTarget, browserSync, join } from '../utils'
+import { plugins, args, config, taskTarget, join } from '../utils'
 
 let dirs = config.directories
 let dest = join(taskTarget, dirs.images.replace(/^_/, ''))

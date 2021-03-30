@@ -27,10 +27,10 @@ function TimePolyfill($input, $label) {
 		$a11y: $a11y,
 		label: label,
 		autoSwap: true,
-		update: function() {
+		update: function () {
 			update_time($input)
 		},
-		swap: function(forcedFormat) {
+		swap: function (forcedFormat) {
 			switch_times($input, forcedFormat)
 		},
 	}
