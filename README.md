@@ -72,7 +72,7 @@ The following downloads the full polyfill in all browsers, take a look at the [a
 First check for `input[type="time"]` support.
 
 ```js
-var supportsTime = require('time-input-polyfill/supportsTime')
+import supportsTime from 'time-input-polyfill/supportsTime'
 
 if (!supportsTime) {
 	//Apply polyfill here
@@ -82,15 +82,15 @@ if (!supportsTime) {
 Then gather a list of all `input[type="time"]` elements on the page, and loop through them to apply the polyfill.
 
 ```js
-var supportsTime = require('time-input-polyfill/supportsTime')
-var TimePolyfill = require('time-input-polyfill')
+import supportsTime from 'time-input-polyfill/supportsTime'
+import TimePolyfill from 'time-input-polyfill'
 
 if (!supportsTime) {
 	// Converting to an array for IE support
-	var $$inputs = [].slice.call(
+	const $$inputs = [].slice.call(
 		document.querySelectorAll('input[type="time"]')
 	)
-	$$inputs.forEach(function($input) {
+	$$inputs.forEach(function ($input) {
 		new TimePolyfill($input)
 	})
 }
@@ -122,10 +122,10 @@ Then gather a list of all `input[type="time"]` elements on the page, and loop th
 ```js
 if (!supportsTime) {
 	// Converting to an array for IE support
-	var $$inputs = [].slice.call(
+	const $$inputs = [].slice.call(
 		document.querySelectorAll('input[type="time"]')
 	)
-	$$inputs.forEach(function($input) {
+	$$inputs.forEach(function ($input) {
 		new TimePolyfill($input)
 	})
 }
@@ -138,22 +138,22 @@ This will add a global `TimePolyfill` function to the page.
 When your code is inside a component that resides in the Shadow DOM, the polyfill will not be able to find your label
 element. For this case, you can pass your label element in directly.
 
-```
-<label id="myLabel" for="timeInput></label>
-<input type="time" id="timeInput">
+```html
+<label id="myLabel" for="timeInput">Label text</label>
+<input type="time" id="timeInput" />
 ```
 
-```
-import timePolyfill from 'time-input-polyfill';
+```js
+import timePolyfill from 'time-input-polyfill'
 
-someMethod() {
-  // The following element must not be in a shadow DOM
-  var componentRootElem = document.getElementById('idOfYourShadowDomComponentRootElement');
+// The following element must not be in a shadow DOM
+const componentRootElem = document.getElementById(
+	'idOfYourShadowDomComponentRootElement'
+)
 
-  var timeLabelElem = componentRootElem.shadowRoot.getElementById('myLabel');
-  var timeInputElem = componentRootElem.shadowRoot.getElementById('timeInput');
-  timePolyFill(timeInputElem, timeLabelElem);
-}
+const timeLabelElem = componentRootElem.shadowRoot.getElementById('myLabel')
+const timeInputElem = componentRootElem.shadowRoot.getElementById('timeInput')
+timePolyFill(timeInputElem, timeLabelElem)
 ```
 
 ## Major limitations
@@ -179,7 +179,7 @@ Any time you update the value of the time input element through JavaScript, chec
 ```
 
 ```js
-var $input = document.getElementByID('example')
+const $input = document.getElementByID('example')
 $input.value = '13:30'
 // call the update() method whenever the value is updated through JS
 if ($input.polyfill) $input.polyfill.update()
@@ -193,21 +193,21 @@ The polyfill will fail if the `$input` is missing a label.
 
 The following is a list of ways you can add a label to the `$input`. The list is in order from the **best** method to the **worst** method:
 
-1. Nesting the `$input` inside a `<label>` _(Doesn't require IDs to work)_
+1. Using the `for` attribute
+    ```html
+    <label for="uniqueID">Label text</label> <input type="time" id="uniqueID" />
+    ```
+2. Using the `aria-labelledby` attribute
+    ```html
+    <p id="uniqueID">Label text</p>
+    <input type="time" aria-labelledby="uniqueID" />
+    ```
+3. Nesting the `$input` inside a `<label>` (Doesn't require IDs to work but not supported by all screen readers)
     ```html
     <label>
     	<span>Label text</span>
     	<input type="time" />
     </label>
-    ```
-2. Using the `for` attribute
-    ```html
-    <label for="uniqueID">Label text</label> <input type="time" id="uniqueID" />
-    ```
-3. Using the `aria-labelledby` attribute
-    ```html
-    <p id="uniqueID">Label text</p>
-    <input type="time" aria-labelledby="uniqueID" />
     ```
 4. Using the `title` attribute
     ```html
