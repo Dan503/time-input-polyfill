@@ -14,7 +14,7 @@ let dirs = config.directories
 let dest = join(taskTarget)
 let dataPath = join(dirs.source, dirs.data)
 
-const auto_import_pug = () => {
+const pug_auto_imports = () => {
 	const dest = 'src/_layouts'
 	return gulp
 		.src('src/_modules/**/*.pug')
@@ -95,4 +95,4 @@ const compile_pug = () => {
 }
 
 // Pug template compile
-gulp.task('pug', gulp.series(auto_import_pug, compile_pug))
+gulp.task('pug', gulp.series(pug_auto_imports, compile_pug))
