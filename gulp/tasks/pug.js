@@ -8,13 +8,21 @@ import yaml from 'js-yaml'
 import gulp from 'gulp'
 import { plugins, args, config, taskTarget, browserSync, join } from '../utils'
 import pkg from '../../package.json'
+import autoImports from 'gulp-auto-imports'
 
 let dirs = config.directories
 let dest = join(taskTarget)
 let dataPath = join(dirs.source, dirs.data)
 
-// Pug template compile
-gulp.task('pug', () => {
+const auto_import_pug = () => {
+	const dest = 'src/_layouts'
+	return gulp
+		.src('src/_modules/**/*.pug')
+		.pipe(autoImports({ preset: 'pug', dest }))
+		.pipe(gulp.dest(dest))
+}
+
+const compile_pug = () => {
 	let siteData = {}
 	if (fs.existsSync(dataPath)) {
 		// Convert directory to JS Object
@@ -84,4 +92,7 @@ gulp.task('pug', () => {
 			.pipe(gulp.dest(dest))
 			.on('end', browserSync.reload)
 	)
-})
+}
+
+// Pug template compile
+gulp.task('pug', gulp.series(auto_import_pug, compile_pug))
