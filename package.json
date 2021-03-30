@@ -82,9 +82,9 @@
 		"lint": "npx gulp eslint",
 		"test": "npx gulp test",
 		"format": "npx prettier --single-quote --write src/**/*.js",
-		"serve": "NODE_ENV=development npx gulp serve",
-		"serve:prod": "NODE_ENV=production npx gulp serve --production",
-		"build": "NODE_ENV=production npx gulp --production"
+		"start": "SET NODE_ENV=development && npx gulp serve",
+		"start:prod": "SET NODE_ENV=production && npx gulp serve --production",
+		"build": "SET NODE_ENV=production && npx gulp --production"
 	},
 	"engines": {
 		"node": ">=8.16.0"
