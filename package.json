@@ -3,7 +3,6 @@
 	"description": "An accessible polyfill for `[input type='time']` elements modeled after the Chrome & Firefox desktop implementations.",
 	"version": "1.0.10",
 	"main": "index.js",
-	"type": "module",
 	"jsdelivr": "dist/time-input-polyfill.auto.min.js",
 	"devDependencies": {
 		"@babel/core": "~7.13.14",
