@@ -174,11 +174,20 @@ const supports_time_MJS = (done) =>
 
 export const npm_rollup_index_CJS = (done) =>
 	rollup_multiple_files({
-		src: './index.js',
+		src: './index.mjs',
 		dest: '.',
 		done,
 		format: 'cjs',
 		outputFileName: 'index.cjs.js',
+	})
+
+export const npm_rollup_auto_CJS = (done) =>
+	rollup_multiple_files({
+		src: './auto.mjs',
+		dest: '.',
+		done,
+		format: 'cjs',
+		outputFileName: 'auto.js',
 	})
 
 export const npm_rollup_supportsTime = gulp.parallel(

@@ -7,16 +7,16 @@ import del from 'del'
 // Clean
 gulp.task('clean', () => del([taskTarget]))
 
-const fileSet = (fileName, includeMjs = true) => {
-	const cjsFiles = [`./${fileName}.js`, `./${fileName}.js.map`]
-	const mjsFiles = [`./${fileName}.mjs`, `./${fileName}.mjs.map`]
-
-	if (includeMjs) {
-		return [...cjsFiles, ...mjsFiles]
-	}
-
-	return cjsFiles
+const fileSet = (fileName, extensions) => {
+	return extensions.flatMap((ext) => [
+		`./${fileName}.${ext}`,
+		`./${fileName}.${ext}.map`,
+	])
 }
 export const npm_postPublish_clean = () => {
-	return del([...fileSet('supportsTime'), ...fileSet('index.cjs', false)])
+	return del([
+		...fileSet('supportsTime', ['js', 'mjs']),
+		...fileSet('index.cjs', ['js']),
+		...fileSet('auto', ['js']),
+	])
 }
