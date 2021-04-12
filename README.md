@@ -65,7 +65,7 @@ You didn't load the actual polyfill onto the page, you loaded a much smaller aut
 
 ## I need more control
 
-The following downloads the full polyfill in all browsers, take a look at the [auto.js](https://github.com/Dan503/time-input-polyfill/blob/master/auto.js) file if you want to see how it loads the polyfill dynamically.
+The following downloads the full polyfill in all browsers, take a look at the [auto.mjs](https://github.com/Dan503/time-input-polyfill/blob/master/auto.mjs) file if you want to see how it loads the polyfill dynamically.
 
 ### npm
 
