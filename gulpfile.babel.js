@@ -5,7 +5,10 @@ import glob from 'glob'
 import { args } from './gulp/utils'
 
 import { npm_postPublish_clean } from './gulp/tasks/clean'
-import { npm_rollup_supportsTime } from './gulp/tasks/rollup'
+import {
+	npm_rollup_index_CJS,
+	npm_rollup_supportsTime,
+} from './gulp/tasks/rollup'
 
 // This will grab all js in the `gulp` directory
 // in order to load all gulp tasks
@@ -55,5 +58,8 @@ gulp.task('default', gulp.series('clean', args.production ? 'build' : 'serve'))
 gulp.task('test', gulp.series('eslint'))
 
 // NPM publishing
-gulp.task('pre-publish', gulp.parallel(npm_rollup_supportsTime))
+gulp.task(
+	'pre-publish',
+	gulp.parallel(npm_rollup_supportsTime, npm_rollup_index_CJS)
+)
 gulp.task('post-publish', gulp.parallel(npm_postPublish_clean))
