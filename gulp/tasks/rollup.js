@@ -14,7 +14,6 @@ import rollup from 'rollup-stream'
 import babel from 'rollup-plugin-babel'
 
 import pkg from '../../package.json'
-import path from 'path'
 import glob from 'glob'
 import vsource from 'vinyl-source-stream'
 import buffer from 'vinyl-buffer'
@@ -36,7 +35,7 @@ const rollupJS = ({ entryFile, done, dest, rename = false, header = '' }) => {
 			format: 'iife',
 			name: 'TimePolyfill_bundle',
 		})
-			.on('bundle', function(bundle) {
+			.on('bundle', function (bundle) {
 				// update cache data after every bundle is created
 				cache[entryFile] = bundle
 			})
@@ -48,7 +47,7 @@ const rollupJS = ({ entryFile, done, dest, rename = false, header = '' }) => {
 			// minify code if production mode
 			.pipe(gulpif(args.production, plugins.terser()))
 			.pipe(
-				plugins.rename(function(filepath) {
+				plugins.rename(function (filepath) {
 					// Remove 'source' directory as well as prefixed folder underscores
 					// Ex: 'src/_scripts' --> '/scripts'
 					filepath.dirname = filepath.dirname.replace(
@@ -64,7 +63,7 @@ const rollupJS = ({ entryFile, done, dest, rename = false, header = '' }) => {
 			.pipe(plugins.sourcemaps.write('.'))
 			// and output to ./dist/app.js as normal.
 			.pipe(gulp.dest(dest.replace(/^_|(\/)_/g, '$1')))
-			.on('end', function() {
+			.on('end', function () {
 				var time = (new Date().getTime() - startTime) / 1000
 				console.log(
 					plugins.util.colors.cyan(entryFile) +
@@ -78,10 +77,10 @@ const rollupJS = ({ entryFile, done, dest, rename = false, header = '' }) => {
 }
 
 const rollup_multiple_files = ({ src, done, dest, rename, header }) => {
-	return glob(src, function(err, files) {
+	return glob(src, function (err, files) {
 		if (err) done(err)
 		return Promise.all(
-			files.map(function(entryFile) {
+			files.map(function (entryFile) {
 				return rollupJS({ entryFile, done, dest, rename, header })
 			})
 		)
@@ -100,12 +99,12 @@ function dist_compile({ done, src, type = '', header }) {
 }
 
 // Rollup JS library
-gulp.task('rollup:dist:manual', function(done) {
+gulp.task('rollup:dist:manual', function (done) {
 	return dist_compile({ done, src: './index.js', header: fileHeader })
 })
 
 // Rollup JS library
-gulp.task('rollup:dist:auto', function(done) {
+gulp.task('rollup:dist:auto', function (done) {
 	return dist_compile({
 		done,
 		src: './auto.js',
@@ -129,7 +128,7 @@ gulp.task(
 )
 
 // Rollup demo site
-gulp.task('rollup:site', function(done) {
+gulp.task('rollup:site', function (done) {
 	return rollup_multiple_files({
 		src: './' + join(dirs.source, dirs.scripts, entries.js),
 		dest: join('.', taskTarget, dirs.scripts),
