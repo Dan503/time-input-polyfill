@@ -85,7 +85,10 @@
 		"format": "npx prettier --single-quote --write src/**/*.js",
 		"start": "SET NODE_ENV=development && npx gulp serve",
 		"start:prod": "SET NODE_ENV=production && npx gulp serve --production",
-		"build": "SET NODE_ENV=production && npx gulp --production"
+		"build": "SET NODE_ENV=production && npx gulp --production",
+		"prepublishOnly": "npx gulp pre-publish",
+		"postpublish": "npx gulp post-publish",
+		"testPublish": "npm run prepublishOnly && npm run postpublish"
 	},
 	"engines": {
 		"node": ">=8.16.0"

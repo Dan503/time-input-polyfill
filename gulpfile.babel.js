@@ -2,19 +2,22 @@
 
 import gulp from 'gulp'
 import glob from 'glob'
-import { KarmaServer, args } from './gulp/utils'
+import { args } from './gulp/utils'
+
+import { npm_postPublish_clean } from './gulp/tasks/clean'
+import { npm_rollup_supportsTime } from './gulp/tasks/rollup'
 
 // This will grab all js in the `gulp` directory
 // in order to load all gulp tasks
 glob.sync('./gulp/tasks/**/*.js')
-	.filter(function(file) {
+	.filter(function (file) {
 		return /\.(js)$/i.test(file)
 	})
-	.map(function(file) {
+	.map(function (file) {
 		require(file)
 	})
 
-const production_mode_on = done => {
+const production_mode_on = (done) => {
 	args.production = true
 	done()
 }
@@ -25,8 +28,8 @@ gulp.task(
 	gulp.series(
 		production_mode_on,
 		gulp.parallel('copy', 'imagemin', 'pug', 'sass', 'rollup'),
-		'rev',
-	),
+		'rev'
+	)
 )
 
 // Server tasks with watch
@@ -40,9 +43,9 @@ gulp.task(
 			'sass',
 			'rollup',
 			'browserSync',
-			'watch',
-		),
-	),
+			'watch'
+		)
+	)
 )
 
 // Default task
@@ -50,3 +53,7 @@ gulp.task('default', gulp.series('clean', args.production ? 'build' : 'serve'))
 
 // Testing
 gulp.task('test', gulp.series('eslint'))
+
+// NPM publishing
+gulp.task('pre-publish', gulp.parallel(npm_rollup_supportsTime))
+gulp.task('post-publish', gulp.parallel(npm_postPublish_clean))

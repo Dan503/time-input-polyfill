@@ -23,7 +23,15 @@ import fileHeader from '../../core/static-values/header'
 
 let cache = {}
 
-const rollupJS = ({ entryFile, done, dest, rename = false, header = '' }) => {
+const rollupJS = ({
+	entryFile,
+	done,
+	dest,
+	outputFileName = 'main.js',
+	header = '',
+	// Intended for use with browsers by default
+	format = 'iife',
+}) => {
 	const startTime = new Date().getTime()
 	return (
 		rollup({
@@ -31,16 +39,15 @@ const rollupJS = ({ entryFile, done, dest, rename = false, header = '' }) => {
 			sourcemap: !args.production,
 			cache: cache[entryFile],
 			plugins: [babel()],
-			// Intended for use with browsers
-			format: 'iife',
+			format,
 			name: 'TimePolyfill_bundle',
 		})
 			.on('bundle', function (bundle) {
 				// update cache data after every bundle is created
 				cache[entryFile] = bundle
 			})
-			// point to the entry file.
-			.pipe(vsource('main.js'))
+			// create the initial output file
+			.pipe(vsource(outputFileName))
 			// we need to buffer the output, since many gulp plugins don't support streams.
 			.pipe(buffer())
 			.pipe(plugins.sourcemaps.init({ loadMaps: true }))
@@ -54,9 +61,6 @@ const rollupJS = ({ entryFile, done, dest, rename = false, header = '' }) => {
 						dirs.source + '/',
 						''
 					)
-					if (rename) {
-						filepath.basename = rename
-					}
 				})
 			)
 			.pipe(plugins.header(header))
@@ -76,12 +80,26 @@ const rollupJS = ({ entryFile, done, dest, rename = false, header = '' }) => {
 	)
 }
 
-const rollup_multiple_files = ({ src, done, dest, rename, header }) => {
+const rollup_multiple_files = ({
+	src,
+	done,
+	dest,
+	outputFileName,
+	header,
+	format,
+}) => {
 	return glob(src, function (err, files) {
 		if (err) done(err)
 		return Promise.all(
 			files.map(function (entryFile) {
-				return rollupJS({ entryFile, done, dest, rename, header })
+				return rollupJS({
+					entryFile,
+					done,
+					dest,
+					outputFileName,
+					header,
+					format,
+				})
 			})
 		)
 	})
@@ -93,7 +111,7 @@ function dist_compile({ done, src, type = '', header }) {
 		src,
 		done,
 		dest: './dist',
-		rename: 'time-input-polyfill' + type + '.min',
+		outputFileName: `time-input-polyfill${type}.min.js`,
 		header,
 	})
 }
@@ -135,5 +153,28 @@ gulp.task('rollup:site', function (done) {
 		done,
 	})
 })
+
+const supports_time_CJS = (done) =>
+	rollup_multiple_files({
+		src: './core/helpers/supportsTime.js',
+		dest: '.',
+		done,
+		format: 'cjs',
+		outputFileName: 'supportsTime.js',
+	})
+
+const supports_time_MJS = (done) =>
+	rollup_multiple_files({
+		src: './core/helpers/supportsTime.js',
+		dest: '.',
+		done,
+		format: 'es',
+		outputFileName: 'supportsTime.mjs',
+	})
+
+export const npm_rollup_supportsTime = gulp.parallel(
+	supports_time_MJS,
+	supports_time_CJS
+)
 
 gulp.task('rollup', gulp.parallel('rollup:dist', 'rollup:site'))
