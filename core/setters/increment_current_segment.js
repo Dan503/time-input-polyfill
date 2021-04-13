@@ -1,7 +1,7 @@
-var get_current_segment = require('../getters/get_current_segment')
-var increment = require('../setters/increment')
+import get_current_segment from '../getters/get_current_segment'
+import increment from '../setters/increment'
 
-module.exports = function increment_current_segment($input) {
-  var current_segment = get_current_segment($input)
-  increment($input, current_segment)
+export default function increment_current_segment($input) {
+	var current_segment = get_current_segment($input)
+	increment($input, current_segment)
 }

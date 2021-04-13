@@ -1,5 +1,5 @@
-var traverse = require('./traverse')
+import traverse from './traverse'
 
-module.exports = function prev_segment($input) {
-  traverse($input, 'prev')
+export default function prev_segment($input) {
+	traverse($input, 'prev')
 }
