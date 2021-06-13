@@ -1,5 +1,5 @@
-import get_values from '../getters/get_values'
-import set_segment from './set_segment'
+import get_values from '../getters/get_values.js'
+import set_segment from './set_segment.js'
 
 export default function switch_mode($input, default_mode) {
 	default_mode = default_mode || 'AM'

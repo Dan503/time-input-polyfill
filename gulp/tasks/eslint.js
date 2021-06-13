@@ -2,10 +2,9 @@
 
 'use strict'
 
-import path from 'path'
 import gulpif from 'gulp-if'
 import gulp from 'gulp'
-import { plugins, args, config, taskTarget, browserSync } from '../utils'
+import { plugins, config, browserSync } from '../utils'
 
 let dirs = config.directories
 
@@ -29,7 +28,7 @@ gulp.task('eslint', () => {
 		)
 		.pipe(plugins.eslint.format())
 		.pipe(gulpif(!browserSync.active, plugins.eslint.failAfterError()))
-		.on('error', function() {
+		.on('error', function () {
 			if (!browserSync.active) {
 				process.exit(1)
 			}

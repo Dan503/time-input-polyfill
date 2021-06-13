@@ -1,6 +1,6 @@
-import get_current_segment from '../getters/get_current_segment'
-import prev_segment from '../selectors/prev_segment'
-import next_segment from '../selectors/next_segment'
+import get_current_segment from '../getters/get_current_segment.js'
+import prev_segment from '../selectors/prev_segment.js'
+import next_segment from '../selectors/next_segment.js'
 
 export default function handle_tab($input, e) {
 	var current_segment = get_current_segment($input)

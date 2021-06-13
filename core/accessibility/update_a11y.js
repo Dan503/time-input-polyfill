@@ -1,9 +1,9 @@
-import get_current_segment from '../getters/get_current_segment'
-import get_values from '../getters/get_values'
+import get_current_segment from '../getters/get_current_segment.js'
+import get_values from '../getters/get_values.js'
 
 export default function update_a11y($input, announcementArray) {
 	// Timeout helps ensure that the input has stabilized
-	setTimeout(function() {
+	setTimeout(function () {
 		var current_segment = get_current_segment($input)
 		var values = get_values($input)
 		var value = values[current_segment]
@@ -21,7 +21,7 @@ export default function update_a11y($input, announcementArray) {
 			update: '$segmentValue.',
 		}
 
-		var textArray = announcementArray.map(function(providedString) {
+		var textArray = announcementArray.map(function (providedString) {
 			if (announcements[providedString]) {
 				return announcements[providedString]
 			}
