@@ -1,9 +1,9 @@
-import get_current_segment from '../getters/get_current_segment'
-import set_segment from './set_segment'
-import next_segment from '../selectors/next_segment'
+import get_current_segment from '../getters/get_current_segment.js'
+import set_segment from './set_segment.js'
+import next_segment from '../selectors/next_segment.js'
 
-import manual_entry_log from '../helpers/manual_entry_log'
-import sorted_number_keys from '../static-values/sorted_number_keys'
+import manual_entry_log from '../helpers/manual_entry_log.js'
+import sorted_number_keys from '../static-values/sorted_number_keys.js'
 
 export default function manual_number_entry($input, key) {
 	var key_value = sorted_number_keys[key]

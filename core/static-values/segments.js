@@ -1,4 +1,4 @@
-import ranges from './ranges'
+import ranges from './ranges.js'
 
 var segments = Object.keys(ranges)
 

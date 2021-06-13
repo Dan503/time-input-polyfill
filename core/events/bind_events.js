@@ -1,64 +1,64 @@
-import values from '../helpers/values'
+import values from '../helpers/values.js'
 
-import select_segment from '../selectors/select_segment'
+import select_segment from '../selectors/select_segment.js'
 
-import next_segment from '../selectors/next_segment'
-import prev_segment from '../selectors/prev_segment'
-import select_cursor_segment from '../selectors/select_cursor_segment'
+import next_segment from '../selectors/next_segment.js'
+import prev_segment from '../selectors/prev_segment.js'
+import select_cursor_segment from '../selectors/select_cursor_segment.js'
 
-import get_current_segment from '../getters/get_current_segment'
+import get_current_segment from '../getters/get_current_segment.js'
 
-import reset from '../setters/reset'
-import manual_number_entry from '../setters/manual_number_entry'
-import clear_segment from '../setters/clear_segment'
-import increment_current_segment from '../setters/increment_current_segment'
-import decrement_current_segment from '../setters/decrement_current_segment'
-import set_mode from '../setters/set_mode'
-import switch_times from '../setters/switch_times'
+import reset from '../setters/reset.js'
+import manual_number_entry from '../setters/manual_number_entry.js'
+import clear_segment from '../setters/clear_segment.js'
+import increment_current_segment from '../setters/increment_current_segment.js'
+import decrement_current_segment from '../setters/decrement_current_segment.js'
+import set_mode from '../setters/set_mode.js'
+import switch_times from '../setters/switch_times.js'
 
-import handle_tab from '../events/handle_tab'
+import handle_tab from '../events/handle_tab.js'
 
-import all_number_keys from '../static-values/all_number_keys'
-import named_keys from '../static-values/named_keys'
+import all_number_keys from '../static-values/all_number_keys.js'
+import named_keys from '../static-values/named_keys.js'
 
-import update_a11y from '../accessibility/update_a11y'
+import update_a11y from '../accessibility/update_a11y.js'
 
 export default function bind_events($input) {
 	var prev_value = ''
 
 	var shiftKey = false
 
-	document.addEventListener('keydown', function(e) {
+	document.addEventListener('keydown', function (e) {
 		shiftKey = e.shiftKey
 	})
-	document.addEventListener('keyup', function(e) {
+	document.addEventListener('keyup', function (e) {
 		shiftKey = e.shiftKey
 	})
 
 	if ($input.form) {
-		$input.form.addEventListener('submit', function() {
+		$input.form.addEventListener('submit', function () {
 			auto_swap($input)
 		})
 	}
 
 	var focused_via_click = false
 
-	$input.addEventListener('mousedown', function() {
+	$input.addEventListener('mousedown', function () {
 		focused_via_click = true
 	})
 
 	// Turns the IE clear button into a reset button
-	$input.addEventListener('mouseup', function() {
-		setTimeout(function() {
+	$input.addEventListener('mouseup', function () {
+		setTimeout(function () {
 			if ($input.value === '') reset($input)
 		}, 1)
 	})
 
-	$input.addEventListener('click', function(e) {
+	$input.addEventListener('click', function (e) {
 		select_cursor_segment($input)
 	})
 
-	$input.addEventListener('blur', function() {
+	$input.addEventListener('blur', function () {
 		var current_value = $input.dataset.value
 		if (current_value !== prev_value) {
 			prev_value = current_value
@@ -66,7 +66,7 @@ export default function bind_events($input) {
 		focused_via_click = false
 	})
 
-	$input.addEventListener('focus', function(e) {
+	$input.addEventListener('focus', function (e) {
 		if (!focused_via_click) {
 			e.preventDefault()
 			var segment = shiftKey ? 'mode' : 'hrs'
@@ -75,7 +75,7 @@ export default function bind_events($input) {
 		update_a11y($input, ['initial', 'select'])
 	})
 
-	$input.addEventListener('keydown', function(e) {
+	$input.addEventListener('keydown', function (e) {
 		var is_enter_key = e.which === 13
 		if (is_enter_key) return true
 
@@ -143,7 +143,7 @@ export default function bind_events($input) {
 function auto_swap($input) {
 	if ($input.polyfill.autoSwap) {
 		switch_times($input, 24)
-		setTimeout(function() {
+		setTimeout(function () {
 			switch_times($input, 12)
 		}, 1)
 	}

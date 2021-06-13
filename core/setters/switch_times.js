@@ -1,5 +1,5 @@
-import switch_to_data_value from './switch_to_data_value'
-import set_time from './set_time'
+import switch_to_data_value from './switch_to_data_value.js'
+import set_time from './set_time.js'
 
 export default function switch_times($input, format) {
 	var is12hr = /\s/.test($input.value)
@@ -9,12 +9,12 @@ export default function switch_times($input, format) {
 	}
 
 	var actions = {
-		12: function() {
+		12: function () {
 			if (!is12hr) {
 				set_time($input, $input.dataset.value)
 			}
 		},
-		24: function() {
+		24: function () {
 			if (is12hr) {
 				switch_to_data_value($input)
 			}

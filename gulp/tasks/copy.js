@@ -1,12 +1,11 @@
 'use strict'
 
-import path from 'path'
 import gulp from 'gulp'
-import { plugins, args, config, taskTarget, browserSync, join } from '../utils'
+import { plugins, config, taskTarget, join } from '../utils'
 
 var dirs = config.directories
 
-gulp.task('copy:dist', function() {
+gulp.task('copy:dist', function () {
 	return gulp
 		.src([join('dist/**/*')])
 		.pipe(plugins.changed(taskTarget))
@@ -14,7 +13,7 @@ gulp.task('copy:dist', function() {
 })
 
 // Copy
-gulp.task('copy', function() {
+gulp.task('copy', function () {
 	return gulp
 		.src([
 			join(dirs.source, '**/*'),

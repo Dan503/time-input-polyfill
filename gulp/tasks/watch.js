@@ -1,13 +1,12 @@
 'use strict'
 
-import path from 'path'
 import gulp from 'gulp'
-import { plugins, args, config, taskTarget, browserSync, join } from '../utils'
+import { args, config, browserSync, join } from '../utils'
 
 let dirs = config.directories
 
 // Watch task
-gulp.task('watch', done => {
+gulp.task('watch', (done) => {
 	if (!args.production) {
 		// Styles
 		gulp.watch(

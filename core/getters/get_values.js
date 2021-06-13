@@ -1,4 +1,4 @@
-import convert_number from '../converters/convert_number'
+import convert_number from '../converters/convert_number.js'
 
 export default function get_values($input, timeString) {
 	var value = timeString ? timeString : $input.value

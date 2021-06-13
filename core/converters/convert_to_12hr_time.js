@@ -1,6 +1,6 @@
-import convert_number from './convert_number'
-import convert_hours_to_12hr_time from './convert_hours_to_12hr_time'
-import leading_zero from './leading_zero'
+import convert_number from './convert_number.js'
+import convert_hours_to_12hr_time from './convert_hours_to_12hr_time.js'
+import leading_zero from './leading_zero.js'
 
 export default function convert_to_12hr_time(timeString_24hr) {
 	if (timeString_24hr === '') return '--:-- --'

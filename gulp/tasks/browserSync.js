@@ -1,7 +1,7 @@
 'use strict'
 
 import gulp from 'gulp'
-import { plugins, args, config, taskTarget, browserSync } from '../utils'
+import { args, config, taskTarget, browserSync } from '../utils'
 
 // BrowserSync
 gulp.task('browserSync', () => {

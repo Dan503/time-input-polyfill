@@ -1,12 +1,11 @@
 'use strict'
 
-import path from 'path'
 import gulpFilter from 'gulp-filter'
 import gulpRev from 'gulp-rev'
 import gulpRevDel from 'gulp-rev-delete-original'
 import gulpRevRewrite from 'gulp-rev-rewrite'
 import gulp from 'gulp'
-import { plugins, args, config, taskTarget, browserSync, join } from '../utils'
+import { config, taskTarget, join } from '../utils'
 
 let dirs = config.directories
 let dest = join(taskTarget)
@@ -20,7 +19,7 @@ gulp.task('rev', () => {
 	)
 	const htmlFilter = gulpFilter(['**', '!**/*.html'], { restore: true })
 	return gulp
-		.src(`**/*.{js,css,html}`, { cwd: dirs.destination })
+		.src('**/*.{js,css,html}', { cwd: dirs.destination })
 		.pipe(htmlFilter)
 		.pipe(gulpRev())
 		.pipe(htmlFilter.restore)

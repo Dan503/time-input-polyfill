@@ -1,8 +1,8 @@
-import get_values from '../getters/get_values'
-import leading_zero from '../converters/leading_zero'
-import select_segment from '../selectors/select_segment'
-import set_data_attribute from './set_data_attribute'
-import trigger_both_events from '../events/trigger_both_events'
+import get_values from '../getters/get_values.js'
+import leading_zero from '../converters/leading_zero.js'
+import select_segment from '../selectors/select_segment.js'
+import set_data_attribute from './set_data_attribute.js'
+import trigger_both_events from '../events/trigger_both_events.js'
 
 export default function set_segment($input, segment, value) {
 	var values = get_values($input)

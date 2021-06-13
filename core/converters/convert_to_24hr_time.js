@@ -1,4 +1,4 @@
-import leading_zero from './leading_zero'
+import leading_zero from './leading_zero.js'
 
 export default function convert_to_24hr_time(timeString_12hr) {
 	if (/-/.test(timeString_12hr)) return ''

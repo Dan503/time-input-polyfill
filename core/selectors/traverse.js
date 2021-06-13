@@ -1,10 +1,10 @@
-import get_current_segment from '../getters/get_current_segment'
-import select_segment from '../selectors/select_segment'
+import get_current_segment from '../getters/get_current_segment.js'
+import select_segment from '../selectors/select_segment.js'
 
-import manual_entry_log from '../helpers/manual_entry_log'
-import segments from '../static-values/segments'
+import manual_entry_log from '../helpers/manual_entry_log.js'
+import segments from '../static-values/segments.js'
 
-import update_a11y from '../accessibility/update_a11y'
+import update_a11y from '../accessibility/update_a11y.js'
 
 export default function traverse($input, direction) {
 	var segment = get_current_segment($input)

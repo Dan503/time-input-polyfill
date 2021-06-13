@@ -1,7 +1,7 @@
-import get_values from '../getters/get_values'
-import convert_hours_to_12hr_time from '../converters/convert_hours_to_12hr_time'
-import leading_zero from '../converters/leading_zero'
-import set_segment from './set_segment'
+import get_values from '../getters/get_values.js'
+import convert_hours_to_12hr_time from '../converters/convert_hours_to_12hr_time.js'
+import leading_zero from '../converters/leading_zero.js'
+import set_segment from './set_segment.js'
 
 export default function nudge_time_segment($input, segment, direction) {
 	var current_values = get_values($input)

@@ -1,4 +1,4 @@
-import trigger_event from './trigger_event'
+import trigger_event from './trigger_event.js'
 
 // It seems that oninput and onchange are treated the same way by browsers :/
 export default function trigger_both_events($input) {

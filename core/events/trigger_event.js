@@ -1,4 +1,4 @@
-import create_event from './create_event'
+import create_event from './create_event.js'
 
 var inputEvent = create_event('input')
 var changeEvent = create_event('change')

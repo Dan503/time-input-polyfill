@@ -38,12 +38,12 @@ const sass_compile = () => {
 				],
 			})
 		)
-		.on('error', function(err) {
+		.on('error', function (err) {
 			plugins.util.log(err)
 		})
 		.pipe(plugins.postcss([autoprefixer({ grid: 'autoplace' })]))
 		.pipe(
-			plugins.rename(function(path) {
+			plugins.rename(function (path) {
 				// Remove 'source' directory as well as prefixed folder underscores
 				// Ex: 'src/_styles' --> '/styles'
 				path.dirname = path.dirname
