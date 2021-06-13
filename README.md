@@ -13,9 +13,9 @@ An accessible polyfill for `<input type='time'/>` elements.
 Demo available here: https://dan503.github.io/time-input-polyfill/
 
 <details>
-  <summary>The recommended version is <code>1.0.10</code> or higher.</summary>
+  <summary>The recommended version is <code>1.0.11</code> or higher.</summary>
 
-<p>If the recommended version in this documentation is out of sync with the npm version, this is because npm only allows readme edits to be committed through full releases. To prevent needless cache invalidation, I'll only update the recommended version number when there are actual changes to the polyfill code. The current recommended version is <code>1.0.10</code>. As long as you are using a version that is equal to or higher than that, you are using the latest version of the polyfill.</p>
+<p>If the recommended version in this documentation is out of sync with the npm version, this is because npm only allows readme edits to be committed through full releases. To prevent needless cache invalidation, I'll only update the recommended version number when there are actual changes to the polyfill code. The current recommended version is <code>1.0.11</code>. As long as you are using a version that is equal to or higher than that, you are using the latest version of the polyfill.</p>
 
 </details>
 
@@ -59,7 +59,7 @@ You didn't load the actual polyfill onto the page, you loaded a much smaller aut
 1. The initialiser checks if the browser supports `input[type="time"]` elements.
 2. If it **does**, it skips the rest of the functionality.
 3. If it does **not**, it will:
-    1. load `https://cdn.jsdelivr.net/npm/time-input-polyfill@1.0.10/dist/time-input-polyfill.min.js` (the actual polyfill).
+    1. load `https://cdn.jsdelivr.net/npm/time-input-polyfill@1.0.11/dist/time-input-polyfill.min.js` (the actual polyfill).
     2. Collect all existing `input[type="time"]` elements on the page.
     3. Loop through each `input[type="time"]` element and apply the polyfill to it.
 
@@ -103,7 +103,7 @@ if (!supportsTime) {
 First check for `input[type="time"]` support.
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/time-input-polyfill@1.0.10/core/helpers/supportsTime.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/time-input-polyfill@1.0.11/core/helpers/supportsTime.js"></script>
 ```
 
 ```js
@@ -115,8 +115,8 @@ if (!supportsTime) {
 Then gather a list of all `input[type="time"]` elements on the page, and loop through them to apply the polyfill.
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/time-input-polyfill@1.0.10/core/helpers/supportsTime.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/time-input-polyfill@1.0.10/dist/time-input-polyfill.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/time-input-polyfill@1.0.11/core/helpers/supportsTime.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/time-input-polyfill@1.0.11/dist/time-input-polyfill.min.js"></script>
 ```
 
 ```js
