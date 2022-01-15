@@ -1,5 +1,5 @@
-import ranges from '../static-values/ranges'
-import get_selected_range from './get_selected_range'
+import ranges from '../static-values/ranges.js'
+import get_selected_range from './get_selected_range.js'
 
 export default function get_current_segment($input) {
 	var selection = get_selected_range($input)

@@ -1,4 +1,4 @@
-import get_ancestors from './get_ancestors'
+import get_ancestors from './get_ancestors.js'
 
 export default function get_label($input) {
 	var labelText =

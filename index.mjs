@@ -1,11 +1,11 @@
-import apply_default from './core/setters/apply_default'
-import update_time from './core/setters/update_time'
-import set_data_attribute from './core/setters/set_data_attribute'
-import bind_events from './core/events/bind_events'
-import switch_times from './core/setters/switch_times'
-import get_label from './core/getters/get_label'
+import apply_default from './core/setters/apply_default.js'
+import update_time from './core/setters/update_time.js'
+import set_data_attribute from './core/setters/set_data_attribute.js'
+import bind_events from './core/events/bind_events.js'
+import switch_times from './core/setters/switch_times.js'
+import get_label from './core/getters/get_label.js'
 
-import create_a11y_block from './core/accessibility/create_a11y_block'
+import create_a11y_block from './core/accessibility/create_a11y_block.js'
 
 var accessibility_block_created = false
 var $a11y
