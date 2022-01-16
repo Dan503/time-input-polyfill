@@ -141,5 +141,8 @@
 			"js": "main.js",
 			"css": "main.{sass,scss}"
 		}
+	},
+	"dependencies": {
+		"@time-input-polyfill/utils": "^1.0.2"
 	}
 }
