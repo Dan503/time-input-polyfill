@@ -1,0 +1,79 @@
+{
+	"env": {
+		"browser": true,
+		"node": true,
+		"es6": true
+	},
+	"extends": ["eslint:recommended", "plugin:prettier/recommended"],
+	"globals": {
+		"Atomics": "readonly",
+		"SharedArrayBuffer": "readonly"
+	},
+	"parserOptions": {
+		"ecmaVersion": 2018,
+		"sourceType": "module"
+	},
+	// "plugins": ["prettier"],
+	"plugins": ["prettier", "@typescript-eslint"],
+	"rules": {
+		"prettier/prettier": "warn",
+
+		// Prettier and ES Lint disagree about how some indents should work.
+		// I can"t stop Prettier but I can stop ES Lint
+		"indent": [0, "tab"],
+		"no-use-before-define": [0, false],
+
+		"camelcase": [0, "never"],
+
+		"quotes": ["error", "single"],
+		"semi": ["error", "never"],
+		"no-unused-vars": [
+			"warn",
+			{ "vars": "all", "args": "after-used", "ignoreRestSiblings": true }
+		],
+		"no-nested-ternary": "error"
+	},
+
+	"overrides": [
+		{
+			"files": ["**/*.ts", "**/*.tsx"],
+			"env": { "browser": true, "es6": true, "node": true, "cypress/globals": true },
+			"extends": [
+				// Uses the recommended rules from the @typescript-eslint/eslint-plugin
+				"plugin:@typescript-eslint/recommended",
+				// Uses eslint-config-prettier to disable ESLint rules from @typescript-eslint/eslint-plugin that would conflict with prettier
+				"prettier/@typescript-eslint",
+				// Enables eslint-plugin-prettier and displays prettier errors as ESLint errors. Make sure this is always the last configuration in the extends array.
+				"plugin:prettier/recommended"
+			],
+			"globals": { "Atomics": "readonly", "SharedArrayBuffer": "readonly" },
+			"parser": "@typescript-eslint/parser",
+			"parserOptions": {
+				"ecmaVersion": 2018,
+				"sourceType": "module"
+			},
+			"plugins": ["prettier", "cypress", "@typescript-eslint"],
+			"rules": {
+				"prettier/prettier": "warn",
+				// Prettier and ES Lint disagree about how some indents should work.
+				// I can"t stop Prettier but I can stop ES Lint
+				"@typescript-eslint/indent": [0, "tab"],
+				"@typescript-eslint/no-empty-function": [0, false],
+				"@typescript-eslint/no-use-before-define": [0, false],
+				"@typescript-eslint/camelcase": [0, "never"],
+				"@typescript-eslint/semi": ["error", "never"],
+				"@typescript-eslint/no-unused-vars": [
+					"warn",
+					{ "vars": "all", "args": "after-used", "ignoreRestSiblings": true }
+				],
+				"@typescript-eslint/no-explicit-any": [0, false],
+				"@typescript-eslint/consistent-type-assertions": [
+					"error",
+					{ "assertionStyle": "angle-bracket" }
+				],
+				"@typescript-eslint/no-namespace": [0, false],
+				"no-nested-ternary": "error"
+			}
+		}
+	]
+}

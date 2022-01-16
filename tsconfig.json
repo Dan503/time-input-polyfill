@@ -1,0 +1,13 @@
+{
+	"compilerOptions": {
+		"alwaysStrict": true,
+		"strict": true,
+		"target": "es5",
+		"module": "ES2015",
+		"lib": ["es2015", "es2017", "dom"],
+		"baseUrl": "../node_modules",
+		"types": ["cypress"]
+	},
+	"include": ["**/*.ts", "**/*.js"],
+	"exclude": ["./node_modules"]
+}
