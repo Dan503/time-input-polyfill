@@ -1,6 +1,6 @@
 # Time Input Polyfill
 
-[![JS Deliver hits per month](https://data.jsdelivr.com/v1/package/npm/time-input-polyfill/badge)](https://www.jsdelivr.com/package/npm/time-input-polyfill)
+[![JS Deliver hits per month](https://data.jsdelivr.com/v1/package/npm/@time-input-polyfill/standard/badge)](https://www.jsdelivr.com/package/npm/@time-input-polyfill/standard)
 
 An accessible polyfill for `<input type='time'/>` elements.
 
@@ -23,7 +23,7 @@ Demo available here: https://dan503.github.io/time-input-polyfill/
 
 To make it easier to implement this polyfill into your projects, I have some pre-built component versions of it that you might find easier to use.
 
--   [React component](https://www.npmjs.com/package/react-time-input-polyfill)
+-   [React component](https://www.npmjs.com/package/@time-input-polyfill/standard)
 -   [Vue component](https://www.npmjs.com/package/vue-time-input-polyfill) (not built yet)
 
 ## Fastest and easiest way to implement
@@ -31,23 +31,23 @@ To make it easier to implement this polyfill into your projects, I have some pre
 Add the following script element to your page:
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/time-input-polyfill"></script>
+<script src="https://cdn.jsdelivr.net/npm/@time-input-polyfill/standard"></script>
 ```
 
 Alternatively you can download it via npm and use it through commonJS or an ES6 import statement.
 
 ```
-npm i time-input-polyfill
+npm i @time-input-polyfill/standard
 ```
 
 Then require it in your main JavaScript file like so:
 
 ```js
 // ES5
-require('time-input-polyfill/auto')
+require('@time-input-polyfill/standard/auto')
 
 // ES6
-import 'time-input-polyfill/auto'
+import '@time-input-polyfill/standard/auto'
 ```
 
 That's all you need to do.
@@ -59,7 +59,7 @@ You didn't load the actual polyfill onto the page, you loaded a much smaller aut
 1. The initialiser checks if the browser supports `input[type="time"]` elements.
 2. If it **does**, it skips the rest of the functionality.
 3. If it does **not**, it will:
-    1. load `https://cdn.jsdelivr.net/npm/time-input-polyfill@1.0.11/dist/time-input-polyfill.min.js` (the actual polyfill).
+    1. load `https://cdn.jsdelivr.net/npm/@time-input-polyfill/standard@1.0.11/dist/time-input-polyfill.min.js` (the actual polyfill).
     2. Collect all existing `input[type="time"]` elements on the page.
     3. Loop through each `input[type="time"]` element and apply the polyfill to it.
 
@@ -72,7 +72,7 @@ The following downloads the full polyfill in all browsers, take a look at the [a
 First check for `input[type="time"]` support.
 
 ```js
-import supportsTime from 'time-input-polyfill/supportsTime'
+import supportsTime from '@time-input-polyfill/standard/supportsTime'
 
 if (!supportsTime) {
 	//Apply polyfill here
@@ -82,8 +82,8 @@ if (!supportsTime) {
 Then gather a list of all `input[type="time"]` elements on the page, and loop through them to apply the polyfill.
 
 ```js
-import supportsTime from 'time-input-polyfill/supportsTime'
-import TimePolyfill from 'time-input-polyfill'
+import supportsTime from '@time-input-polyfill/standard/supportsTime'
+import TimePolyfill from '@time-input-polyfill/standard'
 
 if (!supportsTime) {
 	// Converting to an array for IE support
@@ -103,7 +103,7 @@ if (!supportsTime) {
 First check for `input[type="time"]` support.
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/time-input-polyfill@1.0.11/core/helpers/supportsTime.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@time-input-polyfill/standard@1.0.11/core/helpers/supportsTime.js"></script>
 ```
 
 ```js
@@ -115,8 +115,8 @@ if (!supportsTime) {
 Then gather a list of all `input[type="time"]` elements on the page, and loop through them to apply the polyfill.
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/time-input-polyfill@1.0.11/core/helpers/supportsTime.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/time-input-polyfill@1.0.11/dist/time-input-polyfill.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@time-input-polyfill/standard@1.0.11/core/helpers/supportsTime.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@time-input-polyfill/standard@1.0.11/dist/time-input-polyfill.min.js"></script>
 ```
 
 ```js
@@ -144,7 +144,7 @@ element. For this case, you can pass your label element in directly.
 ```
 
 ```js
-import timePolyfill from 'time-input-polyfill'
+import timePolyfill from '@time-input-polyfill/standard'
 
 // The following element must not be in a shadow DOM
 const componentRootElem = document.getElementById(

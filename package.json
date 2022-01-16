@@ -1,5 +1,5 @@
 {
-	"name": "time-input-polyfill",
+	"name": "@time-input-polyfill/standard",
 	"description": "An accessible polyfill for `[input type='time']` elements modeled after the Chrome & Firefox desktop implementations.",
 	"version": "1.0.11",
 	"main": "index.cjs.js",
