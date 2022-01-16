@@ -7,14 +7,26 @@ import get_label from './core/getters/get_label.js'
 
 import create_a11y_block from './core/accessibility/create_a11y_block.js'
 
-var accessibility_block_created = false
-var $a11y
+export interface InputPolyfillProp {
+	$a11y: HTMLDivElement,
+	label: string,
+	autoSwap: boolean,
+	update: () => void,
+	swap: (format: 12 | 24) => void,
+}
 
-function TimePolyfill($input, $label) {
+export interface PolyfillInput extends HTMLInputElement {
+	polyfill: InputPolyfillProp
+}
+
+let accessibility_block_created = false
+let $a11y: HTMLDivElement
+
+function TimePolyfill($input: PolyfillInput, $label: HTMLLabelElement) {
 	$input.setAttribute('autocomplete', 'off')
 
 	// Prevent screen reader from announcing the default stuff
-	$input.setAttribute('aria-hidden', true)
+	$input.setAttribute('aria-hidden', 'true')
 
 	if (!accessibility_block_created) {
 		$a11y = create_a11y_block()
@@ -47,7 +59,7 @@ function TimePolyfill($input, $label) {
 }
 
 if (window) {
-	window.TimePolyfill = TimePolyfill
+	(window as any).TimePolyfill = TimePolyfill
 }
 
 export default TimePolyfill

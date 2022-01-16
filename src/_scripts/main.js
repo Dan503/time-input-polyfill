@@ -4,7 +4,7 @@
 'use strict'
 
 // Time input polyfill
-import TimePolyfill from '../../index.mjs'
+import TimePolyfill from '../../index'
 import _$$ from '../../core/selectors/_$$.js'
 import toArray from '../../core/converters/toArray.js'
 
