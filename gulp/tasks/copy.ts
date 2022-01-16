@@ -5,6 +5,7 @@ import { plugins, config, taskTarget, join } from '../utils'
 
 var dirs = config.directories
 
+
 gulp.task('copy:dist', function () {
 	return gulp
 		.src([join('dist/**/*')])

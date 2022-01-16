@@ -1,6 +1,7 @@
 'use strict'
 
 import gulp from 'gulp'
+import { TaskCallback } from 'undertaker'
 import {
 	plugins,
 	args,
@@ -10,18 +11,29 @@ import {
 	entries,
 	join,
 } from '../utils'
-import rollup from 'rollup-stream'
-import babel from 'rollup-plugin-babel'
+import { ModuleFormat } from 'rollup'
+import rollup from '@rollup/stream'
+import babel from '@rollup/plugin-babel'
 
 import pkg from '../../package.json'
 import glob from 'glob'
 import vsource from 'vinyl-source-stream'
 import buffer from 'vinyl-buffer'
 import gulpif from 'gulp-if'
+import gulpRename from 'gulp-rename'
 
 import fileHeader from '../../core/static-values/header'
 
-let cache = {}
+let cache: { [key: string]: any } = {}
+
+interface RollupParams {
+	entryFile: string
+	done: TaskCallback,
+	dest: string,
+	outputFileName?: string
+	header?: string
+	format?: ModuleFormat
+}
 
 const rollupJS = ({
 	entryFile,
@@ -31,16 +43,19 @@ const rollupJS = ({
 	header = '',
 	// Intended for use with browsers by default
 	format = 'iife',
-}) => {
+}: RollupParams) => {
 	const startTime = new Date().getTime()
 	return (
 		rollup({
 			input: entryFile,
-			sourcemap: !args.production,
+			// sourcemap: !args.production,
 			cache: cache[entryFile],
 			plugins: [babel()],
-			format,
-			name: 'TimePolyfill_bundle',
+			output: {
+				sourcemap: !args.production,
+				format,
+				name: 'TimePolyfill_bundle',
+			}
 		})
 			.on('bundle', function (bundle) {
 				// update cache data after every bundle is created
@@ -54,7 +69,7 @@ const rollupJS = ({
 			// minify code if production mode
 			.pipe(gulpif(args.production, plugins.terser()))
 			.pipe(
-				plugins.rename(function (filepath) {
+				gulpRename(function (filepath) {
 					// Remove 'source' directory as well as prefixed folder underscores
 					// Ex: 'src/_scripts' --> '/scripts'
 					filepath.dirname = filepath.dirname.replace(
@@ -71,13 +86,22 @@ const rollupJS = ({
 				var time = (new Date().getTime() - startTime) / 1000
 				console.log(
 					plugins.util.colors.cyan(entryFile) +
-						' was compiled: ' +
-						plugins.util.colors.magenta(time + 's')
+					' was compiled: ' +
+					plugins.util.colors.magenta(time + 's')
 				)
 				gulp.series('copy:dist')(done)
 				return browserSync.reload('*.js')
 			})
 	)
+}
+
+interface Rollup_multiple_files_params {
+	src: string,
+	done: TaskCallback,
+	dest: string,
+	outputFileName?: string,
+	header?: string,
+	format?: ModuleFormat
 }
 
 const rollup_multiple_files = ({
@@ -87,7 +111,7 @@ const rollup_multiple_files = ({
 	outputFileName,
 	header,
 	format,
-}) => {
+}: Rollup_multiple_files_params) => {
 	return glob(src, function (err, files) {
 		if (err) done(err)
 		return Promise.all(
@@ -105,7 +129,14 @@ const rollup_multiple_files = ({
 	})
 }
 
-function dist_compile({ done, src, type = '', header }) {
+interface Dist_compile_params {
+	done: TaskCallback,
+	src: string,
+	type?: string,
+	header?: string
+}
+
+function dist_compile({ done, src, type = '', header }: Dist_compile_params) {
 	if (!args.production) return done()
 	return rollup_multiple_files({
 		src,
@@ -154,7 +185,7 @@ gulp.task('rollup:site', function (done) {
 	})
 })
 
-const supports_time_CJS = (done) =>
+const supports_time_CJS = (done: TaskCallback) =>
 	rollup_multiple_files({
 		src: './core/helpers/supportsTime.js',
 		dest: '.',
@@ -163,7 +194,7 @@ const supports_time_CJS = (done) =>
 		outputFileName: 'supportsTime.js',
 	})
 
-const supports_time_MJS = (done) =>
+const supports_time_MJS = (done: TaskCallback) =>
 	rollup_multiple_files({
 		src: './core/helpers/supportsTime.js',
 		dest: '.',
@@ -172,7 +203,7 @@ const supports_time_MJS = (done) =>
 		outputFileName: 'supportsTime.mjs',
 	})
 
-export const npm_rollup_index_CJS = (done) =>
+export const npm_rollup_index_CJS = (done: TaskCallback) =>
 	rollup_multiple_files({
 		src: './index.mjs',
 		dest: '.',
@@ -181,7 +212,7 @@ export const npm_rollup_index_CJS = (done) =>
 		outputFileName: 'index.cjs.js',
 	})
 
-export const npm_rollup_auto_CJS = (done) =>
+export const npm_rollup_auto_CJS = (done: TaskCallback) =>
 	rollup_multiple_files({
 		src: './auto.mjs',
 		dest: '.',

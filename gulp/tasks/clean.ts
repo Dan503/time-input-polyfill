@@ -7,7 +7,7 @@ import del from 'del'
 // Clean
 gulp.task('clean', () => del([taskTarget]))
 
-const fileSet = (fileName, extensions) => {
+const fileSet = (fileName: string, extensions: Array<string | Array<string>>) => {
 	return extensions.flatMap((ext) => [
 		`./${fileName}.${ext}`,
 		`./${fileName}.${ext}.map`,

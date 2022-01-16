@@ -1,6 +1,7 @@
-import gulp from 'gulp'
+import * as gulp from 'gulp'
 import autoprefixer from 'autoprefixer'
 import gulpif from 'gulp-if'
+import gulpRename from 'gulp-rename'
 import autoImports from 'gulp-auto-imports'
 import { plugins, args, config, taskTarget, browserSync, join } from '../utils'
 
@@ -38,12 +39,12 @@ const sass_compile = () => {
 				],
 			})
 		)
-		.on('error', function (err) {
+		.on('error', function (err: Error) {
 			plugins.util.log(err)
 		})
 		.pipe(plugins.postcss([autoprefixer({ grid: 'autoplace' })]))
 		.pipe(
-			plugins.rename(function (path) {
+			gulpRename(function (path) {
 				// Remove 'source' directory as well as prefixed folder underscores
 				// Ex: 'src/_styles' --> '/styles'
 				path.dirname = path.dirname

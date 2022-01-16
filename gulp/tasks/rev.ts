@@ -2,10 +2,11 @@
 
 import gulpFilter from 'gulp-filter'
 import gulpRev from 'gulp-rev'
-import gulpRevDel from 'gulp-rev-delete-original'
-import gulpRevRewrite from 'gulp-rev-rewrite'
 import gulp from 'gulp'
 import { config, taskTarget, join } from '../utils'
+
+const gulpRevDel = require('gulp-rev-delete-original')
+const gulpRevRewrite = require('gulp-rev-rewrite')
 
 let dirs = config.directories
 let dest = join(taskTarget)

@@ -5,14 +5,14 @@ import { args, config, taskTarget, browserSync } from '../utils'
 
 // BrowserSync
 gulp.task('browserSync', () => {
-	return browserSync.init({
+	return Promise.resolve(browserSync.init({
 		open: args.open ? 'local' : false,
 		startPath: config.baseUrl,
 		port: config.port || 3000,
 		server: {
 			baseDir: taskTarget,
 			routes: (() => {
-				let routes = {}
+				let routes: any = {}
 
 				// Map base URL to routes
 				routes[config.baseUrl] = taskTarget
@@ -20,5 +20,5 @@ gulp.task('browserSync', () => {
 				return routes
 			})(),
 		},
-	})
+	}))
 })

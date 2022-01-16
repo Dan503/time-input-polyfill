@@ -20,7 +20,7 @@ gulp.task('eslint', () => {
 			],
 			{ cwd: dirs.source }
 		)
-		.pipe(browserSync.reload({ stream: true, once: true }))
+		.pipe(browserSync.reload({ stream: true }))
 		.pipe(
 			plugins.eslint({
 				useEslintrc: true,

@@ -1,6 +1,6 @@
 'use strict'
 
-import gulp from 'gulp'
+import * as gulp from 'gulp'
 import { args, config, browserSync, join } from '../utils'
 
 let dirs = config.directories

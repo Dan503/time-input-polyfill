@@ -1,13 +1,22 @@
 {
 	"compilerOptions": {
 		"alwaysStrict": true,
+		"allowSyntheticDefaultImports": true,
+		"resolveJsonModule": true,
+		"moduleResolution": "Node",
+		"esModuleInterop": true,
+		"allowJs": true,
 		"strict": true,
 		"target": "es5",
-		"module": "ES2015",
-		"lib": ["es2015", "es2017", "dom"],
-		"baseUrl": "../node_modules",
-		"types": ["cypress"]
+		"module": "ES2020",
+		"lib": ["es2020", "dom"],
+		"baseUrl": "../node_modules"
 	},
 	"include": ["**/*.ts", "**/*.js"],
-	"exclude": ["./node_modules"]
+	"exclude": ["./node_modules"],
+	"ts-node": {
+		"compilerOptions": {
+			"module": "commonjs"
+		}
+	}
 }

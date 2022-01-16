@@ -1,14 +1,13 @@
 'use strict'
 
 import fs from 'fs'
-import path from 'path'
-import foldero from 'foldero'
 import pug from 'pug'
-import yaml from 'js-yaml'
 import gulp from 'gulp'
 import { plugins, args, config, taskTarget, browserSync, join } from '../utils'
 import pkg from '../../package.json'
 import autoImports from 'gulp-auto-imports'
+
+const foldero = require('foldero')
 
 let dirs = config.directories
 let dest = join(taskTarget)
@@ -29,14 +28,10 @@ const compile_pug = () => {
 		siteData = foldero(dataPath, {
 			recurse: true,
 			whitelist: '(.*/)*.+.(json|ya?ml)$',
-			loader: function loadAsString(file) {
+			loader: function loadAsString(file: string) {
 				let json = {}
 				try {
-					if (path.extname(file).match(/^.ya?ml$/)) {
-						json = yaml.safeLoad(fs.readFileSync(file, 'utf8'))
-					} else {
-						json = JSON.parse(fs.readFileSync(file, 'utf8'))
-					}
+					json = JSON.parse(fs.readFileSync(file, 'utf8'))
 				} catch (e) {
 					plugins.util.log(`Error Parsing DATA file: ${file}`)
 					plugins.util.log('==== Details Below ====')

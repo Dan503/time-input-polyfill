@@ -1,6 +1,7 @@
 'use strict'
 
 import gulp from 'gulp'
+import { TaskCallback } from 'undertaker'
 import glob from 'glob'
 import { args } from './gulp/utils'
 
@@ -13,15 +14,15 @@ import {
 
 // This will grab all js in the `gulp` directory
 // in order to load all gulp tasks
-glob.sync('./gulp/tasks/**/*.js')
+glob.sync('./gulp/tasks/**/*.ts')
 	.filter(function (file) {
-		return /\.(js)$/i.test(file)
+		return /\.(ts)$/i.test(file)
 	})
 	.map(function (file) {
 		require(file)
 	})
 
-const production_mode_on = (done) => {
+const production_mode_on = (done: TaskCallback) => {
 	args.production = true
 	done()
 }
