@@ -1,3 +1,4 @@
+import { a11yUpdate, ManualEntryLog } from '@time-input-polyfill/utils'
 import values from '../helpers/values.js'
 
 import select_segment from '../selectors/select_segment.js'
@@ -16,14 +17,13 @@ import decrement_current_segment from '../setters/decrement_current_segment.js'
 import set_mode from '../setters/set_mode.js'
 import switch_times from '../setters/switch_times.js'
 
-import handle_tab from '../events/handle_tab.js'
+import handle_tab from './handle_tab.js'
 
 import all_number_keys from '../static-values/all_number_keys.js'
 import named_keys from '../static-values/named_keys.js'
+import { PolyfillInput } from '../../index'
 
-import update_a11y from '../accessibility/update_a11y.js'
-
-export default function bind_events($input) {
+export default function bind_events($input: PolyfillInput): void {
 	var prev_value = ''
 
 	var shiftKey = false
@@ -61,7 +61,7 @@ export default function bind_events($input) {
 	$input.addEventListener('blur', function () {
 		var current_value = $input.dataset.value
 		if (current_value !== prev_value) {
-			prev_value = current_value
+			prev_value = current_value || ''
 		}
 		focused_via_click = false
 	})
@@ -72,7 +72,7 @@ export default function bind_events($input) {
 			var segment = shiftKey ? 'mode' : 'hrs'
 			select_segment($input, segment)
 		}
-		update_a11y($input, ['initial', 'select'])
+		a11yUpdate($input, ['initial', 'select'])
 	})
 
 	$input.addEventListener('keydown', function (e) {
@@ -140,7 +140,7 @@ export default function bind_events($input) {
 	})
 }
 
-function auto_swap($input) {
+function auto_swap($input: PolyfillInput): void {
 	if ($input.polyfill.autoSwap) {
 		switch_times($input, 24)
 		setTimeout(function () {
