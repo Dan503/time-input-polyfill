@@ -10,8 +10,6 @@ import TimePolyfill from '../../index'
 
 import result from '../_modules/result/result'
 
-// import ga from './_helpers/gtag'
-
 document.addEventListener('DOMContentLoaded', function () {
 	// var $$timeInputs = _$$('input[type="time"]');
 	var $$timeInputs = selectAll<HTMLInputElement>('input.time')
