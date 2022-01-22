@@ -1,6 +1,10 @@
-export default function($result, values) {
-	var $list = $result.querySelector('.result__list')
-	var $close = $result.querySelector('.result__close')
+interface ResultValues {
+	[label: string]: string
+}
+
+export default function ($result: HTMLDivElement | null, values: ResultValues): void {
+	var $list = $result?.querySelector<HTMLDListElement>('.result__list')
+	var $close = $result?.querySelector<HTMLButtonElement>('.result__close')
 
 	var html = ''
 	for (var label in values) {
@@ -21,10 +25,13 @@ export default function($result, values) {
 				'</div>',
 			].join('')
 	}
-	$list.innerHTML = html
-	$result.classList.add('-visible')
+	if ($list) $list.innerHTML = html
 
-	$close.onclick = function() {
-		$result.classList.remove('-visible')
+	$result?.classList.add('-visible')
+
+	if ($close) {
+		$close.onclick = function () {
+			$result?.classList.remove('-visible')
+		}
 	}
 }

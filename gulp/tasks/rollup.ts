@@ -39,7 +39,7 @@ const rollupJS = ({
 	entryFile,
 	done,
 	dest,
-	outputFileName = 'main.js',
+	outputFileName = 'main',
 	header = '',
 	// Intended for use with browsers by default
 	format = 'iife',
@@ -90,7 +90,7 @@ const rollupJS = ({
 					plugins.util.colors.magenta(time + 's')
 				)
 				gulp.series('copy:dist')(done)
-				return browserSync.reload('*.js')
+				return browserSync.reload('*')
 			})
 	)
 }
@@ -149,14 +149,14 @@ function dist_compile({ done, src, type = '', header }: Dist_compile_params) {
 
 // Rollup JS library
 gulp.task('rollup:dist:manual', function (done) {
-	return dist_compile({ done, src: './index.js', header: fileHeader })
+	return dist_compile({ done, src: './index', header: fileHeader })
 })
 
 // Rollup JS library
 gulp.task('rollup:dist:auto', function (done) {
 	return dist_compile({
 		done,
-		src: './auto.js',
+		src: './auto',
 		type: '.auto',
 		header: [
 			'// == TIME INPUT POLYFILL AUTO LOADER ==\n',
@@ -187,16 +187,16 @@ gulp.task('rollup:site', function (done) {
 
 const supports_time_CJS = (done: TaskCallback) =>
 	rollup_multiple_files({
-		src: './core/helpers/supportsTime.js',
+		src: './core/helpers/supportsTime',
 		dest: '.',
 		done,
 		format: 'cjs',
-		outputFileName: 'supportsTime.js',
+		outputFileName: 'supportsTime',
 	})
 
 const supports_time_MJS = (done: TaskCallback) =>
 	rollup_multiple_files({
-		src: './core/helpers/supportsTime.js',
+		src: './core/helpers/supportsTime',
 		dest: '.',
 		done,
 		format: 'es',
@@ -209,7 +209,7 @@ export const npm_rollup_index_CJS = (done: TaskCallback) =>
 		dest: '.',
 		done,
 		format: 'cjs',
-		outputFileName: 'index.cjs.js',
+		outputFileName: 'index.cjs',
 	})
 
 export const npm_rollup_auto_CJS = (done: TaskCallback) =>
@@ -218,7 +218,7 @@ export const npm_rollup_auto_CJS = (done: TaskCallback) =>
 		dest: '.',
 		done,
 		format: 'cjs',
-		outputFileName: 'auto.js',
+		outputFileName: 'auto',
 	})
 
 export const npm_rollup_supportsTime = gulp.parallel(

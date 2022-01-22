@@ -1,8 +1,9 @@
-import convert_to_24hr_time from '../converters/convert_to_24hr_time.js'
+import { convertString12hr } from '@time-input-polyfill/utils'
+import { PolyfillInput } from '../../index'
 
-export default function set_data_attribute($input, timeString_12hr) {
+export default function set_data_attribute($input: PolyfillInput, timeString_12hr: string) {
 	var filteredString =
 		timeString_12hr.indexOf('-') > -1 ? '' : timeString_12hr
-	var time24hr = convert_to_24hr_time(filteredString)
+	var time24hr = convertString12hr(filteredString).to24hr()
 	$input.setAttribute('data-value', time24hr)
 }

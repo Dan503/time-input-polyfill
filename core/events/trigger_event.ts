@@ -1,9 +1,10 @@
-import create_event from './create_event.js'
+import { PolyfillInput } from '../..'
+import create_event from './create_event'
 
 var inputEvent = create_event('input')
 var changeEvent = create_event('change')
 
-export default function trigger_event($input, eventName) {
+export default function trigger_event($input: PolyfillInput, eventName: 'input' | 'change') {
 	var event = {
 		input: inputEvent,
 		change: changeEvent,
@@ -15,6 +16,6 @@ export default function trigger_event($input, eventName) {
 }
 
 // Browsers only send out input and change events if the time element has a full valid value
-function can_trigger_change($input) {
+function can_trigger_change($input: PolyfillInput) {
 	return !/--/.test($input.value)
 }

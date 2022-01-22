@@ -1,11 +1,13 @@
-import apply_default from './core/setters/apply_default.js'
-import update_time from './core/setters/update_time.js'
-import set_data_attribute from './core/setters/set_data_attribute.js'
-import bind_events from './core/events/bind_events.js'
-import switch_times from './core/setters/switch_times.js'
-import get_label from './core/getters/get_label.js'
+// Needed for compiling into a single file
+import 'requirejs'
 
-import create_a11y_block from './core/accessibility/create_a11y_block.js'
+import apply_default from './core/setters/apply_default'
+import update_time from './core/setters/update_time'
+import set_data_attribute from './core/setters/set_data_attribute'
+import bind_events from './core/events/bind_events'
+import switch_times from './core/setters/switch_times'
+
+import { a11yCreate, getInputValue, ManualEntryLog, selectNextSegment, getLabelTextOf } from '@time-input-polyfill/utils'
 
 export interface InputPolyfillProp {
 	$a11y: HTMLDivElement,
@@ -13,27 +15,28 @@ export interface InputPolyfillProp {
 	autoSwap: boolean,
 	update: () => void,
 	swap: (format: 12 | 24) => void,
+	manualEntryLog: ManualEntryLog
 }
 
 export interface PolyfillInput extends HTMLInputElement {
-	polyfill: InputPolyfillProp
+	polyfill?: InputPolyfillProp
 }
 
 let accessibility_block_created = false
 let $a11y: HTMLDivElement
 
-function TimePolyfill($input: PolyfillInput, $label: HTMLLabelElement) {
+const TimePolyfill = function ($input: PolyfillInput, document?: Document): void {
 	$input.setAttribute('autocomplete', 'off')
 
 	// Prevent screen reader from announcing the default stuff
 	$input.setAttribute('aria-hidden', 'true')
 
 	if (!accessibility_block_created) {
-		$a11y = create_a11y_block()
+		$a11y = a11yCreate()
 		accessibility_block_created = true
 	}
 
-	const label = $label ? $label.textContent : get_label($input)
+	const label = getLabelTextOf($input, document)
 
 	$input.polyfill = {
 		$a11y: $a11y,
@@ -45,6 +48,15 @@ function TimePolyfill($input: PolyfillInput, $label: HTMLLabelElement) {
 		swap: function (forcedFormat) {
 			switch_times($input, forcedFormat)
 		},
+		manualEntryLog: new ManualEntryLog({
+			timeObject: getInputValue($input).asTimeObject(),
+			onUpdate(entryLog) {
+				$input.value = entryLog.fullValue12hr
+			},
+			onLimitHit() {
+				selectNextSegment($input)
+			}
+		})
 	}
 
 	if ($input.value === '' || /--/.test($input.value)) {

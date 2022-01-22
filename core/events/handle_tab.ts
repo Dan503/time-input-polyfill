@@ -1,18 +1,17 @@
-import get_current_segment from '../getters/get_current_segment.js'
-import prev_segment from '../selectors/prev_segment.js'
-import next_segment from '../selectors/next_segment.js'
+import { getCursorSegment, selectNextSegment, selectPrevSegment } from '@time-input-polyfill/utils'
+import { PolyfillInput } from '../..'
 
-export default function handle_tab($input, e) {
-	var current_segment = get_current_segment($input)
-	var backwards_and_first = e.shiftKey && current_segment === 'hrs'
+export default function handle_tab($input: PolyfillInput, e: KeyboardEvent) {
+	var current_segment = getCursorSegment($input)
+	var backwards_and_first = e.shiftKey && current_segment === 'hrs12'
 	var forwards_and_last = !e.shiftKey && current_segment === 'mode'
 
 	if (!backwards_and_first && !forwards_and_last) {
 		e.preventDefault()
 		if (e.shiftKey) {
-			prev_segment($input)
+			selectPrevSegment($input)
 		} else {
-			next_segment($input)
+			selectNextSegment($input)
 		}
 	}
 }

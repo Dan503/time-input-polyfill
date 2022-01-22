@@ -5,6 +5,10 @@
 	"main": "index.cjs.js",
 	"module": "index.mjs",
 	"jsdelivr": "dist/time-input-polyfill.auto.min.js",
+	"dependencies": {
+		"@time-input-polyfill/utils": "^1.0.3",
+		"requirejs": "^2.3.6"
+	},
 	"devDependencies": {
 		"@babel/core": "~7.13.14",
 		"@babel/preset-env": "~7.13.12",
@@ -141,8 +145,5 @@
 			"js": "main.js",
 			"css": "main.{sass,scss}"
 		}
-	},
-	"dependencies": {
-		"@time-input-polyfill/utils": "^1.0.2"
 	}
 }

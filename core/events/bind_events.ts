@@ -1,27 +1,18 @@
-import { a11yUpdate, ManualEntryLog } from '@time-input-polyfill/utils'
-import values from '../helpers/values.js'
+import { a11yUpdate, getCursorSegment, Segment, selectCursorSegment, selectNextSegment, selectPrevSegment, selectSegment } from '@time-input-polyfill/utils'
+import values from '../helpers/values'
 
-import select_segment from '../selectors/select_segment.js'
+import reset from '../setters/reset'
+import manual_number_entry from '../setters/manual_number_entry'
+import clear_segment from '../setters/clear_segment'
+import switch_times from '../setters/switch_times'
 
-import next_segment from '../selectors/next_segment.js'
-import prev_segment from '../selectors/prev_segment.js'
-import select_cursor_segment from '../selectors/select_cursor_segment.js'
+import handle_tab from './handle_tab'
 
-import get_current_segment from '../getters/get_current_segment.js'
-
-import reset from '../setters/reset.js'
-import manual_number_entry from '../setters/manual_number_entry.js'
-import clear_segment from '../setters/clear_segment.js'
-import increment_current_segment from '../setters/increment_current_segment.js'
-import decrement_current_segment from '../setters/decrement_current_segment.js'
-import set_mode from '../setters/set_mode.js'
-import switch_times from '../setters/switch_times.js'
-
-import handle_tab from './handle_tab.js'
-
-import all_number_keys from '../static-values/all_number_keys.js'
-import named_keys from '../static-values/named_keys.js'
+import { all_number_keys } from '../static-values/all_number_keys'
+import named_keys from '../static-values/named_keys'
 import { PolyfillInput } from '../../index'
+import set_segment from '../setters/set_segment'
+import { decrement, increment } from '../setters/modifyTime'
 
 export default function bind_events($input: PolyfillInput): void {
 	var prev_value = ''
@@ -55,7 +46,7 @@ export default function bind_events($input: PolyfillInput): void {
 	})
 
 	$input.addEventListener('click', function (e) {
-		select_cursor_segment($input)
+		selectCursorSegment($input)
 	})
 
 	$input.addEventListener('blur', function () {
@@ -69,13 +60,13 @@ export default function bind_events($input: PolyfillInput): void {
 	$input.addEventListener('focus', function (e) {
 		if (!focused_via_click) {
 			e.preventDefault()
-			var segment = shiftKey ? 'mode' : 'hrs'
-			select_segment($input, segment)
+			var segment: Segment = shiftKey ? 'mode' : 'hrs12'
+			selectSegment($input, segment)
 		}
 		a11yUpdate($input, ['initial', 'select'])
 	})
 
-	$input.addEventListener('keydown', function (e) {
+	$input.addEventListener('keydown', function (e): true | void {
 		var is_enter_key = e.which === 13
 		if (is_enter_key) return true
 
@@ -107,31 +98,32 @@ export default function bind_events($input: PolyfillInput): void {
 		}
 
 		if (is_delete_key) {
-			var segment = get_current_segment($input)
+			var segment = getCursorSegment($input)
+
 			clear_segment($input, segment)
 		}
 
 		switch (e.which) {
 			case named_keys.ArrowRight:
-				next_segment($input)
+				selectNextSegment($input)
 				break
 			case named_keys.ArrowLeft:
-				prev_segment($input)
+				selectPrevSegment($input)
 				break
 			case named_keys.ArrowUp:
-				increment_current_segment($input)
+				increment.cursorSegment($input)
 				break
 			case named_keys.ArrowDown:
-				decrement_current_segment($input)
+				decrement.cursorSegment($input)
 				break
 			case named_keys.Escape:
 				reset($input)
 				break
 			case named_keys.a:
-				set_mode($input, 'AM')
+				set_segment($input, 'mode', 'AM')
 				break
 			case named_keys.p:
-				set_mode($input, 'PM')
+				set_segment($input, 'mode', 'PM')
 				break
 			case named_keys.Tab:
 				handle_tab($input, e)
@@ -141,7 +133,7 @@ export default function bind_events($input: PolyfillInput): void {
 }
 
 function auto_swap($input: PolyfillInput): void {
-	if ($input.polyfill.autoSwap) {
+	if ($input.polyfill?.autoSwap) {
 		switch_times($input, 24)
 		setTimeout(function () {
 			switch_times($input, 12)

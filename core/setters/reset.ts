@@ -1,7 +1,8 @@
-import apply_default from './apply_default.js'
-import select_segment from '../selectors/select_segment.js'
+import { selectSegment } from '@time-input-polyfill/utils'
+import apply_default from './apply_default'
+import { PolyfillInput } from '../..'
 
-export default function reset($input) {
+export default function reset($input: PolyfillInput) {
 	apply_default($input)
-	select_segment($input, 'hrs')
+	selectSegment($input, 'hrs12')
 }

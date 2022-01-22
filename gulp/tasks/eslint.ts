@@ -13,8 +13,8 @@ gulp.task('eslint', () => {
 	return gulp
 		.src(
 			[
-				'../gulpfile.babel.js',
-				'**/*.js',
+				'../gulpfile.babel',
+				'**/*',
 				// Ignore all vendor folder files
 				'!**/vendor/**/*',
 			],

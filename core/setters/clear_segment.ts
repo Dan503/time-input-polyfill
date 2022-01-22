@@ -1,7 +1,8 @@
-import set_segment from './set_segment.js'
-import update_a11y from '../accessibility/update_a11y.js'
+import set_segment from './set_segment'
+import { a11yUpdate, Segment } from '@time-input-polyfill/utils'
+import { PolyfillInput } from '../..'
 
-export default function clear_segment($input, segment) {
-	set_segment($input, segment, '--')
-	update_a11y($input, ['update'])
+export default function clear_segment($input: PolyfillInput, segment: Segment) {
+	set_segment($input, segment, null)
+	a11yUpdate($input, ['update'])
 }
