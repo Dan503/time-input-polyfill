@@ -8,6 +8,7 @@ import bind_events from './core/events/bind_events'
 import switch_times from './core/setters/switch_times'
 
 import { a11yCreate, getInputValue, ManualEntryLog, selectNextSegment, getLabelTextOf } from '@time-input-polyfill/utils'
+import { extendedWindow } from './Window'
 
 export interface InputPolyfillProp {
 	$a11y: HTMLDivElement,
@@ -21,6 +22,8 @@ export interface InputPolyfillProp {
 export interface PolyfillInput extends HTMLInputElement {
 	polyfill?: InputPolyfillProp
 }
+
+export type TimePolyfillFn = ($input: PolyfillInput, document?: Document) => void
 
 let accessibility_block_created = false
 let $a11y: HTMLDivElement
@@ -70,8 +73,8 @@ const TimePolyfill = function ($input: PolyfillInput, document?: Document): void
 	bind_events($input)
 }
 
-if (window) {
-	(window as any).TimePolyfill = TimePolyfill
+if (extendedWindow) {
+	extendedWindow.TimePolyfill = TimePolyfill
 }
 
 export default TimePolyfill

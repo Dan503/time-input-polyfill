@@ -6,6 +6,7 @@
 	"module": "index.mjs",
 	"jsdelivr": "dist/time-input-polyfill.auto.min.js",
 	"dependencies": {
+		"@dan503/load-js": "^1.0.3",
 		"@time-input-polyfill/utils": "^1.0.3",
 		"requirejs": "^2.3.6"
 	},

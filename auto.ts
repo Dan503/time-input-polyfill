@@ -1,16 +1,17 @@
-import supports_time from './core/helpers/supportsTime.js'
-import loadJS from './core/helpers/loadJS.js'
+import { supportsTime } from '@time-input-polyfill/utils/common/supportsTime'
+import loadJS from '@dan503/load-js'
+import { extendedWindow } from './Window'
 
 document.addEventListener('DOMContentLoaded', () => {
-	if (!supports_time) {
+	if (!supportsTime) {
 		loadJS(
-			'https://cdn.jsdelivr.net/npm/time-input-polyfill@1.0.11/dist/time-input-polyfill.min.js',
+			'https://cdn.jsdelivr.net/npm/time-input-polyfill@2.0.0/dist/time-input-polyfill.min.js',
 			() => {
 				var $inputs = [].slice.call(
 					document.querySelectorAll('input[type="time"]')
 				)
 				$inputs.forEach(($input) => {
-					new TimePolyfill($input)
+					extendedWindow?.TimePolyfill?.($input)
 				})
 			}
 		)
