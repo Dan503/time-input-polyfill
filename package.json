@@ -4,12 +4,15 @@
 	"scripts": {
 		"start": "vite",
 		"build": "tsc && vite build",
-		"preview": "npm run build && vite preview"
+		"preview": "npm run build && vite preview",
+		"test": "cypress open"
 	},
 	"dependencies": {
-		"@time-input-polyfill/utils": "^1.0.4"
+		"@time-input-polyfill/utils": "^1.0.4",
+		"cypress": "^9.5.1"
 	},
 	"devDependencies": {
+		"@time-input-polyfill/tests": "^1.0.0",
 		"@vitejs/plugin-legacy": "^1.7.1",
 		"normalize.css": "^8.0.1",
 		"sass": "^1.49.9",
