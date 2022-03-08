@@ -1,14 +1,6 @@
 {
+	"extends": "./tsconfig-base.json",
 	"compilerOptions": {
-		"alwaysStrict": true,
-		"allowSyntheticDefaultImports": true,
-		"resolveJsonModule": true,
-		"moduleResolution": "Node",
-		"esModuleInterop": true,
-		"noImplicitThis": false,
-		"allowJs": true,
-		"strict": true,
-		"target": "es5",
 		"module": "ES2020",
 		"lib": ["es2020", "dom"],
 		"baseUrl": "../node_modules"
