@@ -13,7 +13,6 @@ import {
 } from '../utils'
 import { ModuleFormat } from 'rollup'
 import rollup from '@rollup/stream'
-import babel from '@rollup/plugin-babel'
 
 import pkg from '../../package.json'
 import glob from 'glob'
@@ -23,6 +22,11 @@ import gulpif from 'gulp-if'
 import gulpRename from 'gulp-rename'
 
 import fileHeader from '../../core/static-values/header'
+
+import typeScript from 'rollup-plugin-typescript2'
+import { babel } from '@rollup/plugin-babel'
+import { terser } from 'rollup-plugin-terser'
+import { DEFAULT_EXTENSIONS } from '@babel/core';
 
 let cache: { [key: string]: any } = {}
 
@@ -50,7 +54,16 @@ const rollupJS = ({
 			input: entryFile,
 			// sourcemap: !args.production,
 			cache: cache[entryFile],
-			plugins: [babel()],
+			plugins: [
+				typeScript({ tsconfig: './tsconfig.prepublish.json' }),
+				babel({
+					extensions: [
+						...DEFAULT_EXTENSIONS,
+						'.ts'
+					]
+				}),
+				terser({ output: { comments: false } }),
+			],
 			output: {
 				sourcemap: !args.production,
 				format,
