@@ -4,7 +4,8 @@
 
 import gulpif from 'gulp-if'
 import gulp from 'gulp'
-import { plugins, config, browserSync } from '../utils'
+import esLint from 'gulp-eslint-new'
+import { config, browserSync } from '../utils'
 
 let dirs = config.directories
 
@@ -22,12 +23,12 @@ gulp.task('eslint', () => {
 		)
 		.pipe(browserSync.reload({ stream: true }))
 		.pipe(
-			plugins.eslint({
+			esLint({
 				useEslintrc: true,
 			})
 		)
-		.pipe(plugins.eslint.format())
-		.pipe(gulpif(!browserSync.active, plugins.eslint.failAfterError()))
+		.pipe(esLint.format())
+		.pipe(gulpif(!browserSync.active, esLint.failAfterError()))
 		.on('error', function () {
 			if (!browserSync.active) {
 				process.exit(1)

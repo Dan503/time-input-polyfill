@@ -1,6 +1,5 @@
 'use strict'
 
-import gulpLoadPlugins from 'gulp-load-plugins'
 import browserSyncLib from 'browser-sync'
 import pjson from '../package.json'
 import minimist from 'minimist'
@@ -31,10 +30,6 @@ type GulpPluginNames =
 	| 'util'
 
 type GulpPlugins = Record<GulpPluginNames, any>
-
-// Load all gulp plugins based on their names
-// EX: gulp-copy -> copy
-export const plugins = gulpLoadPlugins<GulpPlugins>()
 
 // Get package.json custom configuration
 export const config = Object.assign({}, pjson.config)
