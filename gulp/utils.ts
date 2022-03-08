@@ -55,3 +55,7 @@ export const taskTarget = args.production ? dirs.destination : dirs.temporary
 export const browserSync = browserSyncLib.create()
 
 export const join = (...paths: Array<string>) => paths.join('/')
+
+export const jsWatch = {
+	isEnabled: true,
+}

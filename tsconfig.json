@@ -5,6 +5,7 @@
 		"resolveJsonModule": true,
 		"moduleResolution": "Node",
 		"esModuleInterop": true,
+		"noImplicitThis": false,
 		"allowJs": true,
 		"strict": true,
 		"target": "es5",
