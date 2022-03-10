@@ -5,6 +5,19 @@ import './main.scss'
 
 'use strict'
 
+type routes = '/' | '/tests'
+
+const path = window.location.pathname as routes
+const homePage = document.getElementById('homePage') as HTMLDivElement
+const testPage = document.getElementById('testPage') as HTMLDivElement
+
+if (path === '/tests') {
+	homePage.hidden = true
+}
+if (path === '/') {
+	testPage.hidden = true
+}
+
 // import { toArray, selectAll } from '@time-input-polyfill/utils'
 
 // // Time input polyfill

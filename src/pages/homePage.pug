@@ -1,0 +1,53 @@
+mixin homePage
+	#homePage.container(style="text-align: center")
+		h1 Time Input Polyfill
+		p.version v#{version}
+
+		+forkMe
+
+		+textBlock
+			p The demos on this page have been applied manually in order to demonstrate the difference between a real time input and a polyfill time input in modern browsers.
+
+			p Under typical usage, modern browsers would not download the full polyfill JS and IE would apply the polyfill to the time inputs automatically.
+
+		form(action="#" method="post")
+
+			.block
+				label(for="real") Real time input
+				input(id="real" type='time')
+
+			.block
+				label(for="fake") Polyfill time input
+				input.time(id="fake" type='text')
+
+			.block
+				label(for="real-value") Real with value
+				input(id="real-value" type='time' value="20:30")
+
+			.block
+				label(for="fake-value") Polyfill with value
+				input.time(id="fake-value" type='text' value="20:30")
+
+			.block
+				button What happens if I submit a form?
+
+			+result
+
+		+downloadMethod('Download via npm:')
+			pre
+				code npm i time-input-polyfill
+			pre
+				code require('time-input-polyfill/auto')
+
+		+downloadMethod('Download via CDN:')
+			pre
+				code &lt;script src="https://cdn.jsdelivr.net/npm/time-input-polyfill"&gt;&lt;/script&gt;
+			p
+				a(href=`https://cdn.jsdelivr.net/npm/time-input-polyfill`) https://cdn.jsdelivr.net/npm/time-input-polyfill
+
+		+downloadMethod('View documentation:')
+			p: a(href='https://github.com/Dan503/time-input-polyfill#readme') https://github.com/Dan503/time-input-polyfill
+
+		p.credit Icon made by <a href="https://www.flaticon.com/authors/prettycons" title="prettycons">prettycons</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a>
+
+	include ./clock.svg
