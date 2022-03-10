@@ -2,8 +2,7 @@ import legacy from '@vitejs/plugin-legacy'
 import pugPlugin from 'vite-plugin-pug'
 import pkg from './package.json'
 
-// TODO: currently not Vite compatible, need to do the complicated packaging stuff so that it exports hybrid CommonJS/ESM modules
-import { getIDsAndLabels } from '@time-input-polyfill/tests/src/core/IDs-and-labels'
+import { getIDsAndLabels } from './node_modules/@time-input-polyfill/tests/dist/mjs/src/core/IDs-and-labels'
 
 export const testIdsAndLabels = getIDsAndLabels()
 
