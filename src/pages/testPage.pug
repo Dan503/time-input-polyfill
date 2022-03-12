@@ -1,13 +1,28 @@
 mixin testPage
 	#testPage.container
 		h1 Tests
-		- console.log({ testIdsAndLabels })
-		- console.log({ staticValues })
 		- var IDs = testIdsAndLabels.IDs
 		- var labels = testIdsAndLabels.labels
 		- var lowerCasePrimaryLabel = labels.primaryTestsLabel.toLowerCase()
+
+		script= ['eventsInputID', 'eventsFormID', 'eventsFormValueID'].map(key => `var ${key} = '${IDs[key]}'`).join(';')
+
+		script.
+			document.addEventListener("DOMContentLoaded", () => {
+				const inputElem = document.getElementById(eventsInputID)
+				const formElem = document.getElementById(eventsFormID)
+				const formValueElem = document.getElementById(eventsFormValueID)
+
+				formElem.addEventListener('submit', handleFormSubmit);
+
+				function handleFormSubmit (e) {
+					e.preventDefault()
+					formValueElem.innerText = inputElem.value
+				}
+			});
+
 		.TestComponent
-			form.primaryTests#primaryTests__form
+			.primaryTests
 				h2 Primary tests
 				.primaryTests__inputContainer
 					label(for=IDs.primaryInputID)=labels.primaryTestsLabel
@@ -26,7 +41,7 @@ mixin testPage
 					span(id=IDs.primaryValueID) [computed value]
 					| "
 
-			.eventTests
+			form.eventTests(id=IDs.eventsFormID)
 				h2 Event tests
 
 				.eventTests__inputContainer
@@ -38,6 +53,9 @@ mixin testPage
 					p(id=IDs.eventsMainNameID) [Event Main Name]
 					p(id=IDs.eventsAltNameID) [Event Alt Name]
 
+				.eventTests__formSubmit
+					button(id=IDs.buttonIDs.submitID type="submit") Submit form
+					p(id=IDs.eventsFormValueID)
+
 //- TODO:
 //- Need to make the actual functionality work now
-//- `@time-input-polyfill/tests` package needs to also include a test that reacts to a form submission event
