@@ -1,3 +1,3 @@
 import { testSuite } from '../../support/testSuite'
 
-testSuite.tests.events.all()
+testSuite.tests.events.inputEvents()
