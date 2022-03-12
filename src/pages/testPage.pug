@@ -1,3 +1,43 @@
 mixin testPage
-	#testPage
+	#testPage.container
 		h1 Tests
+		- console.log({ testIdsAndLabels })
+		- console.log({ staticValues })
+		- var IDs = testIdsAndLabels.IDs
+		- var labels = testIdsAndLabels.labels
+		- var lowerCasePrimaryLabel = labels.primaryTestsLabel.toLowerCase()
+		.TestComponent
+			form.primaryTests#primaryTests__form
+				h2 Primary tests
+				.primaryTests__inputContainer
+					label(for=IDs.primaryInputID)=labels.primaryTestsLabel
+					input(type="text" id=IDs.primaryInputID)
+					button(id=IDs.buttonIDs.togglePolyfillID type="button") Toggle polyfill
+
+				p.primaryTests__buttons(style="display:flex; flex-direction: column; align-items: center; gap: 1em;")
+					button(id=IDs.buttonIDs.amID type="button")
+						| Set !{lowerCasePrimaryLabel} time to !{staticValues.buttonAM.labelValue}
+					button(id=IDs.buttonIDs.pmID type="button")
+						| Set !{lowerCasePrimaryLabel} time to !{staticValues.buttonPM.labelValue}
+					button(id=IDs.buttonIDs.blankID type="button")
+						| Set !{lowerCasePrimaryLabel} time to !{staticValues.buttonBlank.labelValue}
+
+				p.primaryTests__returnValue Returned value: "
+					span(id=IDs.primaryValueID) [computed value]
+					| "
+
+			.eventTests
+				h2 Event tests
+
+				.eventTests__inputContainer
+					label(for=IDs.eventsInputID)=labels.eventTestsLabel
+					input(type="text" id=IDs.eventsInputID)
+
+				.eventTests__output
+					p(id=IDs.eventsValueID) [Event Input Value]
+					p(id=IDs.eventsMainNameID) [Event Main Name]
+					p(id=IDs.eventsAltNameID) [Event Alt Name]
+
+//- TODO:
+//- Need to make the actual functionality work now
+//- `@time-input-polyfill/tests` package needs to also include a test that reacts to a form submission event

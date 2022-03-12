@@ -3,6 +3,7 @@ import pugPlugin from 'vite-plugin-pug'
 import pkg from './package.json'
 
 import { getIDsAndLabels } from './node_modules/@time-input-polyfill/tests/dist/mjs/src/core/IDs-and-labels'
+import { staticValues } from './node_modules/@time-input-polyfill/tests/dist/mjs/src/core/static-values'
 
 export const testIdsAndLabels = getIDsAndLabels()
 
@@ -10,6 +11,7 @@ export const testIdsAndLabels = getIDsAndLabels()
 const locals = {
 	version: pkg.version,
 	testIdsAndLabels,
+	staticValues,
 }
 
 /**
