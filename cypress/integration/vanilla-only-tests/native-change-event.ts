@@ -1,7 +1,7 @@
 import { testSuite } from '../../support/testSuite'
 
 describe('native change event', () => {
-	test('native change event', () => {
+	it('native change event', () => {
 		const { loadEventsInput, use, hasEventsMainName, cySelectSegment } = testSuite.utils
 		const cyNativeChangeEventDisplay = () => cy.get('#nativeChangeEventDisplay')
 		const defaultNativeChangeText = '[native change event]'
