@@ -1,7 +1,8 @@
 import './main.scss'
-// import { selectAll, toArray } from '@time-input-polyfill/utils'
+
+import { selectAll } from '@time-input-polyfill/utils'
 // Time input polyfill
-// import TimePolyfill from '../core/index'
+import TimePolyfill from '../core/index'
 
 import { homePage } from './pages/homePage'
 import { testPage } from './pages/testPage'
@@ -28,9 +29,9 @@ if (isHomePage) {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-	// var $$timeInputs = selectAll<HTMLInputElement>('input.time')
+	var $$timeInputs = selectAll<HTMLInputElement>('input.time')
 
-	// $$timeInputs.forEach((inputElem) => TimePolyfill(inputElem, document))
+	$$timeInputs.forEach((inputElem) => TimePolyfill(inputElem, document))
 
 	isHomePage && homePage()
 	isTestPage && testPage()
