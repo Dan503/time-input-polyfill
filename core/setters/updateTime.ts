@@ -3,7 +3,7 @@ import { setTime } from './setTime'
 
 export function updateTime($input: PolyfillInput): PolyfillInput {
 	if ($input.polyfill?.isEnabled) {
-		setTime($input, $input.value)
+		setTime($input, $input.polyfill.proxy.value)
 	}
 	return $input
 }

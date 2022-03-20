@@ -35,7 +35,7 @@ export function bindEvents($input: PolyfillInput): void {
 	// Turns the IE clear button into a reset button
 	$input.addEventListener('mouseup', function () {
 		setTimeout(function () {
-			if ($input.value === '' && $input.polyfill?.isEnabled) reset($input)
+			if ($input.polyfill?.proxy.value === '' && $input.polyfill?.isEnabled) reset($input)
 		})
 	})
 

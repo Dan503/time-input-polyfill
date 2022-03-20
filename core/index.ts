@@ -4,9 +4,10 @@ import { bindEvents } from './events'
 // import bind_events from './core/events/bind_events'
 // import switch_times from './core/setters/switch_times'
 
-import { a11yCreate, getInputValue, ManualEntryLog, selectNextSegment, getLabelTextOf, convertString12hr, convertString24hr } from '@time-input-polyfill/utils'
+import { a11yCreate, getInputValue, ManualEntryLog, selectNextSegment, getLabelTextOf, convertString12hr, convertString24hr, convertTimeObject } from '@time-input-polyfill/utils'
 import { extendedWindow } from './helpers/Window'
 import type { PolyfillInput } from './types'
+import { provideTimeString } from './helpers/provideTimeStringAs'
 
 let isA11yBlockCreated = false
 let $a11y: HTMLDivElement
@@ -17,7 +18,7 @@ const styleTag = document.createElement('style')
 styleTag.innerHTML = `.${CLASS_NAME} { font-family: monospace; }`
 document.head.appendChild(styleTag)
 
-function TimeInputPolyfill($input: PolyfillInput, document?: Document): void {
+function TimeInputPolyfill($input: PolyfillInput, document?: Document, proxyHandler: ProxyHandler<PolyfillInput> = {}): void {
 	$input.setAttribute('autocomplete', 'off')
 
 	// Prevent screen reader from announcing the default stuff
@@ -35,17 +36,18 @@ function TimeInputPolyfill($input: PolyfillInput, document?: Document): void {
 
 	$input.polyfill = {
 		isEnabled: true,
+		proxy: new Proxy($input, proxyHandler),
 		enable() {
 			if ($input.polyfill) {
 				$input.polyfill.isEnabled = true
 				$input.type = 'text'
-				$input.value = convertString24hr($input.value).to12hr()
+				$input.polyfill.proxy.value = convertString24hr($input.polyfill.proxy.value).to12hr()
 			}
 		},
 		disable() {
 			if ($input.polyfill) {
 				$input.polyfill.isEnabled = false
-				$input.value = convertString12hr($input.value).to24hr()
+				$input.polyfill.proxy.value = convertString12hr($input.polyfill.proxy.value).to24hr()
 				$input.type = 'time'
 			}
 		},
@@ -69,7 +71,7 @@ function TimeInputPolyfill($input: PolyfillInput, document?: Document): void {
 		})
 	}
 
-	if ($input.value === '' || /--/.test($input.value)) {
+	if ($input.polyfill.proxy.value === '' || /--/.test($input.polyfill.proxy.value)) {
 		applyDefault($input)
 	} else {
 		updateTime($input)

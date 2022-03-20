@@ -1,7 +1,9 @@
+import type { ManualEntryLog, TimeObject, String12hr, String24hr } from '@time-input-polyfill/utils'
 import type { ManualEntryLog } from '@time-input-polyfill/utils'
 
 export interface InputPolyfillProp {
 	isEnabled: boolean,
+	proxy: PolyfillInput,
 	enable: () => void,
 	disable: () => void,
 	$a11y: HTMLDivElement,
