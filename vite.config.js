@@ -5,10 +5,10 @@ import pkg from './package.json'
 import { getIDsAndLabels } from './node_modules/@time-input-polyfill/tests/dist/mjs/src/core/IDs-and-labels'
 import { staticValues } from './node_modules/@time-input-polyfill/tests/dist/mjs/src/core/static-values'
 
-export const testIdsAndLabels = getIDsAndLabels()
+export var testIdsAndLabels = getIDsAndLabels()
 
 /** variables you want to make available to your pug files */
-const locals = {
+var locals = {
 	version: pkg.version,
 	testIdsAndLabels,
 	staticValues,
@@ -17,7 +17,7 @@ const locals = {
 /**
  * @type {import('vite').UserConfig}
  */
-const config = {
+var config = {
 	build: {
 		outDir: 'docs',
 	},

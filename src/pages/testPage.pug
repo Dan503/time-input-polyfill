@@ -8,10 +8,10 @@ mixin testPage
 		script= ['eventsInputID', 'formID', 'formCpuValueID'].map(key => `var ${key} = '${IDs[key]}'`).join(';')
 
 		script.
-			document.addEventListener("DOMContentLoaded", () => {
-				const inputElem = document.getElementById(eventsInputID)
-				const formElem = document.getElementById(formID)
-				const formValueElem = document.getElementById(formCpuValueID)
+			document.addEventListener("DOMContentLoaded", function () {
+				var inputElem = document.getElementById(eventsInputID)
+				var formElem = document.getElementById(formID)
+				var formValueElem = document.getElementById(formCpuValueID)
 
 				formElem.addEventListener('submit', handleFormSubmit);
 

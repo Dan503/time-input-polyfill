@@ -28,7 +28,7 @@ if (isHomePage) {
 	testPageElem.hidden = true
 }
 
-document.addEventListener('DOMContentLoaded', function () {
+setTimeout(() => {
 	var $$timeInputs = selectAll<HTMLInputElement>('input.time')
 
 	$$timeInputs.forEach((inputElem) => TimePolyfill(inputElem, document))
