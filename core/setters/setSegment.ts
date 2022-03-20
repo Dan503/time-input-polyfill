@@ -16,7 +16,7 @@ export function setSegment<SegType extends Segment>($input: PolyfillInput, segme
 		}
 		const newInputVal = convertTimeObject(timeObject).to12hr()
 
-		$input.polyfill.proxy.value = newInputVal
+		$input.value = newInputVal
 		selectSegment($input, segment)
 		setDataAttribute($input, newInputVal)
 		triggerInputAndChangeEvents($input)
