@@ -26,7 +26,7 @@ mixin testPage
 				h2 Primary tests
 				.primaryTests__inputContainer
 					label(for=IDs.primaryInputID)=labels.primaryTestsLabel
-					input.time(type="text" id=IDs.primaryInputID)
+					input.time(type="text" id=IDs.primaryInputID value=staticValues.defaultValue.cpuValue)
 					button(id=IDs.buttonIDs.togglePolyfillID type="button") Toggle polyfill
 
 				p.primaryTests__buttons(style="display:flex; flex-direction: column; align-items: center; gap: 1em;")
@@ -46,7 +46,7 @@ mixin testPage
 
 				.eventTests__inputContainer
 					label(for=IDs.eventsInputID)=labels.eventTestsLabel
-					input.time(type="text" id=IDs.eventsInputID)
+					input.time(type="text" id=IDs.eventsInputID value=staticValues.defaultValue.cpuValue)
 
 				.eventTests__output
 					p(id=IDs.eventsCpuValueID) [Event Input Value]
