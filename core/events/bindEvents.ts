@@ -53,7 +53,7 @@ export function bindEvents($input: PolyfillInput): void {
 		if (!wasFocusedViaClick) {
 			e.preventDefault()
 			var segment: Segment = isShiftKeyPressed ? 'mode' : 'hrs12'
-			selectSegment($input, segment)
+			setTimeout(() => selectSegment($input, segment))
 		}
 		a11yUpdate($input, ['initial', 'select'])
 	})
