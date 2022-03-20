@@ -1,6 +1,9 @@
 import type { ManualEntryLog } from '@time-input-polyfill/utils'
 
 export interface InputPolyfillProp {
+	isEnabled: boolean,
+	enable: () => void,
+	disable: () => void,
 	$a11y: HTMLDivElement,
 	label: string,
 	autoSwap: boolean,

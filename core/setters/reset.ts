@@ -3,6 +3,8 @@ import { applyDefault } from './applyDefault'
 import { PolyfillInput } from '../types'
 
 export function reset($input: PolyfillInput) {
-	applyDefault($input)
-	selectSegment($input, 'hrs12')
+	if ($input.polyfill?.isEnabled) {
+		applyDefault($input)
+		selectSegment($input, 'hrs12')
+	}
 }

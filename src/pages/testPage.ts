@@ -23,4 +23,13 @@ export function testPage() {
 		inputElem.value = ''
 		inputElem.polyfill?.update()
 	})
+
+	document.getElementById(buttonIDs.togglePolyfillID)?.addEventListener('click', () => {
+		console.log(inputElem.polyfill?.isEnabled)
+		if (inputElem.polyfill?.isEnabled) {
+			inputElem.polyfill.disable()
+		} else {
+			inputElem.polyfill?.enable()
+		}
+	})
 }

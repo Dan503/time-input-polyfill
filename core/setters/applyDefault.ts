@@ -6,7 +6,9 @@ import { PolyfillInput } from '../types'
 import { setDataAttribute } from './setDataAttribute'
 
 export function applyDefault($input: PolyfillInput) {
-	setTime($input, '')
-	setDataAttribute($input, '')
-	triggerInputAndChangeEvents($input)
+	if ($input.polyfill?.isEnabled) {
+		setTime($input, '')
+		setDataAttribute($input, '')
+		triggerInputAndChangeEvents($input)
+	}
 }

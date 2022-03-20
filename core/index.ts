@@ -4,7 +4,7 @@ import { bindEvents } from './events'
 // import bind_events from './core/events/bind_events'
 // import switch_times from './core/setters/switch_times'
 
-import { a11yCreate, getInputValue, ManualEntryLog, selectNextSegment, getLabelTextOf } from '@time-input-polyfill/utils'
+import { a11yCreate, getInputValue, ManualEntryLog, selectNextSegment, getLabelTextOf, convertString12hr, convertString24hr } from '@time-input-polyfill/utils'
 import { extendedWindow } from './helpers/Window'
 import type { PolyfillInput } from './types'
 
@@ -34,6 +34,21 @@ function TimeInputPolyfill($input: PolyfillInput, document?: Document): void {
 	const label = getLabelTextOf($input, document)
 
 	$input.polyfill = {
+		isEnabled: true,
+		enable() {
+			if ($input.polyfill) {
+				$input.polyfill.isEnabled = true
+				const currentValue = $input.value
+				$input.value = convertString24hr(currentValue).to12hr()
+			}
+		},
+		disable() {
+			if ($input.polyfill) {
+				$input.polyfill.isEnabled = false
+				const currentValue = $input.value
+				$input.value = convertString12hr(currentValue).to24hr()
+			}
+		},
 		$a11y: $a11y,
 		label: label,
 		autoSwap: true,

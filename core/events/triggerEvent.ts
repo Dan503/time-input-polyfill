@@ -17,5 +17,5 @@ export function triggerEvent($input: PolyfillInput, eventName: 'input' | 'change
 
 /** Browsers only send out input and change events if the time element has a full valid value */
 function canTriggerChange($input: PolyfillInput) {
-	return !/--/.test($input.value)
+	return !/--/.test($input.value) && $input.polyfill?.isEnabled
 }
