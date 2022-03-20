@@ -58,7 +58,9 @@ export function bindEvents($input: PolyfillInput): void {
 			if (!wasFocusedViaClick) {
 				e.preventDefault()
 				var segment: Segment = isShiftKeyPressed ? 'mode' : 'hrs12'
-				setTimeout(() => selectSegment($input, segment))
+				setTimeout(() => {
+					selectSegment($input, segment)
+				})
 			}
 			a11yUpdate($input, ['initial', 'select'])
 		}
@@ -67,21 +69,21 @@ export function bindEvents($input: PolyfillInput): void {
 	$input.addEventListener('keydown', function (e): true | void {
 		if ($input.polyfill?.isEnabled) {
 
-			var is_enter_key = e.code === 'Enter'
+			var is_enter_key = e.key === 'Enter'
 			if (is_enter_key) return true
 
-			var is_number_key = allNumberKeys.indexOf(e.code) > -1
-			var is_named_key = objectValues(namedKeys).indexOf(e.code) > -1
+			var is_number_key = allNumberKeys.indexOf(e.key) > -1
+			var is_named_key = objectValues(namedKeys).indexOf(e.key) > -1
 			var is_arrow_key =
 				[
 					namedKeys.ArrowDown,
 					namedKeys.ArrowRight,
 					namedKeys.ArrowUp,
 					namedKeys.ArrowLeft,
-				].indexOf(e.code) > -1
-			var is_mode_key = [namedKeys.KeyA, namedKeys.KeyP].indexOf(e.code) > -1
+				].indexOf(e.key) > -1
+			var is_mode_key = [namedKeys.a, namedKeys.A, namedKeys.p, namedKeys.P].indexOf(e.key) > -1
 			var is_delete_key =
-				[namedKeys.Delete, namedKeys.Backspace].indexOf(e.code) > -1
+				[namedKeys.Delete, namedKeys.Backspace].indexOf(e.key) > -1
 
 			if (
 				!is_named_key ||
@@ -94,7 +96,7 @@ export function bindEvents($input: PolyfillInput): void {
 			}
 
 			if (is_number_key) {
-				manualNumberEntry($input, e.code)
+				manualNumberEntry($input, e.key)
 			}
 
 			if (is_delete_key) {
@@ -103,7 +105,7 @@ export function bindEvents($input: PolyfillInput): void {
 				clearSegment($input, segment)
 			}
 
-			switch (e.code) {
+			switch (e.key) {
 				case namedKeys.ArrowRight:
 					selectNextSegment($input)
 					break
@@ -119,10 +121,16 @@ export function bindEvents($input: PolyfillInput): void {
 				case namedKeys.Escape:
 					reset($input)
 					break
-				case namedKeys.KeyA:
+				case namedKeys.a:
 					setSegment($input, 'mode', 'AM')
 					break
-				case namedKeys.KeyP:
+				case namedKeys.A:
+					setSegment($input, 'mode', 'AM')
+					break
+				case namedKeys.p:
+					setSegment($input, 'mode', 'PM')
+					break
+				case namedKeys.P:
 					setSegment($input, 'mode', 'PM')
 					break
 				case namedKeys.Tab:

@@ -8,6 +8,8 @@ export const namedKeys = {
 	Tab: 'Tab',
 	Shift: 'Shift',
 	Escape: 'Escape',
-	KeyA: 'KeyA',
-	KeyP: 'KeyP',
+	a: 'a',
+	A: 'A',
+	p: 'p',
+	P: 'P',
 }
