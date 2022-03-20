@@ -10,10 +10,14 @@ export function testPage() {
 	const primaryInputElem = document.getElementById(primaryInputID) as PolyfillInput
 	const primaryCpuValueElem = document.getElementById(primaryCpuValueID) as HTMLParagraphElement
 
+	const updateCpuText = () => {
+		primaryCpuValueElem.innerText = primaryInputElem.dataset.value || ''
+	}
+
 	const setTimeTo = (string24hr: string) => {
 		primaryInputElem.value = string24hr
 		primaryInputElem.polyfill?.update()
-		primaryCpuValueElem.innerText = primaryInputElem.getAttribute('data-value') || ''
+		updateCpuText()
 	}
 
 	document.getElementById(buttonIDs.amID)?.addEventListener('click', () => {
@@ -37,7 +41,10 @@ export function testPage() {
 		}
 	})
 
+	primaryInputElem.addEventListener('keyup', () => {
+		updateCpuText()
+	})
 	primaryInputElem.addEventListener('keydown', () => {
-
+		updateCpuText()
 	})
 }
