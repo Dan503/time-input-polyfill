@@ -3,33 +3,41 @@ import { getIDsAndLabels } from '../../node_modules/@time-input-polyfill/tests/d
 
 const { IDs } = getIDsAndLabels()
 
-const { primaryInputID, buttonIDs } = IDs
+const { primaryInputID, buttonIDs, primaryCpuValueID } = IDs
 
 export function testPage() {
 
-	const inputElem = document.getElementById(primaryInputID) as PolyfillInput
+	const primaryInputElem = document.getElementById(primaryInputID) as PolyfillInput
+	const primaryCpuValueElem = document.getElementById(primaryCpuValueID) as HTMLParagraphElement
+
+	const setTimeTo = (string24hr: string) => {
+		primaryInputElem.value = string24hr
+		primaryInputElem.polyfill?.update()
+		primaryCpuValueElem.innerText = primaryInputElem.getAttribute('data-value') || ''
+	}
 
 	document.getElementById(buttonIDs.amID)?.addEventListener('click', () => {
-		inputElem.value = '07:30'
-		inputElem.polyfill?.update()
+		setTimeTo('07:15')
 	})
 
 	document.getElementById(buttonIDs.pmID)?.addEventListener('click', () => {
-		inputElem.value = '15:45'
-		inputElem.polyfill?.update()
+		setTimeTo('15:45')
 	})
 
 	document.getElementById(buttonIDs.blankID)?.addEventListener('click', () => {
-		inputElem.value = ''
-		inputElem.polyfill?.update()
+		setTimeTo('')
 	})
 
 	document.getElementById(buttonIDs.togglePolyfillID)?.addEventListener('click', () => {
-		console.log(inputElem.polyfill?.isEnabled)
-		if (inputElem.polyfill?.isEnabled) {
-			inputElem.polyfill.disable()
+		console.log(primaryInputElem.polyfill?.isEnabled)
+		if (primaryInputElem.polyfill?.isEnabled) {
+			primaryInputElem.polyfill.disable()
 		} else {
-			inputElem.polyfill?.enable()
+			primaryInputElem.polyfill?.enable()
 		}
+	})
+
+	primaryInputElem.addEventListener('keydown', () => {
+
 	})
 }
