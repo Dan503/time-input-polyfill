@@ -12,10 +12,6 @@ export function setTime($input: PolyfillInput, timeString: String12hr | String24
 		$input.polyfill.proxy.value = string12hr
 		setDataAttribute($input, timeString)
 
-		if ($input.polyfill.onUpdate) {
-			$input.polyfill.onUpdate()
-		}
-
 		if (cursorSegment) {
 			selectSegment($input, cursorSegment)
 		}

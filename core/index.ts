@@ -57,15 +57,6 @@ function TimeInputPolyfill($input: PolyfillInput, document?: Document, proxyHand
 		update() {
 			updateTime($input)
 		},
-		onUpdate(callback) {
-			const string12hr = provideTimeString($input.value).as12hr()
-
-			const timeObject = convertString12hr(string12hr).toTimeObject()
-			// converting from time objects is slightly more efficient
-			const string24hr = convertTimeObject(timeObject).to24hr()
-
-			callback({ string12hr, string24hr, timeObject, })
-		},
 		swap(forcedFormat) {
 			swapToTimeFormat($input, forcedFormat)
 		},
