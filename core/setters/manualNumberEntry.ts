@@ -1,11 +1,11 @@
 import { getCursorSegment } from '@time-input-polyfill/utils'
-import { sortedNumberKeys } from '../staticValues/sortedNumberKeys'
 import { PolyfillInput } from '../types'
 
-export function manualNumberEntry($input: PolyfillInput, key: number) {
+export function manualNumberEntry($input: PolyfillInput, key: string) {
 	if ($input.polyfill?.isEnabled) {
-		var key_value = sortedNumberKeys[key]
+		var key_value = key.replace(/Digit|Numpad/i, '')
 		var segment = getCursorSegment($input)
-		$input.polyfill?.manualEntryLog[segment].add(key_value.toString())
+		// TODO: manualEntryLog should be updated to work better with `event.code` values
+		$input.polyfill?.manualEntryLog[segment].add(key_value)
 	}
 }
