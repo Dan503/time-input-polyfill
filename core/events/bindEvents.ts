@@ -10,14 +10,14 @@ import { PolyfillInput } from '../types'
 
 export function bindEvents($input: PolyfillInput): void {
 	let prevValue = ''
-	let shiftKey = false
-	let focusedViaClick = false
+	let isShiftKeyPressed = false
+	let wasFocusedViaClick = false
 
 	document.addEventListener('keydown', function (e) {
-		shiftKey = e.shiftKey
+		isShiftKeyPressed = e.shiftKey
 	})
 	document.addEventListener('keyup', function (e) {
-		shiftKey = e.shiftKey
+		isShiftKeyPressed = e.shiftKey
 	})
 
 	if ($input.form) {
@@ -27,7 +27,7 @@ export function bindEvents($input: PolyfillInput): void {
 	}
 
 	$input.addEventListener('mousedown', function () {
-		focusedViaClick = true
+		wasFocusedViaClick = true
 	})
 
 	// Turns the IE clear button into a reset button
@@ -46,13 +46,13 @@ export function bindEvents($input: PolyfillInput): void {
 		if (currentValue !== prevValue) {
 			prevValue = currentValue || ''
 		}
-		focusedViaClick = false
+		wasFocusedViaClick = false
 	})
 
 	$input.addEventListener('focus', function (e) {
-		if (!focusedViaClick) {
+		if (!wasFocusedViaClick) {
 			e.preventDefault()
-			var segment: Segment = shiftKey ? 'mode' : 'hrs12'
+			var segment: Segment = isShiftKeyPressed ? 'mode' : 'hrs12'
 			selectSegment($input, segment)
 		}
 		a11yUpdate($input, ['initial', 'select'])
