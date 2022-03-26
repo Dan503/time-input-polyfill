@@ -1,4 +1,4 @@
-import { getInputValue, Segment, Hour12, Minute, Mode, convertTimeObject, selectSegment } from '@time-input-polyfill/utils'
+import { getInputValue, Segment, Hour12, Minute, Mode, convertTimeObject, selectSegment, straightenTimeObject } from '@time-input-polyfill/utils'
 import { setDataAttribute } from './setDataAttribute'
 import { triggerInputAndChangeEvents } from '../events/triggerInputAndChange'
 import { PolyfillInput } from '../types'
@@ -12,7 +12,8 @@ export function setSegment<SegType extends Segment>($input: PolyfillInput, segme
 			timeObject.hrs24 = null
 		}
 		timeObject[segment] = value as any // ts is being annoying about this
-		const newInputVal = convertTimeObject(timeObject).to12hr()
+		const validTimeObject = straightenTimeObject({ basedOn: 'hrs12', invalidTimeObject: timeObject })
+		const newInputVal = convertTimeObject(validTimeObject).to12hr()
 
 		$input.value = newInputVal
 		selectSegment($input, segment)
