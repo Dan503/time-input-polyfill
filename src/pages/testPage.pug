@@ -38,7 +38,7 @@ mixin testPage
 						| Set !{lowerCasePrimaryLabel} time to !{staticValues.buttonBlank.labelValue}
 
 				p.primaryTests__returnValue Returned value: "
-					span(id=IDs.primaryCpuValueID) [computed value]
+					span(id=IDs.primaryCpuValueID)= staticValues.defaultValue.cpuValue
 					| "
 
 			form.eventTests(id=IDs.formID)

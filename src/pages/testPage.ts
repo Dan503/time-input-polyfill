@@ -11,7 +11,8 @@ export function testPage() {
 	const primaryCpuValueElem = document.getElementById(primaryCpuValueID) as HTMLParagraphElement
 
 	const updateCpuText = () => {
-		primaryCpuValueElem.innerText = primaryInputElem.dataset.value || ''
+		const newValue = primaryInputElem.polyfill?.isEnabled ? primaryInputElem.dataset.value : primaryInputElem.value
+		primaryCpuValueElem.innerText = newValue || ''
 	}
 
 	const setTimeTo = (string24hr: string) => {
