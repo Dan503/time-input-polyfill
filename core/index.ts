@@ -38,6 +38,7 @@ function TimeInputPolyfill($input: PolyfillInput, document?: Document): void {
 		enable() {
 			if ($input.polyfill) {
 				$input.polyfill.isEnabled = true
+				$input.dataset.value = $input.value
 				$input.type = 'text'
 				$input.value = convertString24hr($input.value).to12hr()
 			}
@@ -46,6 +47,7 @@ function TimeInputPolyfill($input: PolyfillInput, document?: Document): void {
 			if ($input.polyfill) {
 				$input.polyfill.isEnabled = false
 				$input.value = convertString12hr($input.value).to24hr()
+				$input.removeAttribute('data-value')
 				$input.type = 'time'
 			}
 		},
