@@ -2,7 +2,7 @@ import { getCursorSegment, selectNextSegment, selectPrevSegment } from '@time-in
 import { PolyfillInput } from '../types'
 
 export function handleTab($input: PolyfillInput, e: KeyboardEvent) {
-	if ($input.polyfill?.isEnabled) {
+	if ($input.polyfill?.isPolyfillEnabled) {
 		var current_segment = getCursorSegment($input)
 		var backwards_and_first = e.shiftKey && current_segment === 'hrs12'
 		var forwards_and_last = !e.shiftKey && current_segment === 'mode'

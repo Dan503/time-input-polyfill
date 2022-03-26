@@ -1,4 +1,4 @@
-import { applyDefault, setTime, swapToTimeFormat, updateTime } from './setters'
+import { applyDefault, setTime, updateTime } from './setters'
 import { bindEvents } from './events'
 // import set_data_attribute from './core/setters/set_data_attribute'
 // import bind_events from './core/events/bind_events'
@@ -34,21 +34,28 @@ function TimeInputPolyfill($input: PolyfillInput, document?: Document): void {
 	const label = getLabelTextOf($input, document)
 
 	$input.polyfill = {
-		isEnabled: true,
-		enable() {
+		isPolyfillEnabled: true,
+		enablePolyfill() {
 			if ($input.polyfill) {
-				$input.polyfill.isEnabled = true
+				$input.polyfill.isPolyfillEnabled = true
 				$input.dataset.value = $input.value
 				$input.type = 'text'
 				$input.value = convertString24hr($input.value).to12hr()
 			}
 		},
-		disable() {
+		disablePolyfill() {
 			if ($input.polyfill) {
-				$input.polyfill.isEnabled = false
+				$input.polyfill.isPolyfillEnabled = false
 				$input.value = convertString12hr($input.value).to24hr()
 				$input.removeAttribute('data-value')
 				$input.type = 'time'
+			}
+		},
+		togglePolyfill() {
+			if ($input.polyfill) {
+				$input.polyfill.isPolyfillEnabled
+					? $input.polyfill.disablePolyfill()
+					: $input.polyfill.enablePolyfill()
 			}
 		},
 		$a11y: $a11y,
@@ -56,9 +63,6 @@ function TimeInputPolyfill($input: PolyfillInput, document?: Document): void {
 		autoSwap: true,
 		update() {
 			updateTime($input)
-		},
-		swap(forcedFormat) {
-			swapToTimeFormat($input, forcedFormat)
 		},
 		manualEntryLog: new ManualEntryLog({
 			timeObject: getInputValue($input).asTimeObject(),

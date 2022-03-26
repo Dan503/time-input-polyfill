@@ -1,17 +1,29 @@
 import type { PolyfillInput } from '../../core/types'
 import { getIDsAndLabels } from '../../node_modules/@time-input-polyfill/tests/dist/mjs/src/core/IDs-and-labels'
+import { EventMainName } from '../../node_modules/@time-input-polyfill/tests/dist/mjs/src/core/supportTypes'
 
 const { IDs } = getIDsAndLabels()
 
-const { primaryInputID, buttonIDs, primaryCpuValueID } = IDs
+const {
+	primaryInputID,
+	primaryCpuValueID,
+	eventsInputID,
+	eventsMainNameID,
+	formCpuValueID,
+	buttonIDs
+} = IDs
 
 export function testPage() {
 
 	const primaryInputElem = document.getElementById(primaryInputID) as PolyfillInput
 	const primaryCpuValueElem = document.getElementById(primaryCpuValueID) as HTMLParagraphElement
 
+	const eventsInputElem = document.getElementById(eventsInputID) as PolyfillInput
+	const eventsMainNameElem = document.getElementById(eventsMainNameID) as HTMLParagraphElement
+	const formCpuValueElem = document.getElementById(formCpuValueID) as HTMLParagraphElement
+
 	const updateCpuText = () => {
-		const newValue = primaryInputElem.polyfill?.isEnabled ? primaryInputElem.dataset.value : primaryInputElem.value
+		const newValue = primaryInputElem.polyfill?.isPolyfillEnabled ? primaryInputElem.dataset.value : primaryInputElem.value
 		primaryCpuValueElem.innerText = newValue || ''
 	}
 
@@ -34,12 +46,7 @@ export function testPage() {
 	})
 
 	document.getElementById(buttonIDs.togglePolyfillID)?.addEventListener('click', () => {
-		console.log(primaryInputElem.polyfill?.isEnabled)
-		if (primaryInputElem.polyfill?.isEnabled) {
-			primaryInputElem.polyfill.disable()
-		} else {
-			primaryInputElem.polyfill?.enable()
-		}
+		primaryInputElem.polyfill?.togglePolyfill()
 	})
 
 	primaryInputElem.addEventListener('keyup', () => {
@@ -47,5 +54,16 @@ export function testPage() {
 	})
 	primaryInputElem.addEventListener('keydown', () => {
 		updateCpuText()
+	})
+	eventsInputElem.form?.addEventListener('submit', () => {
+		if (eventsInputElem.form) {
+			const formData = new FormData(eventsInputElem.form)
+			// I can get away with this since there is only 1 input in the form
+			formData.forEach(d => {
+				const eventName: EventMainName = 'submit'
+				formCpuValueElem.innerHTML = d.toString()
+				eventsMainNameElem.innerText = eventName
+			})
+		}
 	})
 }

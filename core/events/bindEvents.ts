@@ -1,7 +1,7 @@
 import { a11yUpdate, getCursorSegment, Segment, selectCursorSegment, selectNextSegment, selectPrevSegment, selectSegment } from '@time-input-polyfill/utils'
 import { objectValues } from '../helpers'
 
-import { reset, manualNumberEntry, clearSegment, swapToTimeFormat, setSegment, decrement, increment } from '../setters'
+import { reset, manualNumberEntry, clearSegment, setSegment, decrement, increment } from '../setters'
 
 import { handleTab } from './index'
 
@@ -22,7 +22,7 @@ export function bindEvents($input: PolyfillInput): void {
 
 	if ($input.form) {
 		$input.form.addEventListener('submit', function () {
-			if ($input.polyfill?.isEnabled) {
+			if ($input.polyfill?.isPolyfillEnabled && $input.polyfill.autoSwap) {
 				autoSwap($input)
 			}
 		})
@@ -35,12 +35,12 @@ export function bindEvents($input: PolyfillInput): void {
 	// Turns the IE clear button into a reset button
 	$input.addEventListener('mouseup', function () {
 		setTimeout(function () {
-			if ($input.value === '' && $input.polyfill?.isEnabled) reset($input)
+			if ($input.value === '' && $input.polyfill?.isPolyfillEnabled) reset($input)
 		})
 	})
 
 	$input.addEventListener('click', function () {
-		if ($input.polyfill?.isEnabled) {
+		if ($input.polyfill?.isPolyfillEnabled) {
 			selectCursorSegment($input)
 		}
 	})
@@ -54,7 +54,7 @@ export function bindEvents($input: PolyfillInput): void {
 	})
 
 	$input.addEventListener('focus', function (e) {
-		if ($input.polyfill?.isEnabled) {
+		if ($input.polyfill?.isPolyfillEnabled) {
 			if (!wasFocusedViaClick) {
 				e.preventDefault()
 				var segment: Segment = isShiftKeyPressed ? 'mode' : 'hrs12'
@@ -67,7 +67,7 @@ export function bindEvents($input: PolyfillInput): void {
 	})
 
 	$input.addEventListener('keydown', function (e): true | void {
-		if ($input.polyfill?.isEnabled) {
+		if ($input.polyfill?.isPolyfillEnabled) {
 
 			var is_enter_key = e.key === 'Enter'
 			if (is_enter_key) return true
@@ -142,10 +142,8 @@ export function bindEvents($input: PolyfillInput): void {
 }
 
 function autoSwap($input: PolyfillInput): void {
-	if ($input.polyfill?.autoSwap && $input.polyfill.isEnabled) {
-		swapToTimeFormat($input, 24)
-		setTimeout(function () {
-			swapToTimeFormat($input, 12)
-		})
+	if ($input.polyfill?.autoSwap) {
+		$input.polyfill.togglePolyfill()
+		setTimeout($input.polyfill.togglePolyfill)
 	}
 }

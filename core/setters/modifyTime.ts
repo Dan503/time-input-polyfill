@@ -11,7 +11,7 @@ const getNew12hrTime = ($input: PolyfillInput, direction: 'increment' | 'decreme
 // Using an object incase I want to increment individual segments at same stage
 export const increment = {
 	cursorSegment($input: PolyfillInput) {
-		if ($input.polyfill?.isEnabled) {
+		if ($input.polyfill?.isPolyfillEnabled) {
 			const new12hrTime = getNew12hrTime($input, 'increment')
 			setTime($input, new12hrTime)
 		}
@@ -20,7 +20,7 @@ export const increment = {
 
 export const decrement = {
 	cursorSegment($input: PolyfillInput) {
-		if ($input.polyfill?.isEnabled) {
+		if ($input.polyfill?.isPolyfillEnabled) {
 			const new12hrTime = getNew12hrTime($input, 'decrement')
 			setTime($input, new12hrTime)
 		}

@@ -6,7 +6,7 @@ import { PolyfillInput } from '../types'
 type Value<SegType extends Segment> = SegType extends 'mode' ? Mode : SegType extends 'hrs12' ? Hour12 : Minute
 
 export function setSegment<SegType extends Segment>($input: PolyfillInput, segment: SegType, value: Value<SegType> | null) {
-	if ($input.polyfill?.isEnabled) {
+	if ($input.polyfill?.isPolyfillEnabled) {
 		let timeObject = getInputValue($input).asTimeObject();
 		if (!value && (segment === 'hrs12' || segment === 'mode')) {
 			timeObject.hrs24 = null

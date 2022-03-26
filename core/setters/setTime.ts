@@ -5,7 +5,7 @@ import { provideTimeString } from '../helpers/provideTimeStringAs'
 import { getCursorSegment, selectSegment } from '@time-input-polyfill/utils'
 
 export function setTime($input: PolyfillInput, timeString: String12hr | String24hr) {
-	if ($input.polyfill?.isEnabled) {
+	if ($input.polyfill?.isPolyfillEnabled) {
 		const hasFocus = document.activeElement === $input
 		const cursorSegment = hasFocus ? getCursorSegment($input) : null
 		const string12hr = provideTimeString(timeString).as12hr()
