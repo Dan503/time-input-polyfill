@@ -49,10 +49,10 @@ mixin testPage
 					input.time(type="text" name=IDs.eventsInputID id=IDs.eventsInputID value=staticValues.defaultValue.cpuValue)
 
 				.eventTests__output
-					p(id=IDs.eventsCpuValueID) [Event Input Value]
-					p(id=IDs.eventsMainNameID) [Event Main Name]
-					p(id=IDs.eventsAltNameID) [Event Alt Name]
-					p(id='nativeChangeEventDisplay') [native change event]
+					p(id=IDs.eventsDisplayValueID)= staticValues.defaultValue.inputValue
+					p(id=IDs.eventsMainNameID) none
+					p(id=IDs.eventsAltNameID) none
+					p(id='nativeChangeEventDisplay') none
 
 				.eventTests__formSubmit
 					button(id=IDs.buttonIDs.submitID type="submit") Submit form
