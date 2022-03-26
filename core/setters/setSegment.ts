@@ -8,12 +8,10 @@ type Value<SegType extends Segment> = SegType extends 'mode' ? Mode : SegType ex
 export function setSegment<SegType extends Segment>($input: PolyfillInput, segment: SegType, value: Value<SegType> | null) {
 	if ($input.polyfill?.isEnabled) {
 		let timeObject = getInputValue($input).asTimeObject();
-		if (!value && segment === 'hrs12') {
-			timeObject.hrs12 = null
+		if (!value && (segment === 'hrs12' || segment === 'mode')) {
 			timeObject.hrs24 = null
-		} else {
-			timeObject[segment] = value as any // ts is being annoying about this
 		}
+		timeObject[segment] = value as any // ts is being annoying about this
 		const newInputVal = convertTimeObject(timeObject).to12hr()
 
 		$input.value = newInputVal
