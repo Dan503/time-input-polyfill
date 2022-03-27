@@ -1,5 +1,5 @@
 import type { String12hr, String24hr } from '@time-input-polyfill/utils'
-import { provideTimeString } from '../helpers/provideTimeStringAs'
+import { provideTimeString } from '@time-input-polyfill/utils'
 import type { PolyfillInput } from '../types'
 
 export function setDataAttribute($input: PolyfillInput, timeString: String12hr | String24hr) {

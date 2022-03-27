@@ -1,8 +1,7 @@
 import type { String12hr, String24hr } from '@time-input-polyfill/utils'
-import { PolyfillInput } from '../types'
+import { getCursorSegment, selectSegment, provideTimeString } from '@time-input-polyfill/utils'
+import type { PolyfillInput } from '../types'
 import { setDataAttribute } from '../setters/setDataAttribute'
-import { provideTimeString } from '../helpers/provideTimeStringAs'
-import { getCursorSegment, selectSegment } from '@time-input-polyfill/utils'
 
 export function setTime($input: PolyfillInput, timeString: String12hr | String24hr) {
 	if ($input.polyfill?.isPolyfillEnabled) {
