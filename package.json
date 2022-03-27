@@ -8,7 +8,7 @@
 		"test": "cypress open"
 	},
 	"dependencies": {
-		"@time-input-polyfill/utils": "^2.0.0-beta.13"
+		"@time-input-polyfill/utils": "^2.0.0-beta.14"
 	},
 	"devDependencies": {
 		"@time-input-polyfill/tests": "^2.0.0-beta.1",
