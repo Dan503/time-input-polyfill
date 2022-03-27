@@ -1,4 +1,4 @@
-import { convertTimeObject, getInputValue, modifyTimeObject } from "@time-input-polyfill/utils";
+import { a11yUpdate, convertTimeObject, getInputValue, modifyTimeObject } from "@time-input-polyfill/utils";
 import { PolyfillInput } from "../types";
 import { setTime } from "./setTime";
 
@@ -14,6 +14,7 @@ export const increment = {
 		if ($input.polyfill?.isPolyfillEnabled) {
 			const new12hrTime = getNew12hrTime($input, 'increment')
 			setTime($input, new12hrTime)
+			a11yUpdate($input, ['update'])
 		}
 	}
 }
@@ -23,6 +24,7 @@ export const decrement = {
 		if ($input.polyfill?.isPolyfillEnabled) {
 			const new12hrTime = getNew12hrTime($input, 'decrement')
 			setTime($input, new12hrTime)
+			a11yUpdate($input, ['update'])
 		}
 	}
 }

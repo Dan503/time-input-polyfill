@@ -4,7 +4,7 @@ import { bindEvents } from './events'
 // import bind_events from './core/events/bind_events'
 // import switch_times from './core/setters/switch_times'
 
-import { a11yCreate, getInputValue, ManualEntryLog, selectNextSegment, getLabelTextOf, convertString12hr, convertString24hr } from '@time-input-polyfill/utils'
+import { a11yCreate, getInputValue, ManualEntryLog, selectNextSegment, getLabelTextOf, convertString12hr, convertString24hr, a11yUpdate } from '@time-input-polyfill/utils'
 import { extendedWindow } from './helpers/Window'
 import type { PolyfillInput } from './types'
 
@@ -41,6 +41,7 @@ function TimeInputPolyfill($input: PolyfillInput, document?: Document): void {
 				$input.dataset.value = $input.value
 				$input.type = 'text'
 				$input.value = convertString24hr($input.value).to12hr()
+				$input.setAttribute('aria-hidden', 'true')
 			}
 		},
 		disablePolyfill() {
@@ -48,6 +49,7 @@ function TimeInputPolyfill($input: PolyfillInput, document?: Document): void {
 				$input.polyfill.isPolyfillEnabled = false
 				$input.value = convertString12hr($input.value).to24hr()
 				$input.removeAttribute('data-value')
+				$input.removeAttribute('aria-hidden')
 				$input.type = 'time'
 			}
 		},
@@ -66,8 +68,11 @@ function TimeInputPolyfill($input: PolyfillInput, document?: Document): void {
 		},
 		manualEntryLog: new ManualEntryLog({
 			timeObject: getInputValue($input).asTimeObject(),
-			onUpdate(entryLog) {
+			onUpdate(entryLog, wasLimitHit) {
 				setTime($input, entryLog.fullValue12hr)
+				// TODO: The AM/PM test in the tests package seems to be wrong
+				// TODO: a11yUpdate 'update' command feels a bit pointless since the screen reader will read out the number the user typed anyway.
+				a11yUpdate($input, wasLimitHit ? ['select'] : ['update'])
 			},
 			onLimitHit() {
 				selectNextSegment($input)

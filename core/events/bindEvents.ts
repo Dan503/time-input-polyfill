@@ -42,6 +42,7 @@ export function bindEvents($input: PolyfillInput): void {
 	$input.addEventListener('click', function () {
 		if ($input.polyfill?.isPolyfillEnabled) {
 			selectCursorSegment($input)
+			a11yUpdate($input, ['initial', 'select'])
 		}
 	})
 
@@ -60,9 +61,9 @@ export function bindEvents($input: PolyfillInput): void {
 				var segment: Segment = isShiftKeyPressed ? 'mode' : 'hrs12'
 				setTimeout(() => {
 					selectSegment($input, segment)
+					a11yUpdate($input, ['initial', 'select'])
 				})
 			}
-			a11yUpdate($input, ['initial', 'select'])
 		}
 	})
 
@@ -97,6 +98,7 @@ export function bindEvents($input: PolyfillInput): void {
 
 			if (is_number_key) {
 				manualNumberEntry($input, e.key)
+				// a11yUpdate($input, ['update'])
 			}
 
 			if (is_delete_key) {
@@ -108,9 +110,11 @@ export function bindEvents($input: PolyfillInput): void {
 			switch (e.key) {
 				case namedKeys.ArrowRight:
 					selectNextSegment($input)
+					a11yUpdate($input, ['select'])
 					break
 				case namedKeys.ArrowLeft:
 					selectPrevSegment($input)
+					a11yUpdate($input, ['select'])
 					break
 				case namedKeys.ArrowUp:
 					increment.cursorSegment($input)
@@ -135,6 +139,7 @@ export function bindEvents($input: PolyfillInput): void {
 					break
 				case namedKeys.Tab:
 					handleTab($input, e)
+					a11yUpdate($input, ['select'])
 					break
 			}
 		}
